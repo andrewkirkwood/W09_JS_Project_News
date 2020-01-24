@@ -1,7 +1,8 @@
 <template lang="html">
-  <div id="id">
+  <div id="nav">
 
   </div>
+
 </template>
 
 <script>

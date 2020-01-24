@@ -1,7 +1,8 @@
 <template lang="html">
-  <div id="id">
+  <div id="source-select">
 
   </div>
+
 </template>
 
 <script>

@@ -1,7 +1,8 @@
-<template lang="html">
-  <div id="id">
+<template lang="">
+  <div id="reading-list">
 
   </div>
+
 </template>
 
 <script>
