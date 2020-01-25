@@ -8,7 +8,7 @@
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
      <source-select v-if="sourceActive"/>
-    <!-- <reading-list /> -->
+    <reading-list v-if="readingListActive"/>
   </div>
 
 </template>
@@ -18,6 +18,7 @@ import SelectArticleForm from './SelectArticleForm.vue'
 import fetch_assistant from '../services/fetch_assistant'
 import NewsNav from './NewsNav.vue'
 import SourceSelect from './SourceSelect.vue'
+import ReadingList from './ReadingList.vue'
 import {eventBus} from '../main'
 export default {
   name: "web-parent",
@@ -67,7 +68,9 @@ export default {
 
     "select-article-form": SelectArticleForm,
 
-    'source-select': SourceSelect
+    'source-select': SourceSelect,
+
+    'reading-list': ReadingList
 
   }
 }
