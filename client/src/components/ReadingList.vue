@@ -19,7 +19,7 @@
 
           <h3>{{ item.webTitle }}</h3>
           <h4>{{ item.sectionID }}</h4>
-          <a :href="fetchArticleAPI"></a>
+          <!-- <a :href="fetchArticleAPI"></a> -->
           <!-- <p>news and possibly an image. There will almost certainly be a headline here but mayebe not an image. A plus button will most likely be present and that will be just awesome. cqcn eqfqfv vdwfv fqsfcsq feqfq fqfqfwq fwqdfwqf fwqfwq fwqfqw fqwfq</p> -->
         </div>
       </section>
@@ -36,22 +36,20 @@ export default {
   name: "reading-list",
   data() {
     return {
-      readingListItems: [{
-        webTitle: "Starbucks closing at 6pm",
-        sectionID: "Daily News"
-      }]
+      readingListItems: []
     }
   },
   mounted() {
-      fetchReadingList: {
-      NewsService.getArticles()
-      .then(res => this.readingListItems = res)
-      }
+    this.fetchReadingList()
   },
   methods: {
-    fetchArticleAPI() {
-      // should call fetch assistant -> find one article
+    fetchReadingList() {
+    NewsService.getArticles()
+    .then(res => this.readingListItems = res)
     }
+    // fetchArticleAPI() {
+      // should call fetch assistant -> find one article
+    // }
   }
 }
 </script>
