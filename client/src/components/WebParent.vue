@@ -1,6 +1,5 @@
 <template lang="html">
   <div id="web-parent">
-    <select-article-form :articles="articles" />
     <!-- <h1>{{ article }}</h1>
     <ul>
       <li v-for="item in articles"> {{ item }}</li>
@@ -59,11 +58,11 @@ export default {
     }
   },
   components: {
-<<<<<<< HEAD
-    'news-nav': NewsNav
-=======
+
+    'news-nav': NewsNav,
+
     "select-article-form": SelectArticleForm
->>>>>>> develop
+
   }
 }
 </script>
