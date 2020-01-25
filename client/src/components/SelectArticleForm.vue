@@ -1,8 +1,9 @@
 <template lang="html">
   <div id="select-article-form">
     <!-- each card is a container for the articles of a section -->
+    <h2>{{ articles[0].sectionName }}</h2>
     <section class="card" >
-      <div class="card--content" v-for="item in articles"><h2>{{ item.webTitle }}</h2></div>
+      <div class="card--content" v-for="item in articles"><h3>{{ item.webTitle }}</h3></div>
     </section>
   </div>
 
