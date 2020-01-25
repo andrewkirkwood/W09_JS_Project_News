@@ -6,9 +6,9 @@
     </ul> -->
     <h1>{{ sourceActive }}</h1>
     <news-nav></news-nav>
-    <select-article-form v-if="sourceActive"  :articles="articles" />
-    <!-- <source-select />
-    <reading-list /> -->
+    <select-article-form v-if="articleFormActive"  :articles="articles" />
+     <source-select v-if="sourceActive"/>
+    <!-- <reading-list /> -->
   </div>
 
 </template>
@@ -17,6 +17,7 @@
 import SelectArticleForm from './SelectArticleForm.vue'
 import fetch_assistant from '../services/fetch_assistant'
 import NewsNav from './NewsNav.vue'
+import SourceSelect from './SourceSelect.vue'
 import {eventBus} from '../main'
 export default {
   name: "web-parent",
@@ -61,7 +62,9 @@ export default {
 
     'news-nav': NewsNav,
 
-    "select-article-form": SelectArticleForm
+    "select-article-form": SelectArticleForm,
+
+    'source-select': SourceSelect
 
   }
 }
