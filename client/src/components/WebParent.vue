@@ -41,11 +41,14 @@ export default {
     eventBus.$on('toggle-select-source', () => {
       this.sourceActive = true
       this.readingListActive = false
+      this.articleFormActive = false
     })
 
-    // eventBus.$on('toggle-select-article-form', articleFormActive => {
-    //   this.articleFormActive = articleFormActive
-    // })
+    eventBus.$on('toggle-select-article-form', articleFormActive => {
+      this.articleFormActive = true
+      this.sourceActive = false
+      this.readingListActive = false
+    })
     //
     // eventBus.$on('toggle-reading-list', readingListActive => {
     //   this.readingListActive = readingListActive
