@@ -54,6 +54,10 @@ export default {
     //   this.readingListActive = readingListActive
     // })
 
+    eventBus.$on('add-articles-to-reading-list', selectedArticles => {
+
+    })
+
 
   },
   methods: {
