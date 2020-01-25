@@ -37,6 +37,9 @@ export default {
       event.preventDefault()
       const payload = item
       NewsService.postArticles(payload)
+      console.log("reading list toggled in form");
+
+      eventBus.$emit('toggle-reading-list', payload)
 
       // this is an extension
       // this.selectedArticles.forEach(item => NewsService.postArticles(item))

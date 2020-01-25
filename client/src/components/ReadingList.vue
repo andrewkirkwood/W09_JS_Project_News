@@ -14,9 +14,7 @@
       <h2>Reading List</h2>
 
       <section class="card" >
-        <div class="card--content" v-for="item in readingListItems">
-
-
+        <div class="card--content" v-for="item in savedReadingListItems">
           <h3>{{ item.webTitle }}</h3>
           <h4>{{ item.sectionID }}</h4>
           <!-- <a :href="fetchArticleAPI"></a> -->
@@ -31,26 +29,21 @@
 
 <script>
 import {eventBus} from '../main'
-import NewsService from '../services/NewsService.js'
 export default {
   name: "reading-list",
-  data() {
-    return {
-      readingListItems: []
-    }
-  },
-  mounted() {
-    this.fetchReadingList()
-  },
-  methods: {
-    fetchReadingList() {
-    NewsService.getArticles()
-    .then(res => this.readingListItems = res)
-    }
+  props: ['savedReadingListItems'],
+  // data() {
+  //   return {
+  //     readingListItems: []
+  //   }
+  // },
+
+  // methods: {
+
     // fetchArticleAPI() {
       // should call fetch assistant -> find one article
     // }
-  }
+  // }
 }
 </script>
 

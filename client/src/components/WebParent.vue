@@ -8,12 +8,13 @@
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
      <source-select v-if="sourceActive"/>
-    <reading-list v-if="readingListActive"/>
+    <reading-list v-if="readingListActive" :savedReadingListItems="savedReadingListItems"/>
   </div>
 
 </template>
 
 <script>
+import NewsService from '../services/NewsService.js'
 import SelectArticleForm from './SelectArticleForm.vue'
 import fetch_assistant from '../services/fetch_assistant'
 import NewsNav from './NewsNav.vue'
@@ -29,10 +30,12 @@ export default {
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
-      selectArticleFormClass: ""
+      savedReadingListItems: []
     }
   },
   mounted() {
+    this.fetchReadingList()
+
     fetch_assistant.getArticleBySection("business")
       .then(res => this.articles = res)
 
@@ -50,20 +53,18 @@ export default {
       this.sourceActive = false
       this.readingListActive = false
     })
-    //
-    // eventBus.$on('toggle-reading-list', readingListActive => {
-    //   this.readingListActive = readingListActive
-    // })
 
-    eventBus.$on('add-articles-to-reading-list', selectedArticles => {
-
+    eventBus.$on('toggle-reading-list', payload => {
+      this.savedReadingListItems.push(payload)
+      this.articleFormActive = false
+      this.sourceActive = false
+      this.readingListActive = true
     })
-
-
   },
   methods: {
-    handleClass() {
-
+    fetchReadingList() {
+    NewsService.getArticles()
+    .then(res => this.savedReadingListItems = res)
     }
   },
   components: {
