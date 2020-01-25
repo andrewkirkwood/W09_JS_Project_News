@@ -1,19 +1,21 @@
 <template lang="html">
   <div id="select-article-form">
     <!-- each card is a container for the articles of a section -->
-    <form class="" v-on:submit="handleSubmit"  action="index.html" method="post">
+    <!-- the commented code below is for the EXTENSION -->
+    <!-- <form class="" v-on:submit="handleSubmit"  action="index.html" method="post"> -->
 
-      <h2>{{ articles[0].sectionName }}</h2>
-      <section class="card" >
-        <div class="card--content" v-for="item in articles">
-          <h3>{{ item.webTitle }}</h3>
-          <label for="">Select:</label>
-          <input type="radio" name="" value="item">
-        </div>
-      </section>
+    <h2>{{ articles[0].sectionName }}</h2>
+    <section class="card" >
+      <div class="card--content" v-for="item in articles">
+        <h3>{{ item.webTitle }}</h3>
+        <label for="">Select:</label>
+        <input type="submit" name="button"  v-on:click="handleSubmit(item)"></input>
+        <!-- <input type="checkbox" name="" :value="item"  > -->
+      </div>
+    </section>
 
-      <input  type="submit" name="">
-    </form>
+    <!-- <input  type="submit"> -->
+    <!-- </form> -->
   </div>
 
 </template>
@@ -26,21 +28,26 @@ export default {
   name: "select-article-form",
   data() {
     return {
-      selectedArticles: {}
+      // selectedArticles: null
     }
   },
   props: ['articles'],
   methods: {
-    handleSubmit() {
+    handleSubmit(item) {
       event.preventDefault()
-
-      const payload = this.selectedArticles
-
+      const payload = item
       NewsService.postArticles(payload)
-        .then(payload => {
-          eventBus.$emit('add-articles-to-reading-list', this.selectedArticles)
-        })
+
+      // this is an extension
+      // this.selectedArticles.forEach(item => NewsService.postArticles(item))
+      // this.selectedArticles = []
+      // find a way to refresh the form so the radio button are not clicked anymore
+
+      // addItemToSelectedArticles(item) {
+      //   this.selectedArticles.push(item)
+      // }
     }
+
   }
 }
 </script>
