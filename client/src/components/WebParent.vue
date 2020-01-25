@@ -1,5 +1,6 @@
 <template lang="html">
   <div id="web-parent">
+    <h1>{{ article }}</h1>
     <ul>
       <li v-for="item in articles"> {{ item }}</li>
     </ul>
@@ -13,12 +14,16 @@ export default {
   name: "web-parent",
   data () {
     return {
-      articles: []
+      articles: [],
+      article: {}
     }
   },
   mounted() {
     fetch_assistant.getArticleBySection("business")
       .then(res => this.articles = res)
+
+      fetch_assistant.getArticle("https://content.guardianapis.com/business/2020/jan/24/greta-thunberg-davos-leaders-ignored-climate-activists-demands")
+        .then(res => this.article = res)
   }
 }
 </script>
