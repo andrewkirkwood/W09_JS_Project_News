@@ -14,7 +14,7 @@ export default {
 
   methods: {
     handleClick(){
-      eventBus.$emit('toggle-add-news', 1)
+      eventBus.$emit('toggle-select-source')
     }
   }
 }

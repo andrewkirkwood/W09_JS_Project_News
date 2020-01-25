@@ -4,9 +4,11 @@
     <ul>
       <li v-for="item in articles"> {{ item }}</li>
     </ul> -->
-    <h1>{{ number }}</h1>
+    <h1>{{ sourceActive }}</h1>
     <news-nav></news-nav>
-    <select-article-form :articles="articles"></select-article-form>
+    <select-article-form v-if="sourceActive"  :articles="articles" />
+    <!-- <source-select />
+    <reading-list /> -->
   </div>
 
 </template>
@@ -21,7 +23,10 @@ export default {
     return {
       articles: [],
       article: {},
-      number: 0
+      sourceActive: false,
+      articleFormActive: false,
+      readingListActive: true,
+      selectArticleFormClass: ""
     }
   },
   mounted() {
@@ -31,9 +36,25 @@ export default {
       fetch_assistant.getArticle("https://content.guardianapis.com/business/2020/jan/24/greta-thunberg-davos-leaders-ignored-climate-activists-demands")
         .then(res => this.article = res)
 
-    eventBus.$on('toggle-add-news', number => {
-      this.number = number
+    eventBus.$on('toggle-select-source', () => {
+      this.sourceActive = true
+      this.readingListActive = false
     })
+
+    // eventBus.$on('toggle-select-article-form', articleFormActive => {
+    //   this.articleFormActive = articleFormActive
+    // })
+    //
+    // eventBus.$on('toggle-reading-list', readingListActive => {
+    //   this.readingListActive = readingListActive
+    // })
+
+
+  },
+  methods: {
+    handleClass() {
+
+    }
   },
   components: {
     'news-nav': NewsNav
