@@ -12,7 +12,6 @@
 <script>
 import SelectArticleForm from './SelectArticleForm.vue'
 import fetch_assistant from '../services/fetch_assistant'
-import Nav from './components/Nav.vue'
 export default {
   name: "web-parent",
   data () {
@@ -29,11 +28,7 @@ export default {
         .then(res => this.article = res)
   },
   components: {
-<<<<<<< HEAD
     "select-article-form": SelectArticleForm
-=======
-    'nav': Nav
->>>>>>> develop
   }
 }
 </script>
