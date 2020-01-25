@@ -1,5 +1,6 @@
 <template lang="html">
   <div id="web-parent">
+    <select-article-form :articles="articles" />
     <!-- <h1>{{ article }}</h1>
     <ul>
       <li v-for="item in articles"> {{ item }}</li>
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+import SelectArticleForm from './SelectArticleForm.vue'
 import fetch_assistant from '../services/fetch_assistant'
 import NewsNav from './NewsNav.vue'
 import {eventBus} from '../main'
@@ -57,7 +59,11 @@ export default {
     }
   },
   components: {
+<<<<<<< HEAD
     'news-nav': NewsNav
+=======
+    "select-article-form": SelectArticleForm
+>>>>>>> develop
   }
 }
 </script>
