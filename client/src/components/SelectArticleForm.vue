@@ -1,14 +1,15 @@
 <template lang="html">
   <div id="select-article-form">
     <!-- each card is a container for the articles of a section -->
-    <h2>{{ articles[0].sectionName }}</h2>
-    <section class="card" >
+    <pre>{{ JSON.stringify(articles, null, 2) }}</pre>
+    <h2 v-if="articles.length > 0">{{ articles[0].sectionName }}</h2>
+    <!-- <section class="card" >
       <div v-if="articles" class="card--content" v-for="item in articles">
         <h3>{{ item.webTitle }}</h3>
         <label for="">Select:</label>
         <input type="checkbox" name="" :value="item" v-model="checkedArticles">
       </div>
-    </section>
+    </section> -->
     <input type="submit" name="button"  v-on:click="handleSubmit(checkedArticles)" ></input>
   </div>
 </template>

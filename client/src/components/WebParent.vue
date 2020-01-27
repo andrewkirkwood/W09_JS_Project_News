@@ -43,8 +43,10 @@ export default {
       articleFormActive: false,
       readingListActive: true,
       showArticleActive: false,
-      allSections: [],
-      selectedHeader: "readingList"
+      allSections: ["business"],
+      selectedHeader: "readingList",
+
+      categoryArray: []
     }
   },
   computed: {
@@ -56,21 +58,24 @@ export default {
     }
   },
   mounted() {
+    this.fetchAllArticles(this.allSections)
     this.fetchReadingList()
 
-    fetch_assistant.getArticleBySection("business")
-    .then(res => this.articles = res)
+    this.fetchSections()
+    this.readingListClass()
+    this.addArticleClass()
 
     eventBus.$on('search-entered', search => {
       this.searchTerm = search
     })
-// refactor eventbus, put the sets into function that can be called in the header
+    // refactor eventbus, put the sets into function that can be called in the header
     eventBus.$on('toggle-select-source', () => {
       this.toggleSelectSource()
       this.selectedHeader = "addNewArticle"
     })
 
     eventBus.$on('toggle-select-article-form', articleFormActive => {
+      this.fetchAllArticles(this.allSections)
       this.toggleSelectArticleForm()
       this.selectedHeader = "addNewArticle"
 
@@ -95,12 +100,24 @@ export default {
       this.selectedHeader = "readingList"
     })
 
-    this.fetchSections()
 
-    this.readingListClass()
-    this.addArticleClass()
   },
   methods: {
+    fetchAllArticles(arrayOfCategories) {
+      arrayOfCategories.slice(10, 13).forEach(category => {
+        fetch_assistant.getArticleBySection(category.toLowerCase())
+          .then(articlesToAdd => {
+            this.articles = this.articles.concat(articlesToAdd)
+            console.log("fetch back")
+          })
+      })
+      //     console.log(categoryArray);
+      //
+      //     categoryArray.forEach(category => {
+      //       this.articles.push(category)
+      // })
+
+    },
     fetchReadingList() {
       NewsService.getArticles()
       .then(res => this.savedReadingListItems = res)

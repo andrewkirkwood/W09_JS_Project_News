@@ -1,12 +1,13 @@
 <template lang="html">
   <div id="news-nav">
     <div class="topnav">
-      <!-- <select name="news-catagories">
+      <select >
+        <option value="business">Business</option>
         <option value="world">World News</option>
         <option value="uk">UK News</option>
         <option value="tech">Tech News</option>
         <option value="min-of-baz">Inside The Mind Of Baz</option>
-      </select> -->
+      </select>
       <form v-on:submit.prevent>
         <input type="text" v-model="search" placeholder="search for an article...">
       </form>
