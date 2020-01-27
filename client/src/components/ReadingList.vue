@@ -103,6 +103,7 @@ filter: hue-rotate(180);
 
 .cross {
   height: 20px;
+  opacity: 0.4;
 }
 
 </style>
