@@ -53,7 +53,7 @@ padding: 0;
 .topnav {
   overflow: hidden;
   background-color: #45B097;
-  height: 140px;
+  height: 100px;
 }
 
 /* Style the links inside the navigation bar */
@@ -87,7 +87,7 @@ padding: 0;
 }
 
 button {
-  height: 140px;
+  height: 80px;
   background-color: transparent;
   border: none;
   outline: none;
@@ -102,7 +102,7 @@ button {
 }
 
 .plus {
-  height: 95px;
+  height: 70px;
   border-radius: 18px;
 }
 
