@@ -81,16 +81,7 @@ export default {
     })
 
     eventBus.$on('toggle-reading-list', payload => {
-      const mapOfIds = payload.map(item => item.id)
-      const mapOfExistingIds = this.savedReadingListItems.map(item => item.id)
-      console.log(mapOfExistingIds);
-      const newItems = payload.filter(item =>
-        !mapOfExistingIds.includes(item.id)
-      )
-
-      newItems.forEach(item => this.savedReadingListItems.push(item) )
-      newItems.forEach(item => NewsService.postArticles(item))
-
+      this.addNewArticles(payload)
       this.articleFormActive = false
       this.sourceActive = false
       this.readingListActive = true
@@ -132,6 +123,16 @@ export default {
     fetchSections() {
       fetch_assistant.getAllSections()
       .then(res => this.allSections = res.map(item => item.webTitle))
+    },
+    addNewArticles(payload) {
+      const mapOfIds = payload.map(item => item.id)
+      const mapOfExistingIds = this.savedReadingListItems.map(item => item.id)
+      const newItems = payload.filter(item =>
+        !mapOfExistingIds.includes(item.id)
+      )
+
+      newItems.forEach(item => this.savedReadingListItems.push(item) )
+      newItems.forEach(item => NewsService.postArticles(item))
     },
     readingListClass() {
       return  this.selectedHeader === "readingList" ? "headerActive" : "headerInactive"
