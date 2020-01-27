@@ -1,16 +1,16 @@
 <template lang="html">
   <div id="news-nav">
     <div class="topnav">
-      <select name="news-catagories">
+      <!-- <select name="news-catagories">
         <option value="world">World News</option>
         <option value="uk">UK News</option>
         <option value="tech">Tech News</option>
         <option value="min-of-baz">Inside The Mind Of Baz</option>
-      </select>
+      </select> -->
       <form v-on:submit.prevent>
         <input type="text" v-model="search" placeholder="search for an article...">
       </form>
-      <button type="button" name="button" v-on:click="handleClick">New Articles</button>
+      <button type="button" name="button" v-on:click="handleClick"><img class="plus" src="../assets/plus.png"></button>
     </div>
   </div>
 
@@ -83,6 +83,23 @@ padding: 0;
   margin-bottom: 8px;
   margin-right: 16px;
   font-size: 40px;
+}
+
+button {
+  height: 100px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.plus:hover {
+  background-color: #BBE8B3;
+}
+
+.plus {
+  height: 95px;
+  border-radius: 18px;
 }
 
 </style>

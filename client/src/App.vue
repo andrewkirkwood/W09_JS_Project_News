@@ -20,8 +20,9 @@ export default {
 </script>
 
 <style lang="css">
+
 body {
-  background-color: #D5F0EA;
+  background-color: #EEEDD9;
 }
 
 
