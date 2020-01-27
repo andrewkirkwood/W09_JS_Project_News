@@ -97,7 +97,7 @@ button {
 }
 
 .cross:hover {
-background-color: red;
+background-color: #F79A9A;
 filter: hue-rotate(180);
 }
 
