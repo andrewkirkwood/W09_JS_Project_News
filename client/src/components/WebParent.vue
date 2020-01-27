@@ -43,11 +43,8 @@ export default {
       articleFormActive: false,
       readingListActive: true,
       showArticleActive: false,
-      allSections: ["business"],
-      selectedHeader: "readingList",
-
-      categoryArray: []
-    }
+      allSections: ["business", "science"],
+      selectedHeader: "readingList"    }
   },
   computed: {
     filteredArticles: function(){
@@ -58,10 +55,10 @@ export default {
     }
   },
   mounted() {
-    this.fetchAllArticles(this.allSections)
+    // this.fetchAllArticles(this.allSections)
     this.fetchReadingList()
 
-    this.fetchSections()
+    // this.fetchSections()
     this.readingListClass()
     this.addArticleClass()
 
@@ -104,18 +101,14 @@ export default {
   },
   methods: {
     fetchAllArticles(arrayOfCategories) {
-      arrayOfCategories.slice(10, 13).forEach(category => {
+      arrayOfCategories.forEach(category => {
         fetch_assistant.getArticleBySection(category.toLowerCase())
           .then(articlesToAdd => {
             this.articles = this.articles.concat(articlesToAdd)
             console.log("fetch back")
           })
       })
-      //     console.log(categoryArray);
-      //
-      //     categoryArray.forEach(category => {
-      //       this.articles.push(category)
-      // })
+
 
     },
     fetchReadingList() {
