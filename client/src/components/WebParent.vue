@@ -31,6 +31,7 @@ export default {
     return {
       articles: [],
       savedReadingListItems: [],
+      selectedArticle: null,
       articleToShow: {},
       sourceActive: false,
       articleFormActive: false,
@@ -43,9 +44,6 @@ export default {
 
     fetch_assistant.getArticleBySection("business")
       .then(res => this.articles = res)
-
-      fetch_assistant.getArticle(articleToShow.apiUrl)
-        .then(res => this.article = res)
 
     eventBus.$on('toggle-select-source', () => {
       this.sourceActive = true
@@ -72,7 +70,11 @@ export default {
     })
 
     eventBus.$on('toggle-show-article', item => {
-      this.articleToShow = item
+      this.selectedArticle = item
+      this.fetchArticle()
+      this.articleFormActive = false
+      this.sourceActive = false
+      this.readingListActive = false
       this.showArticleActive = true
 
     })
@@ -81,6 +83,12 @@ export default {
     fetchReadingList() {
     NewsService.getArticles()
     .then(res => this.savedReadingListItems = res)
+  },
+    fetchArticle() {
+      if (this.selectedArticle) {
+        fetch_assistant.getArticle(this.selectedArticle.apiUrl)
+          .then(res => this.articleToShow = res)
+      }
     }
   },
   components: {

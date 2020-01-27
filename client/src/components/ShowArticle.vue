@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="">
-    <h1>{{ articleToShow }}</h1>
+    <h2> {{articleToShow.webTitle}} </h2>
+    <p v-html="articleToShow.fields.body"></p>
   </div>
 </template>
 
