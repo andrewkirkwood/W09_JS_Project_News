@@ -2,7 +2,7 @@
   <div id="id">
     <link href="https://fonts.googleapis.com/css?family=IM+Fell+English" rel="stylesheet">
 
-    <h1>Read://it</h1>
+    <h1>read://it</h1>
 
 
     <web-parent/>

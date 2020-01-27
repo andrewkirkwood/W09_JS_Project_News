@@ -13,7 +13,7 @@
         <input type="checkbox" name="" :value="article" v-model="checkedArticles">
       </div>
     </section>
-    <input type="submit" name="button"  v-on:click="handleSubmit(checkedArticles)" ></input>
+    <input type="submit" name="button" :class="isClickable()" v-on:click="handleSubmit()" ></input>
   </div>
 </template>
 
@@ -40,10 +40,20 @@ export default {
     }
   },
   methods: {
-    handleSubmit(checkedArticles) {
+    handleSubmit() {
       event.preventDefault()
-      eventBus.$emit('toggle-reading-list', this.checkedArticles)
-      this.checkedArticles = []
+      if (this.checkedArticles.length > 0) {
+        eventBus.$emit('toggle-reading-list', this.checkedArticles)
+        this.checkedArticles = []
+      }
+    },
+    isClickable() {
+      if (this.checkedArticles.length > 0) {
+        return "clickable"
+      }
+      else {
+        return "inactive"
+      }
     }
   }
 }
@@ -78,4 +88,9 @@ body {
   min-width: 200px;
   margin: 5px;
 }
+
+.inactive {
+  display: none;
+}
+
 </style>

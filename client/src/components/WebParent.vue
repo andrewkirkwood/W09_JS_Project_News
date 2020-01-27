@@ -2,14 +2,16 @@
   <div id="web-parent">
     <header>
       <!-- add an onclick after refactoring the eventBUs -->
-      <div :class="readingListClass()" v-on:click="toggleReadingList">
+      <!-- <div :class="readingListClass()" v-on:click="toggleReadingList">
         <p>Reading List</p>
       </div>
       <div :class="addArticleClass()" v-on:click="toggleSelectSource">
         <p>Add Article</p>
-      </div>
+      </div> -->
     </header>
     <!-- <h1>{{ sourceActive }}</h1> -->
+    <!-- <p>{{egg}}</p> -->
+    <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
     <source-select v-if="sourceActive"/>
@@ -23,6 +25,7 @@
 import {eventBus} from '../main'
 import NewsService from '../services/NewsService.js'
 import fetch_assistant from '../services/fetch_assistant'
+import fetch_assistant_NYT from '../services/fetch_assistant'
 
 import SelectArticleForm from './SelectArticleForm.vue'
 import NewsNav from './NewsNav.vue'
@@ -43,8 +46,10 @@ export default {
       articleFormActive: false,
       readingListActive: true,
       showArticleActive: false,
-      allSections: ["business", "science"],
-      selectedHeader: "readingList"    }
+      allSections: [],
+      selectedHeader: "readingList",
+      egg: null
+    }
   },
   computed: {
     filteredArticles: function(){
@@ -55,7 +60,10 @@ export default {
     }
   },
   mounted() {
-    // this.fetchAllArticles(this.allSections)
+
+    fetch_assistant_NYT.getArticleBySection('science')
+    .then(res => this.egg = res)
+
     this.fetchReadingList()
 
     // this.fetchSections()
