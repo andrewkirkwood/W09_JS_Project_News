@@ -2,10 +2,10 @@
   <div id="web-parent">
     <header>
       <!-- add an onclick after refactoring the eventBUs -->
-      <div :class="readingListClass()" v-on:click="">
+      <div :class="readingListClass()" v-on:click="toggleReadingList">
         <p>Reading List</p>
       </div>
-      <div :class="addArticleClass()" v-on:click="">
+      <div :class="addArticleClass()" v-on:click="toggleSelectSource">
         <p>Add Article</p>
       </div>
     </header>
@@ -66,25 +66,19 @@ export default {
     })
 // refactor eventbus, put the sets into function that can be called in the header
     eventBus.$on('toggle-select-source', () => {
-      this.sourceActive = true
-      this.readingListActive = false
-      this.articleFormActive = false
+      this.toggleSelectSource()
       this.selectedHeader = "addNewArticle"
     })
 
     eventBus.$on('toggle-select-article-form', articleFormActive => {
-      this.articleFormActive = true
-      this.sourceActive = false
-      this.readingListActive = false
+      this.toggleSelectArticleForm()
       this.selectedHeader = "addNewArticle"
 
     })
 
     eventBus.$on('toggle-reading-list', payload => {
       this.addNewArticles(payload)
-      this.articleFormActive = false
-      this.sourceActive = false
-      this.readingListActive = true
+      this.toggleReadingList()
       this.selectedHeader = "readingList"
 
     })
@@ -97,10 +91,7 @@ export default {
     eventBus.$on('toggle-show-article', item => {
       this.selectedArticle = item
       this.fetchArticle()
-      this.articleFormActive = false
-      this.sourceActive = false
-      this.readingListActive = false
-      this.showArticleActive = true
+      this.toggleShowArticle()
       this.selectedHeader = "readingList"
     })
 
@@ -142,6 +133,27 @@ export default {
     },
     getReadingList() {
 
+    },
+    toggleSelectSource() {
+      this.sourceActive = true
+      this.readingListActive = false
+      this.articleFormActive = false
+    },
+    toggleSelectArticleForm() {
+      this.articleFormActive = true
+      this.sourceActive = false
+      this.readingListActive = false
+    },
+    toggleReadingList() {
+      this.articleFormActive = false
+      this.sourceActive = false
+      this.readingListActive = true
+    },
+    toggleShowArticle() {
+      this.articleFormActive = false
+      this.sourceActive = false
+      this.readingListActive = false
+      this.showArticleActive = true
     }
   },
   components: {
