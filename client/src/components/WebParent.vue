@@ -1,21 +1,15 @@
 <template lang="html">
   <div id="web-parent">
-<<<<<<< HEAD
     <header>
-      <div>
+      <!-- add an onclick after refactoring the eventBUs -->
+      <div :class="readingListClass()" v-on:click="">
         <p>Reading List</p>
       </div>
-      <div>
+      <div :class="addArticleClass()" v-on:click="">
         <p>Add Article</p>
       </div>
     </header>
-    <h1>{{ sourceActive }}</h1>
-=======
-    <!-- <h1>{{ article }}</h1>
-    <ul>
-      <li v-for="item in articles"> {{ item }}</li>
-    </ul> -->
->>>>>>> develop
+    <!-- <h1>{{ sourceActive }}</h1> -->
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
     <source-select v-if="sourceActive"/>
@@ -49,7 +43,8 @@ export default {
       articleFormActive: false,
       readingListActive: true,
       showArticleActive: false,
-      allSections: []
+      allSections: [],
+      selectedHeader: "readingList"
     }
   },
   computed: {
@@ -64,22 +59,25 @@ export default {
     this.fetchReadingList()
 
     fetch_assistant.getArticleBySection("business")
-      .then(res => this.articles = res)
+    .then(res => this.articles = res)
 
     eventBus.$on('search-entered', search => {
       this.searchTerm = search
     })
-
+// refactor eventbus, put the sets into function that can be called in the header
     eventBus.$on('toggle-select-source', () => {
       this.sourceActive = true
       this.readingListActive = false
       this.articleFormActive = false
+      this.selectedHeader = "addNewArticle"
     })
 
     eventBus.$on('toggle-select-article-form', articleFormActive => {
       this.articleFormActive = true
       this.sourceActive = false
       this.readingListActive = false
+      this.selectedHeader = "addNewArticle"
+
     })
 
     eventBus.$on('toggle-reading-list', payload => {
@@ -96,6 +94,8 @@ export default {
       this.articleFormActive = false
       this.sourceActive = false
       this.readingListActive = true
+      this.selectedHeader = "readingList"
+
     })
 
     eventBus.$on('remove-article', item => {
@@ -110,25 +110,37 @@ export default {
       this.sourceActive = false
       this.readingListActive = false
       this.showArticleActive = true
-
+      this.selectedHeader = "readingList"
     })
 
     this.fetchSections()
+
+    this.readingListClass()
+    this.addArticleClass()
   },
   methods: {
     fetchReadingList() {
-    NewsService.getArticles()
-    .then(res => this.savedReadingListItems = res)
-  },
+      NewsService.getArticles()
+      .then(res => this.savedReadingListItems = res)
+    },
     fetchArticle() {
       if (this.selectedArticle) {
         fetch_assistant.getArticle(this.selectedArticle.apiUrl)
-          .then(res => this.articleToShow = res)
+        .then(res => this.articleToShow = res)
       }
     },
     fetchSections() {
       fetch_assistant.getAllSections()
       .then(res => this.allSections = res.map(item => item.webTitle))
+    },
+    readingListClass() {
+      return  this.selectedHeader === "readingList" ? "headerActive" : "headerInactive"
+    },
+    addArticleClass() {
+      return  this.selectedHeader === "addNewArticle" ? "headerActive" : "headerInactive"
+    },
+    getReadingList() {
+
     }
   },
   components: {
@@ -142,4 +154,25 @@ export default {
 </script>
 
 <style lang="css" scoped>
+header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: stretch;
+  background-color: darkslategrey;
+  color: white;
+  text-align: center;
+}
+.headerActive {
+  background-color: #a4dcc0;
+  color: #2f4f4f;
+  border: #45B097 solid;
+  font-weight: bold;
+}
+.headerInactive:hover {
+  background-color: #68a198 ;
+  color: #2f4f4f;
+  font-weight: bold;
+
+
+}
 </style>
