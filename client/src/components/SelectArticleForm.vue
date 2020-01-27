@@ -6,7 +6,7 @@
     <!-- <section class="card" v-for="articlesInCategory, category in articles" > -->
 
     <section v-model="categories" class="card" v-for="category in categories" >
-      <!-- <div class="card--content" > -->
+      <!-- <div class="cardcontent" > -->
       <div class="card--content" v-for="article in articles[category]">
         <h3>{{ article.webTitle }}</h3>
         <label for="">Select:</label>
