@@ -10,7 +10,7 @@
         <div class="card--content" v-for="item in savedReadingListItems">
           <h3 v-on:click="handleShowArticle(item)" >{{ item.webTitle }}</h3>
           <h4>{{ item.sectionID }}</h4>
-          <button type="button" name="button" v-on:click="handleDelete(item)">Delete</button>
+          <button type="button" name="button" v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png"></button>
           <!-- <a :href="fetchArticleAPI"></a> -->
           <!-- <p>news and possibly an image. There will almost certainly be a headline here but mayebe not an image. A plus button will most likely be present and that will be just awesome. cqcn eqfqfv vdwfv fqsfcsq feqfq fqfqfwq fwqdfwqf fwqfwq fwqfqw fqwfq</p> -->
         </div>
@@ -72,7 +72,7 @@ p {
 
 .card {
   border: 5px solid #9F9FED;
-  min-height: 200px;
+  height: 500px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -86,6 +86,23 @@ p {
   max-width: 200px;
   margin: 5px;
   padding: 10px;
+}
+
+button {
+  height: 20px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.cross:hover {
+background-color: red;
+filter: hue-rotate(180);
+}
+
+.cross {
+  height: 20px;
 }
 
 </style>
