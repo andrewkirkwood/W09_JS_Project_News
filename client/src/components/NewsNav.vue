@@ -84,6 +84,7 @@ padding: 0;
   margin-bottom: 8px;
   margin-right: 16px;
   font-size: 40px;
+
 }
 
 button {
@@ -92,25 +93,31 @@ button {
   border: none;
   outline: none;
   cursor: pointer;
-  border: 6px solid black;
   border-radius: 10px;
-
 }
 
 .plus:hover {
   background-color: #BBE8B3;
+
 }
 
 .plus {
-  height: 70px;
+  height: 60px;
   border-radius: 18px;
 }
 
 .plus-button {
-  font-size: 70px;
+  font-size: 60px;
   border: 4px solid black;
   border-radius: 15px;
   background-color: transparent;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  margin-right: 16px;
+  margin-left: 20px;
+  border: 8px solid black;
+
 }
+
 
 </style>
