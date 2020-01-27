@@ -11,9 +11,9 @@ export default {
 
     getArticle(apiUrl){
       return fetch(`${apiUrl}?&show-fields=body&api-key=${api_key}`)
-        .then(response => response.json())
-        .then(data => data.response.content)
-      }
-
-
+      .then(response => response.json())
+      .then(data => data.response.content)
     }
+
+
+  }

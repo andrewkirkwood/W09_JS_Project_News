@@ -17,6 +17,7 @@
         <div class="card--content" v-for="item in savedReadingListItems">
           <h3>{{ item.webTitle }}</h3>
           <h4>{{ item.sectionID }}</h4>
+          <button type="button" name="button" v-on:click="handleDelete(item)">Delete</button>
           <!-- <a :href="fetchArticleAPI"></a> -->
           <!-- <p>news and possibly an image. There will almost certainly be a headline here but mayebe not an image. A plus button will most likely be present and that will be just awesome. cqcn eqfqfv vdwfv fqsfcsq feqfq fqfqfwq fwqdfwqf fwqfwq fwqfqw fqwfq</p> -->
         </div>
@@ -28,22 +29,19 @@
 </template>
 
 <script>
+import NewsService from '../services/NewsService.js'
 import {eventBus} from '../main'
+
 export default {
   name: "reading-list",
   props: ['savedReadingListItems'],
-  // data() {
-  //   return {
-  //     readingListItems: []
-  //   }
-  // },
+  methods: {
+    handleDelete(item) {
+      NewsService.deleteArticle(item._id)
+      eventBus.$emit('remove-article', item)
+    }
 
-  // methods: {
-
-    // fetchArticleAPI() {
-      // should call fetch assistant -> find one article
-    // }
-  // }
+  }
 }
 </script>
 
