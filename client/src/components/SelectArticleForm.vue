@@ -30,16 +30,9 @@ export default {
   methods: {
     handleSubmit(checkedArticles) {
       event.preventDefault()
-      // const payload = item
-      // NewsService.postArticles(payload)
-      // console.log("reading list toggled in form");
-      //
-      // eventBus.$emit('toggle-reading-list', payload)
-
-      // this is an extension
       this.checkedArticles.forEach(item => NewsService.postArticles(item))
+      eventBus.$emit('toggle-reading-list', this.checkedArticles)
       this.checkedArticles = []
-      eventBus.$emit('toggle-reading-list', "articles added to Reading List")
 
     }
 
