@@ -3,11 +3,14 @@
     <!-- each card is a container for the articles of a section -->
     <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
     <!-- <h2 v-if="articles.length > 0">{{ articles[0].sectionName }}</h2> -->
-    <section class="card" >
-      <div v-if="articles" class="card--content" v-for="item in articles">
-        <h3>{{ item.webTitle }}</h3>
+    <!-- <section class="card" v-for="articlesInCategory, category in articles" > -->
+
+    <section class="card" v-for="category in categories" >
+      <!-- <div class="card--content" > -->
+      <div class="card--content" v-for="article in articles[category]">
+        <h3>{{ article.webTitle }}</h3>
         <label for="">Select:</label>
-        <input type="checkbox" name="" :value="item" v-model="checkedArticles">
+        <input type="checkbox" name="" :value="article" v-model="checkedArticles">
       </div>
     </section>
     <input type="submit" name="button"  v-on:click="handleSubmit(checkedArticles)" ></input>
@@ -23,10 +26,17 @@ export default {
   data() {
     return {
       checkedArticles: [],
-      defaultSections: []
+
     }
   },
   props: ['articles'],
+  computed: {
+    categories() {
+      if (this.articles) {
+        return Object.keys(this.articles)
+      }
+    }
+  },
   methods: {
     handleSubmit(checkedArticles) {
       event.preventDefault()

@@ -34,7 +34,7 @@ export default {
   name: "web-parent",
   data () {
     return {
-      articles: [],
+      articles: {},
       savedReadingListItems: [],
       selectedArticle: null,
       articleToShow: {},
@@ -104,8 +104,11 @@ export default {
       arrayOfCategories.forEach(category => {
         fetch_assistant.getArticleBySection(category.toLowerCase())
           .then(articlesToAdd => {
-            this.articles = this.articles.concat(articlesToAdd)
-            console.log("fetch back")
+            // let articlesByCategory = {}
+              // articlesByCategory[`${category}`] = this.articles.concat(articlesToAdd)
+              // console.log("article by cat", articlesByCategory )
+            // this.articles.push(articlesByCategory)
+            this.articles[category] = articlesToAdd
           })
       })
 
