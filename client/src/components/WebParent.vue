@@ -1,10 +1,11 @@
 <template lang="html">
   <div id="web-parent">
     <header>
-      <div :class="readingListClass()">
+      <!-- add an onclick after refactoring the eventBUs -->
+      <div :class="readingListClass()" v-on:click="">
         <p>Reading List</p>
       </div>
-      <div :class="addArticleClass()" >
+      <div :class="addArticleClass()" v-on:click="">
         <p>Add Article</p>
       </div>
     </header>
@@ -63,7 +64,7 @@ export default {
     eventBus.$on('search-entered', search => {
       this.searchTerm = search
     })
-
+// refactor eventbus, put the sets into function that can be called in the header
     eventBus.$on('toggle-select-source', () => {
       this.sourceActive = true
       this.readingListActive = false
@@ -124,12 +125,13 @@ export default {
       .then(res => this.allSections = res.map(item => item.webTitle))
     },
     readingListClass() {
-      console.log(this.selectedHeader);
       return  this.selectedHeader === "readingList" ? "headerActive" : "headerInactive"
-      console.log(this.selectedHeader);
     },
     addArticleClass() {
       return  this.selectedHeader === "addNewArticle" ? "headerActive" : "headerInactive"
+    },
+    getReadingList() {
+
     }
   },
   components: {
