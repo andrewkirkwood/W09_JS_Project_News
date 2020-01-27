@@ -15,7 +15,7 @@
 
       <section class="card" >
         <div class="card--content" v-for="item in savedReadingListItems">
-          <h3>{{ item.webTitle }}</h3>
+          <h3 v-on:click="handleShowArticle(item)" >{{ item.webTitle }}</h3>
           <h4>{{ item.sectionID }}</h4>
           <button type="button" name="button" v-on:click="handleDelete(item)">Delete</button>
           <!-- <a :href="fetchArticleAPI"></a> -->
@@ -39,6 +39,9 @@ export default {
     handleDelete(item) {
       NewsService.deleteArticle(item._id)
       eventBus.$emit('remove-article', item)
+    },
+    handleShowArticle(item) {
+      eventBus.$emit('toggle-show-article', item)
     }
 
   }
