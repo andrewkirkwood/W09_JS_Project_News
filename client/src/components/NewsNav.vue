@@ -10,7 +10,7 @@
       <form v-on:submit.prevent>
         <input type="text" v-model="search" placeholder="search for an article...">
       </form>
-      <button type="button" name="button" v-on:click="handleClick"><img class="plus" src="../assets/plus.png"></button>
+      <button class="plus-button" type="button" name="button" v-on:click="handleClick"><img class="plus" src="../assets/plus.png"> ADD</button>
     </div>
   </div>
 
@@ -100,6 +100,11 @@ button {
 .plus {
   height: 95px;
   border-radius: 18px;
+}
+
+.plus-button {
+  font-size: 100px;
+  
 }
 
 </style>
