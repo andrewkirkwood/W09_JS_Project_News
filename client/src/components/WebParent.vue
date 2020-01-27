@@ -1,5 +1,6 @@
 <template lang="html">
   <div id="web-parent">
+<<<<<<< HEAD
     <header>
       <div>
         <p>Reading List</p>
@@ -9,6 +10,12 @@
       </div>
     </header>
     <h1>{{ sourceActive }}</h1>
+=======
+    <!-- <h1>{{ article }}</h1>
+    <ul>
+      <li v-for="item in articles"> {{ item }}</li>
+    </ul> -->
+>>>>>>> develop
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
      <source-select v-if="sourceActive"/>
