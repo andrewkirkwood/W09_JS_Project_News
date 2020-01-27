@@ -72,7 +72,7 @@ p {
 
 .card {
   border: 5px solid #9F9FED;
-  height: 500px;
+  min-height: 500px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
