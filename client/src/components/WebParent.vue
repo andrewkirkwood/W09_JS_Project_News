@@ -43,8 +43,9 @@ export default {
   computed: {
     filteredArticles: function(){
       const foundArticle = this.savedReadingListItems.filter(article => {
-        return artilce.webTitle.toLowerCase().includes(this.searchTerm)
+        return article.webTitle.toLowerCase().includes(this.searchTerm)
       })
+      return foundArticles
     }
   },
   mounted() {

@@ -2,7 +2,9 @@
   <div id="news-nav">
     <h1>test</h1>
     <button type="button" name="button" v-on:click="handleClick">New Articles</button>
-    <input type="text" v-model="search" placeholder="search for an article...">
+    <form v-on:submit.prevent>
+      <input type="text" v-model="search" placeholder="search for an article...">
+    </form>
   </div>
 
 </template>
@@ -24,7 +26,7 @@ export default {
   },
   watch: {
     search: function() {
-      evenBus.$emit("search-entered", this.search)
+      eventBus.$emit("search-entered", this.search)
     }
   }
 }
