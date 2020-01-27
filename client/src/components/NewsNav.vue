@@ -2,6 +2,7 @@
   <div id="news-nav">
     <h1>test</h1>
     <button type="button" name="button" v-on:click="handleClick">New Articles</button>
+    <input type="text" v-model="search" placeholder="search for an article...">
   </div>
 
 </template>
@@ -11,10 +12,19 @@
 import {eventBus} from '../main'
 export default {
   name: 'news-nav',
-
+  data(){
+    return {
+      search: ""
+    }
+  },
   methods: {
     handleClick(){
       eventBus.$emit('toggle-select-source')
+    }
+  },
+  watch: {
+    search: function() {
+      evenBus.$emit("search-entered", this.search)
     }
   }
 }

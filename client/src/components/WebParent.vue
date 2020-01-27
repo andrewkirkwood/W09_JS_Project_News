@@ -33,10 +33,18 @@ export default {
       savedReadingListItems: [],
       selectedArticle: null,
       articleToShow: {},
+      searchTerm: "",
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
       showArticleActive: false
+    }
+  },
+  computed: {
+    filteredArticles: function(){
+      const foundArticle = this.savedReadingListItems.filter(article => {
+        return artilce.webTitle.toLowerCase().includes(this.searchTerm)
+      })
     }
   },
   mounted() {
@@ -44,6 +52,10 @@ export default {
 
     fetch_assistant.getArticleBySection("business")
       .then(res => this.articles = res)
+
+    eventBus.$on('search-entered', search => {
+      this.searchTearm = search
+    })
 
     eventBus.$on('toggle-select-source', () => {
       this.sourceActive = true
