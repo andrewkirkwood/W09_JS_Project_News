@@ -23,7 +23,9 @@ export default {
   name: "select-article-form",
   data() {
     return {
-      checkedArticles: []
+      checkedArticles: [],
+      defaultSections: []
+
     }
   },
   props: ['articles'],

@@ -1,9 +1,13 @@
 <template lang="html">
   <div id="web-parent">
-    <!-- <h1>{{ article }}</h1>
-    <ul>
-      <li v-for="item in articles"> {{ item }}</li>
-    </ul> -->
+    <header>
+      <div>
+        <p>Reading List</p>
+      </div>
+      <div>
+        <p>Add Article</p>
+      </div>
+    </header>
     <h1>{{ sourceActive }}</h1>
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
@@ -36,7 +40,8 @@ export default {
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
-      showArticleActive: false
+      showArticleActive: false,
+      allSections: []
     }
   },
   mounted() {
@@ -78,6 +83,8 @@ export default {
       this.showArticleActive = true
 
     })
+
+    this.fetchSections()
   },
   methods: {
     fetchReadingList() {
@@ -89,6 +96,10 @@ export default {
         fetch_assistant.getArticle(this.selectedArticle.apiUrl)
           .then(res => this.articleToShow = res)
       }
+    },
+    fetchSections() {
+      fetch_assistant.getAllSections()
+      .then(res => this.allSections = res.map(item => item.webTitle))
     }
   },
   components: {
