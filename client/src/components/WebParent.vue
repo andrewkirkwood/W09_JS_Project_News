@@ -7,7 +7,7 @@
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
      <source-select v-if="sourceActive"/>
-    <reading-list v-if="readingListActive" :savedReadingListItems="savedReadingListItems"/>
+    <reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
     <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
   </div>
 
@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     filteredArticles: function(){
-      const foundArticle = this.savedReadingListItems.filter(article => {
+      const foundArticles = this.savedReadingListItems.filter(article => {
         return article.webTitle.toLowerCase().includes(this.searchTerm)
       })
       return foundArticles
@@ -54,7 +54,7 @@ export default {
       .then(res => this.articles = res)
 
     eventBus.$on('search-entered', search => {
-      this.searchTearm = search
+      this.searchTerm = search
     })
 
     eventBus.$on('toggle-select-source', () => {
