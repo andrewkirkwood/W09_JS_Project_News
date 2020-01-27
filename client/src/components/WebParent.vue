@@ -8,28 +8,34 @@
     <select-article-form v-if="articleFormActive"  :articles="articles" />
      <source-select v-if="sourceActive"/>
     <reading-list v-if="readingListActive" :savedReadingListItems="savedReadingListItems"/>
+    <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
   </div>
 
 </template>
 
 <script>
+import {eventBus} from '../main'
 import NewsService from '../services/NewsService.js'
-import SelectArticleForm from './SelectArticleForm.vue'
 import fetch_assistant from '../services/fetch_assistant'
+
+import SelectArticleForm from './SelectArticleForm.vue'
 import NewsNav from './NewsNav.vue'
 import SourceSelect from './SourceSelect.vue'
 import ReadingList from './ReadingList.vue'
-import {eventBus} from '../main'
+import ShowArticle from './ShowArticle.vue'
+
 export default {
   name: "web-parent",
   data () {
     return {
       articles: [],
-      article: {},
+      savedReadingListItems: [],
+      selectedArticle: null,
+      articleToShow: {},
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
-      savedReadingListItems: []
+      showArticleActive: false
     }
   },
   mounted() {
@@ -37,9 +43,6 @@ export default {
 
     fetch_assistant.getArticleBySection("business")
       .then(res => this.articles = res)
-
-      fetch_assistant.getArticle("https://content.guardianapis.com/business/2020/jan/24/greta-thunberg-davos-leaders-ignored-climate-activists-demands")
-        .then(res => this.article = res)
 
     eventBus.$on('toggle-select-source', () => {
       this.sourceActive = true
@@ -54,28 +57,45 @@ export default {
     })
 
     eventBus.$on('toggle-reading-list', payload => {
-      this.savedReadingListItems.push(payload)
+      payload.forEach(item => this.savedReadingListItems.push(item) )
       this.articleFormActive = false
       this.sourceActive = false
       this.readingListActive = true
+    })
+
+    eventBus.$on('remove-article', item => {
+      const indexOfDeleted = this.savedReadingListItems.indexOf(item)
+      this.savedReadingListItems.splice(indexOfDeleted, 1)
+    })
+
+    eventBus.$on('toggle-show-article', item => {
+      this.selectedArticle = item
+      this.fetchArticle()
+      this.articleFormActive = false
+      this.sourceActive = false
+      this.readingListActive = false
+      this.showArticleActive = true
+
     })
   },
   methods: {
     fetchReadingList() {
     NewsService.getArticles()
     .then(res => this.savedReadingListItems = res)
+  },
+    fetchArticle() {
+      if (this.selectedArticle) {
+        fetch_assistant.getArticle(this.selectedArticle.apiUrl)
+          .then(res => this.articleToShow = res)
+      }
     }
   },
   components: {
-
     'news-nav': NewsNav,
-
     "select-article-form": SelectArticleForm,
-
     'source-select': SourceSelect,
-
-    'reading-list': ReadingList
-
+    'reading-list': ReadingList,
+    'show-article': ShowArticle
   }
 }
 </script>
