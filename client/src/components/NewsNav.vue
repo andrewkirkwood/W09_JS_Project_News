@@ -1,6 +1,5 @@
 <template lang="html">
   <div id="news-nav">
-
     <div class="topnav">
       <select name="news-catagories">
         <option value="world">World News</option>
@@ -8,11 +7,11 @@
         <option value="tech">Tech News</option>
         <option value="min-of-baz">Inside The Mind Of Baz</option>
       </select>
-
-      <input type="text" placeholder="Search..">
+      <form v-on:submit.prevent>
+        <input type="text" v-model="search" placeholder="search for an article...">
+      </form>
+      <button type="button" name="button" v-on:click="handleClick">New Articles</button>
     </div>
-
-    <button type="button" name="button" v-on:click="handleClick">New Articles</button>
   </div>
 
 </template>
@@ -22,10 +21,19 @@
 import {eventBus} from '../main'
 export default {
   name: 'news-nav',
-
+  data(){
+    return {
+      search: ""
+    }
+  },
   methods: {
     handleClick(){
       eventBus.$emit('toggle-select-source')
+    }
+  },
+  watch: {
+    search: function() {
+      eventBus.$emit("search-entered", this.search)
     }
   }
 }

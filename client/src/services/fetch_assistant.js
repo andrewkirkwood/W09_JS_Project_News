@@ -11,10 +11,14 @@ export default {
 
     getArticle(apiUrl){
       return fetch(`${apiUrl}?&show-fields=body&api-key=${api_key}`)
-      .then(console.log(`${apiUrl}`))
+      // .then(console.log(`${apiUrl}`))
       .then(response => response.json())
       .then(data => data.response.content)
+    },
+    getAllSections() {
+      return fetch(`https://content.guardianapis.com/sections?api-key=${api_key}`)
+      .then(response => response.json())
+      .then(data => data.response.results)
     }
-
 
   }
