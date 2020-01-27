@@ -60,6 +60,11 @@ export default {
       this.sourceActive = false
       this.readingListActive = true
     })
+
+    eventBus.$on('remove-article', item => {
+      const indexOfDeleted = this.savedReadingListItems.indexOf(item)
+      this.savedReadingListItems.splice(indexOfDeleted, 1)
+    })
   },
   methods: {
     fetchReadingList() {
