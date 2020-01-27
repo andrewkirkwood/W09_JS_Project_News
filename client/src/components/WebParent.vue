@@ -10,6 +10,7 @@
       </div>
     </header>
     <!-- <h1>{{ sourceActive }}</h1> -->
+    <p>{{egg}}</p>
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
     <source-select v-if="sourceActive"/>
@@ -23,6 +24,7 @@
 import {eventBus} from '../main'
 import NewsService from '../services/NewsService.js'
 import fetch_assistant from '../services/fetch_assistant'
+import fetch_assistant_NYT from '../services/fetch_assistant'
 
 import SelectArticleForm from './SelectArticleForm.vue'
 import NewsNav from './NewsNav.vue'
@@ -44,7 +46,8 @@ export default {
       readingListActive: true,
       showArticleActive: false,
       allSections: [],
-      selectedHeader: "readingList"
+      selectedHeader: "readingList",
+      egg: null
     }
   },
   computed: {
@@ -56,6 +59,10 @@ export default {
     }
   },
   mounted() {
+
+    fetch_assistant_NYT.getArticleBySection('science')
+    .then(res => this.egg = res)
+
     this.fetchReadingList()
 
     fetch_assistant.getArticleBySection("business")
