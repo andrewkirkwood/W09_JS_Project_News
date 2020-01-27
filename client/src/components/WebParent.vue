@@ -46,7 +46,7 @@ export default {
       articleFormActive: false,
       readingListActive: true,
       showArticleActive: false,
-      allSections: [],
+      allSections: ["business", "science"],
       selectedHeader: "readingList",
       egg: null
     }
@@ -132,10 +132,10 @@ export default {
         .then(res => this.articleToShow = res)
       }
     },
-    fetchSections() {
-      fetch_assistant.getAllSections()
-      .then(res => this.allSections = res.map(item => item.webTitle))
-    },
+    // fetchSections() {
+    //   fetch_assistant.getAllSections()
+    //   .then(res => this.allSections = res.map(item => item.webTitle))
+    // },
     addNewArticles(payload) {
       const mapOfIds = payload.map(item => item.id)
       const mapOfExistingIds = this.savedReadingListItems.map(item => item.id)
