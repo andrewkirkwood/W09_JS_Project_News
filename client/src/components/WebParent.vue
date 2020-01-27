@@ -11,8 +11,8 @@
     <!-- <h1>{{ sourceActive }}</h1> -->
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
-    <source-select v-if="sourceActive"/>
-    <reading-list v-if="readingListActive" :savedReadingListItems="savedReadingListItems"/>
+     <source-select v-if="sourceActive"/>
+    <reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
     <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
   </div>
 
@@ -37,6 +37,7 @@ export default {
       savedReadingListItems: [],
       selectedArticle: null,
       articleToShow: {},
+      searchTerm: "",
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
@@ -45,15 +46,23 @@ export default {
       selectedHeader: "readingList"
     }
   },
-  // computed: {
-  //   this.readingListClass()
-  //   this.addArticleClass()
-  // },
+  computed: {
+    filteredArticles: function(){
+      const foundArticles = this.savedReadingListItems.filter(article => {
+        return article.webTitle.toLowerCase().includes(this.searchTerm)
+      })
+      return foundArticles
+    }
+  },
   mounted() {
     this.fetchReadingList()
 
     fetch_assistant.getArticleBySection("business")
     .then(res => this.articles = res)
+
+    eventBus.$on('search-entered', search => {
+      this.searchTerm = search
+    })
 
     eventBus.$on('toggle-select-source', () => {
       this.sourceActive = true

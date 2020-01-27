@@ -7,7 +7,7 @@
       <h2>Reading List</h2>
 
       <section class="card" >
-        <div class="card--content" v-for="item in savedReadingListItems">
+        <div class="card--content" v-for="item in filteredArticles">
           <h3 v-on:click="handleShowArticle(item)" >{{ item.webTitle }}</h3>
           <h4>{{ item.sectionID }}</h4>
           <button type="button" name="button" v-on:click="handleDelete(item)">Delete</button>
@@ -27,7 +27,7 @@ import {eventBus} from '../main'
 
 export default {
   name: "reading-list",
-  props: ['savedReadingListItems'],
+  props: ['filteredArticles'],
   methods: {
     handleDelete(item) {
       NewsService.deleteArticle(item._id)
