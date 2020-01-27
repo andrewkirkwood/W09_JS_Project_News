@@ -2,15 +2,16 @@
   <div id="web-parent">
     <header>
       <!-- add an onclick after refactoring the eventBUs -->
-      <div :class="readingListClass()" v-on:click="toggleReadingList">
+      <!-- <div :class="readingListClass()" v-on:click="toggleReadingList">
         <p>Reading List</p>
       </div>
       <div :class="addArticleClass()" v-on:click="toggleSelectSource">
         <p>Add Article</p>
-      </div>
+      </div> -->
     </header>
     <!-- <h1>{{ sourceActive }}</h1> -->
-    <p>{{egg}}</p>
+    <!-- <p>{{egg}}</p> -->
+    <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
     <source-select v-if="sourceActive"/>

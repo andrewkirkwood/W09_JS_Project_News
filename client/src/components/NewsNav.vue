@@ -10,8 +10,8 @@
       <form v-on:submit.prevent>
         <input type="text" v-model="search" placeholder="search for an article...">
       </form>
-      <button class="plus-button" type="button" name="button" v-on:click="handleClick"><img class="plus" src="../assets/book_icon.png">READ</button>
-      <button class="plus-button" type="button" name="button" v-on:click="handleClick"><img class="plus" src="../assets/plus.png">ADD</button>
+      <button class="plus-button" type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
+      <button class="plus-button" type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
     </div>
   </div>
 
@@ -28,8 +28,11 @@ export default {
     }
   },
   methods: {
-    handleClick(){
+    handleAdd(){
       eventBus.$emit('toggle-select-source')
+    },
+    handleRead(){
+      eventBus.$emit('toggle-reading-list', [])
     }
   },
   watch: {
@@ -41,13 +44,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
-h1 {
-font-size: 80px;
-text-align: center;
-font-family: 'IM Fell English', serif;
-padding: 0;
-}
 
 /* Add a black background color to the top navigation bar */
 .topnav {
