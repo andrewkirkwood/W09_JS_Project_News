@@ -9,10 +9,8 @@
         <input type="checkbox" name="" :value="item" v-model="checkedArticles">
       </div>
     </section>
-
     <input type="submit" name="button"  v-on:click="handleSubmit(checkedArticles)" ></input>
   </div>
-
 </template>
 
 <script>
@@ -25,19 +23,15 @@ export default {
     return {
       checkedArticles: [],
       defaultSections: []
-
     }
   },
   props: ['articles'],
   methods: {
     handleSubmit(checkedArticles) {
       event.preventDefault()
-      this.checkedArticles.forEach(item => NewsService.postArticles(item))
       eventBus.$emit('toggle-reading-list', this.checkedArticles)
       this.checkedArticles = []
-
     }
-
   }
 }
 </script>

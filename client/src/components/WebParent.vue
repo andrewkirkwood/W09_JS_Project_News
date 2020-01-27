@@ -18,7 +18,7 @@
 >>>>>>> develop
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
-     <source-select v-if="sourceActive"/>
+    <source-select v-if="sourceActive"/>
     <reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
     <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
   </div>
@@ -83,7 +83,16 @@ export default {
     })
 
     eventBus.$on('toggle-reading-list', payload => {
-      payload.forEach(item => this.savedReadingListItems.push(item) )
+      const mapOfIds = payload.map(item => item.id)
+      const mapOfExistingIds = this.savedReadingListItems.map(item => item.id)
+      console.log(mapOfExistingIds);
+      const newItems = payload.filter(item =>
+        !mapOfExistingIds.includes(item.id)
+      )
+
+      newItems.forEach(item => this.savedReadingListItems.push(item) )
+      newItems.forEach(item => NewsService.postArticles(item))
+
       this.articleFormActive = false
       this.sourceActive = false
       this.readingListActive = true
