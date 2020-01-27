@@ -58,7 +58,7 @@ export default {
     })
 
     eventBus.$on('toggle-reading-list', payload => {
-      this.savedReadingListItems.push(payload)
+      payload.forEach(item => this.savedReadingListItems.push(item) )
       this.articleFormActive = false
       this.sourceActive = false
       this.readingListActive = true
