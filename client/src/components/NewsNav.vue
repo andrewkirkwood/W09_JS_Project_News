@@ -10,7 +10,8 @@
       <form v-on:submit.prevent>
         <input type="text" v-model="search" placeholder="search for an article...">
       </form>
-      <button class="plus-button" type="button" name="button" v-on:click="handleClick"><img class="plus" src="../assets/plus.png"> ADD</button>
+      <button class="plus-button" type="button" name="button" v-on:click="handleClick"><img class="plus" src="../assets/book_icon.png">READ</button>
+      <button class="plus-button" type="button" name="button" v-on:click="handleClick"><img class="plus" src="../assets/plus.png">ADD</button>
     </div>
   </div>
 
@@ -52,7 +53,7 @@ padding: 0;
 .topnav {
   overflow: hidden;
   background-color: #45B097;
-  height: 100px;
+  height: 140px;
 }
 
 /* Style the links inside the navigation bar */
@@ -86,11 +87,14 @@ padding: 0;
 }
 
 button {
-  height: 100px;
+  height: 140px;
   background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
+  border: 6px solid black;
+  border-radius: 10px;
+
 }
 
 .plus:hover {
@@ -103,8 +107,10 @@ button {
 }
 
 .plus-button {
-  font-size: 100px;
-  
+  font-size: 70px;
+  border: 4px solid black;
+  border-radius: 15px;
+  background-color: transparent;
 }
 
 </style>
