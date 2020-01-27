@@ -4,7 +4,6 @@
     <ul>
       <li v-for="item in articles"> {{ item }}</li>
     </ul> -->
-    <h1>{{ sourceActive }}</h1>
     <news-nav></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
      <source-select v-if="sourceActive"/>
