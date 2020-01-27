@@ -9,7 +9,7 @@
         <option value="min-of-baz">Inside The Mind Of Baz</option>
       </select> -->
       <form v-on:submit.prevent>
-        <input type="text" v-model="search" placeholder="search for an article...">
+        <input type="text" v-model="search" placeholder="Search">
       </form>
       <button class="plus-button" type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
       <button class="plus-button" type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
