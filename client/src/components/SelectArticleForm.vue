@@ -72,7 +72,7 @@ body {
 }
 
 .card {
-  background-color: #fff;
+  background-color: #A5A5A5;
   min-width: 100%;
   min-height: 200px;
   overflow-x: auto;
@@ -80,9 +80,16 @@ body {
 }
 
 .card--content {
-  background-color: #e74c3c;
+ padding: 5px;
+  border-radius: 15px;
+  background-color: #D1D2D5;
   min-width: 200px;
   margin: 5px;
+  border: 1px solid black; 
+}
+
+.card--content:hover {
+  background-color: #CDE1F9;
 }
 
 .inactive {

@@ -75,7 +75,6 @@ export default {
   margin-bottom: 8px;
   margin-right: 16px;
   font-size: 40px;
-
 }
 
 button {
@@ -88,7 +87,7 @@ button {
 }
 
 .plus:hover {
-  background-color: #BBE8B3;
+  background-color: #CDE1F9;
 }
 
 .plus {

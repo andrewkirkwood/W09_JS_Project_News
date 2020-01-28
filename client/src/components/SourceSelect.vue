@@ -45,7 +45,7 @@ li {
 }
 
 li:hover {
-  background-color: #C7C8C9;
+  background-color: #CDE1F9;
 }
 
 ul {
