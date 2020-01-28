@@ -99,6 +99,10 @@ p {
   padding: 10px;
 }
 
+.card--content:hover {
+  background-color: #EBECED;
+}
+
 button {
   height: 20px;
   background-color: transparent;
