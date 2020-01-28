@@ -3,14 +3,26 @@
     <link href="https://fonts.googleapis.com/css?family=IM+Fell+English" rel="stylesheet">
 
     <div class="reading-list">
+      <div class="heading">
+        <h2>reading list</h2>
 
+        <select v-model="selectedSection" v-on:change="handleCategorySelection">
+          <option value="allSections" >All categories...</option>
+          <option v-for="section in allSections" :value="section">{{section}}</option>
+        </select>
 
-      <h2>reading list</h2>
+        <form v-on:submit.prevent>
+          <input  type="text" v-model="search" placeholder="Search">
+        </form>
+      </div>
+
 
       <section class="card" >
         <div class="card--content" v-for="item in filteredArticles">
           <h3 v-on:click="handleShowArticle(item)" >{{ item.title }}</h3>
           <h4>{{ item.section }}</h4>
+          <h5>{{ item.source }}</h5>
+
           <button type="button" name="button" v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png"></button>
           <!-- <a :href="fetchArticleAPI"></a> -->
           <!-- <p>news and possibly an image. There will almost certainly be a headline here but mayebe not an image. A plus button will most likely be present and that will be just awesome. cqcn eqfqfv vdwfv fqsfcsq feqfq fqfqfwq fwqdfwqf fwqfwq fwqfqw fqwfq</p> -->
@@ -28,7 +40,17 @@ import {eventBus} from '../main'
 
 export default {
   name: "reading-list",
-  props: ['filteredArticles'],
+  props: ['filteredArticles', 'allSections'],
+  data() {
+    return {
+      search: ""
+    }
+  },
+  watch: {
+    search: function() {
+      eventBus.$emit("search-entered", this.search)
+    }
+  },
   methods: {
     handleDelete(item) {
       NewsService.deleteArticle(item._id)
@@ -36,6 +58,15 @@ export default {
     },
     handleShowArticle(item) {
       eventBus.$emit('toggle-show-article', item)
+    },
+    handleCategorySelection() {
+      if(this.selectedSection !== "" ){
+        console.log(this.selectedSection);
+        eventBus.$emit('category-filter-change', this.selectedSection)
+      }
+      else {
+        eventBus.$emit('category-filter-change', "allSections")
+      }
     }
 
   }
@@ -122,4 +153,20 @@ filter: hue-rotate(180);
   opacity: 0.4;
 }
 
+.heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 1em;
+}
+
+form {
+  display: flex;
+  height: 2.3em;  
+}
+
+select {
+  height: 3em;
+}
 </style>

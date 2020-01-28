@@ -11,14 +11,17 @@
 </header>
 <!-- <h1>{{ sourceActive }}</h1> -->
 <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
-<news-nav :allSections="allSections"></news-nav>
+
+<!-- <news-nav :allSections="allSections"></news-nav> -->
+<news-nav></news-nav>
+
 
 <!-- <select-article-form v-if="articleFormActive"  :articles="articles" :sections="sections"/> -->
 
 <!-- <select-article-form v-if="sections" :articles="articles" :sections="sections" :title='title'/> -->
 <select-article-form v-if="articleFormActive" :articles="articles" :sections="sections" :title='title'/>
 <source-select v-if="sourceActive"/>
-<reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
+<reading-list v-if="readingListActive" :filteredArticles="filteredArticles" :allSections="allSections"/>
 <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
 </div>
 
