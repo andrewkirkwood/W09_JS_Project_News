@@ -45,7 +45,7 @@ export default {
       selectedArticle: null,
       articleToShow: {},
       searchTerm: "",
-      selectedCategory: "",
+      selectedCategory: "allSections",
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
@@ -58,11 +58,13 @@ export default {
   },
   computed: {
     filteredArticles: function(){
-      if (this.searchTerm || this.selectedCategory) {
+      if (this.searchTerm || this.selectedCategory ) {
         let filteredArticlesBySearchTerm = this.filterArticlesBySearchTerm(this.savedReadingListItems, this.searchTerm)
+
         let filteredArticlesBySearchTermAndSelectedCategory = this.filterArticlesByCategory(filteredArticlesBySearchTerm, this.selectedCategory)
         return filteredArticlesBySearchTermAndSelectedCategory
       }
+
       return this.savedReadingListItems
     }
   },
@@ -82,12 +84,7 @@ export default {
     })
 
     eventBus.$on('category-filter-change', category => {
-      if (category === "allSections") {
-        this.selectedCategory = ""
-      }
-      else {
         this.selectedCategory = category
-      }
     })
 
     // refactor eventbus, put the sets into function that can be called in the header
@@ -163,16 +160,28 @@ export default {
       newItems.forEach(item => NewsService.postArticles(item))
     },
     filterArticlesBySearchTerm(articles, searchTerm){
-      let filteredArticlesBySearchTerm = articles.filter(article => {
-        return article.webTitle.toLowerCase().includes(searchTerm)
-      })
-      return filteredArticlesBySearchTerm
+      if (searchTerm === "") {
+        return articles
+      }
+      else {
+        let filteredArticlesBySearchTerm = articles.filter(article => {
+          return article.webTitle.toLowerCase().includes(searchTerm)
+        })
+        return filteredArticlesBySearchTerm
+      }
+
     },
     filterArticlesByCategory(articles, category) {
-      let filteredArticlesByCategory = articles.filter(article => {
-        return article.sectionId.toLowerCase() === category
-      })
-      return filteredArticlesByCategory
+      if (category === "allSections") {
+        return articles
+      }
+      else {
+        let filteredArticlesByCategory = articles.filter(article => {
+          return article.sectionId.toLowerCase() === category
+        })
+        return filteredArticlesByCategory
+      }
+
     },
     readingListClass() {
       return  this.selectedHeader === "readingList" ? "headerActive" : "headerInactive"
