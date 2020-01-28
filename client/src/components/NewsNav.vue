@@ -86,6 +86,10 @@ button {
   border-radius: 10px;
 }
 
+button:hover {
+  background-color: #CDE1F9;
+}
+
 .plus:hover {
   background-color: #CDE1F9;
 }
