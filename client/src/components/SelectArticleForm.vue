@@ -9,7 +9,7 @@
     <h2>{{ section }}</h2>
     <section class="card"  >
       <div class="card--content" v-for="article in localArticles[section]">
-        <h3>{{ article.webTitle }}</h3>
+        <h3>{{ article[`${title}`] }}</h3>
         <label for="">Select:</label>
         <input type="checkbox" name="" :value="article" v-model="checkedArticles">
       </div>
@@ -30,11 +30,20 @@ export default {
     return {
       checkedArticles: [],
       localArticles: this.articles,
-      localSections: this.sections
+      localSections: this.sections,
+      localTitle: this.title
+
     }
   },
-  props: ['articles', 'sections'],
+  props: ['articles', 'sections', 'title'],
+  computed: {
 
+  },
+  watch: {
+    title: function() {
+      this.localTitle = this.title
+    }
+  },
   methods: {
     handleSubmit() {
       event.preventDefault()

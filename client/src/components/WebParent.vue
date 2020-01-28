@@ -15,7 +15,7 @@
 
 <!-- <select-article-form v-if="articleFormActive"  :articles="articles" :sections="sections"/> -->
 
-<select-article-form v-if="sections" :articles="articles" :sections="sections"/>
+<select-article-form v-if="sections" :articles="articles" :sections="sections" :title='title'/>
 <source-select v-if="sourceActive"/>
 <reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
 <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
@@ -54,22 +54,31 @@ export default {
       selectedHeader: "readingList",
       sections: null,
       sourceSelected: "guardian",
-      fetchFileSelected: null
+      fetchFileSelected: null,
+      title: ""
     }
   },
   computed: {
     //   fetchFileSelected: function () {
     //     const fetch_assistant = `fetch_assistant${this.sourceSelected}`
     //   },
+    selectTitleProperty: function() {
+      if (this.sourceSelected === 'nyt') {
+        return this.title = "title"
+      }
+      else if (this.sourceSelected === 'guardian'){
+        return this.title = "webTitle"
+      }
+    },
     filteredArticles: function () {
       const foundArticles = this.savedReadingListItems.filter(article => {
         return article.webTitle.toLowerCase().includes(this.searchTerm)
       })
       return foundArticles
-    },
-    getSections: function () {
-      return this.sections = Object.keys(this.articles)
     }
+    // getSections: function () {
+    //   return this.sections = Object.keys(this.articles)
+    // }
 
     },
     mounted() {
@@ -130,12 +139,15 @@ export default {
         Promise.all(promises)
         .then(sections => {
           this.sections = Object.keys(this.articles);
+          this.title = this.selectTitleProperty()
         });
       },
       fetchAssistant(source, category) {
         if (source === 'guardian') {
+          this.sourceSelected = 'guardian'
           return fetch_assistant_guardian.getArticleBySection(category)      }
           else if (source === 'nyt') {
+            this.sourceSelected = 'nyt'
           return  fetch_assistant_nyt.getArticleBySection(category)
           }
         },
