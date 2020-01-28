@@ -50,7 +50,7 @@ export default {
       selectedCategory: "allSections",
 
 
-      allSections: ["business", "science"],
+      allSections: ["business", "science", "politics", "sport"],
       selectedHeader: "readingList",
 
       sourceActive: false,
