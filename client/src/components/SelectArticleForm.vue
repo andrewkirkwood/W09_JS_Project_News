@@ -1,19 +1,14 @@
 <template lang="html">
   <div id="select-article-form">
     <!-- each card is a container for the articles of a section -->
-    <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
-    <!-- <h2 v-if="articles.length > 0">{{ articles[0].sectionName }}</h2> -->
-    <!-- <section class="card" v-for="articlesInCategory, category in articles" > -->
-
     <div class="sections" v-for="section in localSections" >
       <h2>{{ section }}</h2>
-      <section class="card"  >
-        <div class="card--content" v-for="article in localArticles[section]">
+      <section class="card" @mouseover="cardMouseOver" @mouseleave="cardMouseLeave" >
+        <div  class="card--content" v-for="article in localArticles[section]">
           <h3 v-on:click="handleShowArticle(article)">{{ article[`${localTitle}`] }}</h3>
           <!-- <h3 v-on:click="handleShowArticle(article)">{{ article[`${localTitle}`] }}</h3> -->
-
-          <label for="">Select:</label>
-          <input type="checkbox" name="" :value="article" v-model="checkedArticles"></input>
+          <!-- <label for="">Select:</label> -->
+          <input v-if="cardOver" type="checkbox" name="" :value="article" v-model="checkedArticles"></input>
           </div>
         </section>
       </div>
@@ -33,7 +28,8 @@
           checkedArticles: [],
           localArticles: this.articles,
           localSections: this.sections,
-          localTitle: this.title
+          localTitle: this.title,
+          cardOver: false
 
         }
       },
@@ -67,6 +63,13 @@
         },
         handleShowArticle(item){
           eventBus.$emit('toggle-show-article', item)
+        },
+        cardMouseOver() {
+          this.cardOver = true
+        },
+        cardMouseLeave() {
+          this.cardOver = false
+
         }
       }
     }

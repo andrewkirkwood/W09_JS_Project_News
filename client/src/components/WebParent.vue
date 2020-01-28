@@ -116,7 +116,6 @@ mounted() {
 
   eventBus.$on('toggle-show-article', item => {
     this.selectedArticle = item
-    console.log(item.source);
     this.fetchArticle(item.source)
     this.toggleShowArticle()
     this.selectedHeader = "readingList"
@@ -158,7 +157,6 @@ methods: {
   },
   fetchArticle(source) {
     if (this.selectedArticle) {
-      console.log(source);
       this.fetchAssistant(source).getArticle(this.selectedArticle.apiUrl)
       // fetch_assistant_guardian.getArticle(this.selectedArticle.apiUrl)
       .then(res => this.articleToShow = res)
