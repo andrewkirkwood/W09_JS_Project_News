@@ -11,11 +11,11 @@
 </header>
 <!-- <h1>{{ sourceActive }}</h1> -->
 <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
-<news-nav></news-nav>
+<news-nav :allSections="allSections"></news-nav>
 
 <!-- <select-article-form v-if="articleFormActive"  :articles="articles" :sections="sections"/> -->
 
-<select-article-form v-if="sections" :articles="articles" :sections="sections" :title='title'/>
+<select-article-form v-if="articleFormActive" :articles="articles" :sections="sections" :title='title'/>
 <source-select v-if="sourceActive"/>
 <reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
 <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
@@ -42,9 +42,17 @@ export default {
     return {
       articles: {},
       savedReadingListItems: [],
+
       selectedArticle: null,
-      articleToShow: {},
+      articleToShow: null,
+
       searchTerm: "",
+      selectedCategory: "allSections",
+
+
+      allSections: ["business", "science"],
+      selectedHeader: "readingList",
+
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
@@ -74,26 +82,35 @@ export default {
       })
       return foundArticles
     }
-    // getSections: function () {
-    //   return this.sections = Object.keys(this.articles)
-    // }
+    // filteredArticles: function(){
+    //   if (this.searchTerm || this.selectedCategory ) {
+    //     let filteredArticlesBySearchTerm = this.filterArticlesBySearchTerm(this.savedReadingListItems, this.searchTerm)
+    //
+    //     let filteredArticlesBySearchTermAndSelectedCategory = this.filterArticlesByCategory(filteredArticlesBySearchTerm, this.selectedCategory)
+    //     return filteredArticlesBySearchTermAndSelectedCategory
+    //   }
+    //
+    //   return this.savedReadingListItems
+
+
+
 
     },
     mounted() {
 
-      // fetch_assistant_nyt.getArticleBySection('science')
-      // .then(res => this.egg = res)
-
       this.fetchReadingList()
 
-      // this.fetchSections()
       this.readingListClass()
       this.addArticleClass()
 
       eventBus.$on('search-entered', search => {
         this.searchTerm = search
       })
-      // refactor eventbus, put the sets into function that can be called in the header
+
+      eventBus.$on('category-filter-change', category => {
+        this.selectedCategory = category
+      })
+
       eventBus.$on('toggle-select-source', () => {
         this.toggleSelectSource()
         this.selectedHeader = "addNewArticle"

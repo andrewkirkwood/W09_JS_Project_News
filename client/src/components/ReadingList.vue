@@ -101,7 +101,7 @@ p {
 }
 
 .card--content:hover {
-  background-color: white;
+  background-color: #CDE1F9;
 }
 
 button {
