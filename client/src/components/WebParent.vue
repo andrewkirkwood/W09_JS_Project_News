@@ -26,6 +26,8 @@
 <script>
 import {eventBus} from '../main'
 import NewsService from '../services/NewsService.js'
+// var fetch_assistant = require(`../services/fetch_assistant_${this.sourceSelected}`);
+
 import fetch_assistant_guardian from '../services/fetch_assistant_guardian'
 import fetch_assistant_nyt from '../services/fetch_assistant_nyt'
 
@@ -50,163 +52,178 @@ export default {
       showArticleActive: false,
       allSections: ["business", "science"],
       selectedHeader: "readingList",
-      sections: null
+      sections: null,
+      sourceSelected: "guardian",
+      fetchFileSelected: null
     }
   },
   computed: {
-    filteredArticles: function() {
+    //   fetchFileSelected: function () {
+    //     const fetch_assistant = `fetch_assistant${this.sourceSelected}`
+    //   },
+    filteredArticles: function () {
       const foundArticles = this.savedReadingListItems.filter(article => {
         return article.webTitle.toLowerCase().includes(this.searchTerm)
       })
       return foundArticles
     },
-    getSections: function() {
+    getSections: function () {
       return this.sections = Object.keys(this.articles)
     }
-  },
-  mounted() {
 
-    fetch_assistant_NYT.getArticleBySection('science')
-    .then(res => this.egg = res)
+    },
+    mounted() {
 
-    this.fetchReadingList()
+      // fetch_assistant_nyt.getArticleBySection('science')
+      // .then(res => this.egg = res)
 
-    // this.fetchSections()
-    this.readingListClass()
-    this.addArticleClass()
+      this.fetchReadingList()
 
-    eventBus.$on('search-entered', search => {
-      this.searchTerm = search
-    })
-    // refactor eventbus, put the sets into function that can be called in the header
-    eventBus.$on('toggle-select-source', () => {
-      this.toggleSelectSource()
-      this.selectedHeader = "addNewArticle"
-    })
+      // this.fetchSections()
+      this.readingListClass()
+      this.addArticleClass()
 
-    eventBus.$on('toggle-select-article-form', articleFormActive => {
-      this.fetchAllArticles(this.allSections)
-      this.toggleSelectArticleForm(source)
-      this.selectedHeader = "addNewArticle"
-    })
-
-    eventBus.$on('toggle-reading-list', payload => {
-      this.addNewArticles(payload)
-      this.toggleReadingList()
-      this.selectedHeader = "readingList"
-
-    })
-
-    eventBus.$on('remove-article', item => {
-      const indexOfDeleted = this.savedReadingListItems.indexOf(item)
-      this.savedReadingListItems.splice(indexOfDeleted, 1)
-    })
-
-    eventBus.$on('toggle-show-article', item => {
-      this.selectedArticle = item
-      this.fetchArticle()
-      this.toggleShowArticle()
-      this.selectedHeader = "readingList"
-    })
-  },
-  methods: {
-    fetchAllArticles(source, arrayOfCategories) {
-      const promises = arrayOfCategories.map(category => {
-        return fetch_assistant.getArticleBySection(category.toLowerCase())
-        .then(articlesToAdd => {
-          this.articles[category] = articlesToAdd;
-        })
+      eventBus.$on('search-entered', search => {
+        this.searchTerm = search
       })
-      Promise.all(promises)
+      // refactor eventbus, put the sets into function that can be called in the header
+      eventBus.$on('toggle-select-source', () => {
+        this.toggleSelectSource()
+        this.selectedHeader = "addNewArticle"
+      })
+
+      eventBus.$on('toggle-select-article-form', source => {
+        this.sourceSelected = source
+        this.fetchAllArticles(this.allSections, source)
+        this.toggleSelectArticleForm(source)
+        this.selectedHeader = "addNewArticle"
+      })
+
+      eventBus.$on('toggle-reading-list', payload => {
+        this.addNewArticles(payload)
+        this.toggleReadingList()
+        this.selectedHeader = "readingList"
+
+      })
+
+      eventBus.$on('remove-article', item => {
+        const indexOfDeleted = this.savedReadingListItems.indexOf(item)
+        this.savedReadingListItems.splice(indexOfDeleted, 1)
+      })
+
+      eventBus.$on('toggle-show-article', item => {
+        this.selectedArticle = item
+        this.fetchArticle()
+        this.toggleShowArticle()
+        this.selectedHeader = "readingList"
+      })
+    },
+    methods: {
+      fetchAllArticles(arrayOfCategories, source) {
+        const promises = arrayOfCategories.map(category => {
+          return this.fetchAssistant(source, category.toLowerCase())
+          // return fetch_assistant.getArticleBySection(category.toLowerCase())
+          .then(articlesToAdd => {
+            this.articles[category] = articlesToAdd;
+          })
+        })
+        Promise.all(promises)
         .then(sections => {
           this.sections = Object.keys(this.articles);
         });
-    },
-    fetchReadingList() {
-      NewsService.getArticles()
-      .then(res => this.savedReadingListItems = res)
-    },
-    fetchArticle() {
-      if (this.selectedArticle) {
-        fetch_assistant_guardian.getArticle(this.selectedArticle.apiUrl)
-        .then(res => this.articleToShow = res)
+      },
+      fetchAssistant(source, category) {
+        if (source === 'guardian') {
+          return fetch_assistant_guardian.getArticleBySection(category)      }
+          else if (source === 'nyt') {
+          return  fetch_assistant_nyt.getArticleBySection(category)
+          }
+        },
+      fetchReadingList() {
+        NewsService.getArticles()
+        .then(res => this.savedReadingListItems = res)
+      },
+      fetchArticle() {
+        if (this.selectedArticle) {
+          fetch_assistant_guardian.getArticle(this.selectedArticle.apiUrl)
+          .then(res => this.articleToShow = res)
+        }
+      },
+      // fetchSections() {
+      //   fetch_assistant_guardian.getAllSections()
+      //   .then(res => this.allSections = res.map(item => item.webTitle))
+      // },
+      addNewArticles(payload) {
+        const mapOfIds = payload.map(item => item.id)
+        const mapOfExistingIds = this.savedReadingListItems.map(item => item.id)
+        const newItems = payload.filter(item =>
+          !mapOfExistingIds.includes(item.id)
+        )
+
+        newItems.forEach(item => this.savedReadingListItems.push(item) )
+        newItems.forEach(item => NewsService.postArticles(item))
+      },
+      readingListClass() {
+        return  this.selectedHeader === "readingList" ? "headerActive" : "headerInactive"
+      },
+      addArticleClass() {
+        return  this.selectedHeader === "addNewArticle" ? "headerActive" : "headerInactive"
+      },
+      getReadingList() {
+
+      },
+      toggleSelectSource() {
+        this.sourceActive = true
+        this.readingListActive = false
+        this.articleFormActive = false
+      },
+      toggleSelectArticleForm() {
+        this.articleFormActive = true
+        this.sourceActive = false
+        this.readingListActive = false
+      },
+      toggleReadingList() {
+        this.articleFormActive = false
+        this.sourceActive = false
+        this.readingListActive = true
+      },
+      toggleShowArticle() {
+        this.articleFormActive = false
+        this.sourceActive = false
+        this.readingListActive = false
+        this.showArticleActive = true
       }
     },
-    // fetchSections() {
-    //   fetch_assistant_guardian.getAllSections()
-    //   .then(res => this.allSections = res.map(item => item.webTitle))
-    // },
-    addNewArticles(payload) {
-      const mapOfIds = payload.map(item => item.id)
-      const mapOfExistingIds = this.savedReadingListItems.map(item => item.id)
-      const newItems = payload.filter(item =>
-        !mapOfExistingIds.includes(item.id)
-      )
-
-      newItems.forEach(item => this.savedReadingListItems.push(item) )
-      newItems.forEach(item => NewsService.postArticles(item))
-    },
-    readingListClass() {
-      return  this.selectedHeader === "readingList" ? "headerActive" : "headerInactive"
-    },
-    addArticleClass() {
-      return  this.selectedHeader === "addNewArticle" ? "headerActive" : "headerInactive"
-    },
-    getReadingList() {
-
-    },
-    toggleSelectSource() {
-      this.sourceActive = true
-      this.readingListActive = false
-      this.articleFormActive = false
-    },
-    toggleSelectArticleForm() {
-      this.articleFormActive = true
-      this.sourceActive = false
-      this.readingListActive = false
-    },
-    toggleReadingList() {
-      this.articleFormActive = false
-      this.sourceActive = false
-      this.readingListActive = true
-    },
-    toggleShowArticle() {
-      this.articleFormActive = false
-      this.sourceActive = false
-      this.readingListActive = false
-      this.showArticleActive = true
+    components: {
+      'news-nav': NewsNav,
+      "select-article-form": SelectArticleForm,
+      'source-select': SourceSelect,
+      'reading-list': ReadingList,
+      'show-article': ShowArticle
     }
-  },
-  components: {
-    'news-nav': NewsNav,
-    "select-article-form": SelectArticleForm,
-    'source-select': SourceSelect,
-    'reading-list': ReadingList,
-    'show-article': ShowArticle
   }
-}
-</script>
+  </script>
 
-<style lang="css" scoped>
-header {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: stretch;
-  background-color: darkslategrey;
-  color: white;
-  text-align: center;
-}
-.headerActive {
-  background-color: #a4dcc0;
-  color: #2f4f4f;
-  border: #45B097 solid;
-  font-weight: bold;
-}
-.headerInactive:hover {
-  background-color: #68a198 ;
-  color: #2f4f4f;
-  font-weight: bold;
+  <style lang="css" scoped>
+  header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: stretch;
+    background-color: darkslategrey;
+    color: white;
+    text-align: center;
+  }
+  .headerActive {
+    background-color: #a4dcc0;
+    color: #2f4f4f;
+    border: #45B097 solid;
+    font-weight: bold;
+  }
+  .headerInactive:hover {
+    background-color: #68a198 ;
+    color: #2f4f4f;
+    font-weight: bold;
 
 
-}
-</style>
+  }
+  </style>
