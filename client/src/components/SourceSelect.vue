@@ -1,13 +1,13 @@
 <template lang="html">
   <div id="source-select">
     <link href="https://fonts.googleapis.com/css?family=IM+Fell+English" rel="stylesheet">
-    <h1>Source Select</h1>
+    <h1>Select News Source</h1>
     <br>
     <ul>
       <li v-on:click="handleClick">Guardian</li>
     </ul>
   </div>
-  
+
 </template>
 
 <script>
@@ -37,7 +37,20 @@ li {
   font-family: 'IM Fell English', serif;
   list-style: none;
   cursor: pointer;
-  border: 2px solid black;
+  border: 8px solid black;
+  border-radius: 15px;
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+li:hover {
+  background-color: #C7C8C9;
+}
+
+ul {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 </style>

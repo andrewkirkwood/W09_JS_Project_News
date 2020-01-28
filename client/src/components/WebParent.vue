@@ -12,8 +12,11 @@
 <!-- <h1>{{ sourceActive }}</h1> -->
 <!-- <p>{{egg}}</p> -->
 <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
-<news-nav :allSections="allSections" ></news-nav>
-<select-article-form v-if="articleFormActive"  :articles="articles" />
+<news-nav :allSections="allSections"></news-nav>
+
+<!-- <select-article-form v-if="articleFormActive"  :articles="articles" :sections="sections"/> -->
+
+<select-article-form v-if="sections" :articles="articles" :sections="sections"/>
 <source-select v-if="sourceActive"/>
 <reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
 <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
@@ -49,7 +52,8 @@ export default {
       showArticleActive: false,
       allSections: ["business", "science"],
       selectedHeader: "readingList",
-      egg: null
+      egg: null,
+      sections: null
     }
   },
   computed: {
@@ -117,16 +121,17 @@ export default {
   },
   methods: {
     fetchAllArticles(arrayOfCategories) {
-      arrayOfCategories.forEach(category => {
-        fetch_assistant.getArticleBySection(category.toLowerCase())
+      const promises = arrayOfCategories.map(category => {
+        return fetch_assistant.getArticleBySection(category.toLowerCase())
         .then(articlesToAdd => {
-          // let articlesByCategory = {}
-          // articlesByCategory[`${category}`] = this.articles.concat(articlesToAdd)
-          // console.log("article by cat", articlesByCategory )
-          // this.articles.push(articlesByCategory)
-          this.articles[category] = articlesToAdd
+          this.articles[category] = articlesToAdd;
         })
       })
+
+      Promise.all(promises)
+        .then(sections => {
+          this.sections = Object.keys(this.articles);
+        });
     },
     fetchReadingList() {
       NewsService.getArticles()
