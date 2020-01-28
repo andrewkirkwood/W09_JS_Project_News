@@ -208,16 +208,22 @@ export default {
         this.sourceActive = true
         this.readingListActive = false
         this.articleFormActive = false
+        this.showArticleActive = false
+
       },
       toggleSelectArticleForm() {
         this.articleFormActive = true
         this.sourceActive = false
         this.readingListActive = false
+        this.showArticleActive = false
+
       },
       toggleReadingList() {
         this.articleFormActive = false
         this.sourceActive = false
         this.readingListActive = true
+        this.showArticleActive = false
+
       },
       toggleShowArticle() {
         this.articleFormActive = false
