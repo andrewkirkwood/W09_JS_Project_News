@@ -16,7 +16,7 @@
 
 <!-- <select-article-form v-if="articleFormActive"  :articles="articles" :sections="sections"/> -->
 
-<select-article-form v-if="sections" :articles="articles" :sections="sections"/>
+<select-article-form v-if="articleFormActive" :articles="articles" :sections="sections"/>
 <source-select v-if="sourceActive"/>
 <reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
 <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
@@ -42,16 +42,22 @@ export default {
     return {
       articles: {},
       savedReadingListItems: [],
+
       selectedArticle: null,
       articleToShow: {},
+
       searchTerm: "",
       selectedCategory: "allSections",
+
+
+      allSections: ["business", "science"],
+      selectedHeader: "readingList",
+
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
       showArticleActive: false,
-      allSections: ["business", "science"],
-      selectedHeader: "readingList",
+
       egg: null,
       sections: null
     }
@@ -108,9 +114,18 @@ export default {
     })
 
     eventBus.$on('reading-list-button-clicked', item => {
-      this.toggleReadingList()
-      this.selectedHeader = "readingList"
+      // this.toggleReadingList()
+      this.articleFormActive = false
+      this.sourceActive = false
+      this.readingListActive = true
+      this.showArticleActive = false
 
+      console.log("articleform:",this.articleFormActive);
+      console.log("sourceActive:",this.sourceActive);
+      console.log("readingListActive:",this.readingListActive);
+      console.log("showArticleActive:",this.showArticleActive);
+
+      this.selectedHeader = "readingList"
     })
 
     eventBus.$on('remove-article', item => {
@@ -217,8 +232,6 @@ export default {
       this.sourceActive = false
       this.readingListActive = true
       this.showArticleActive = false
-
-
     },
     toggleShowArticle() {
       this.articleFormActive = false

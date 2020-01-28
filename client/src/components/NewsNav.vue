@@ -32,7 +32,7 @@ export default {
       eventBus.$emit('toggle-select-source')
     },
     handleRead(){
-      eventBus.$emit('reading-list-button-clicked', [])
+      eventBus.$emit('toggle-reading-list', [])
     },
     handleCategorySelection() {
       if(this.selectedSection !== "" ){

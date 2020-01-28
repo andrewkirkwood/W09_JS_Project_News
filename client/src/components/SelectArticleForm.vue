@@ -5,16 +5,16 @@
     <!-- <h2 v-if="articles.length > 0">{{ articles[0].sectionName }}</h2> -->
     <!-- <section class="card" v-for="articlesInCategory, category in articles" > -->
 
-<div class="sections" v-for="section in localSections" >
-    <h2>{{ section }}</h2>
-    <section class="card"  >
-      <div class="card--content" v-for="article in localArticles[section]">
-        <h3>{{ article.webTitle }}</h3>
-        <label for="">Select:</label>
-        <input type="checkbox" name="" :value="article" v-model="checkedArticles">
-      </div>
-    </section>
-  </div>
+    <div class="sections" v-for="section in localSections" >
+      <h2>{{ section }}</h2>
+      <section class="card"  >
+        <div class="card--content" v-for="article in localArticles[section]">
+          <h3>{{ article.webTitle }}</h3>
+          <label for="">Select:</label>
+          <input type="checkbox" name="" :value="article" v-model="checkedArticles">
+        </div>
+      </section>
+    </div>
 
     <input type="submit" name="button" :class="isClickable()" v-on:click="handleSubmit()" ></input>
   </div>
@@ -80,12 +80,12 @@ body {
 }
 
 .card--content {
- padding: 5px;
+  padding: 5px;
   border-radius: 15px;
   background-color: #D1D2D5;
   min-width: 200px;
   margin: 5px;
-  border: 1px solid black; 
+  border: 1px solid black;
 }
 
 .card--content:hover {
