@@ -15,6 +15,7 @@
 
 <!-- <select-article-form v-if="articleFormActive"  :articles="articles" :sections="sections"/> -->
 
+<!-- <select-article-form v-if="sections" :articles="articles" :sections="sections" :title='title'/> -->
 <select-article-form v-if="articleFormActive" :articles="articles" :sections="sections" :title='title'/>
 <source-select v-if="sourceActive"/>
 <reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
@@ -66,14 +67,6 @@ export default {
   },
   computed: {
 
-    selectTitleProperty: function() {
-      if (this.sourceSelected === 'nyt') {
-        return this.title = "title"
-      }
-      else if (this.sourceSelected === 'guardian'){
-        return this.title = "webTitle"
-      }
-    },
     filteredArticles: function () {
       const foundArticles = this.savedReadingListItems.filter(article => {
         const title = article.webTitle || article.title;
@@ -148,15 +141,22 @@ export default {
         const promises = arrayOfCategories.map(category => {
           // return this.fetchAssistant(source, category.toLowerCase())
           return this.fetchAssistant(source).getArticleBySection(category)
-
           .then(articlesToAdd => {
             this.articles[category] = articlesToAdd;
           })
+          .then(res => {
+            this.title = this.selectTitleProperty()
+            console.log("is it logging?", this.title)
+          })
+          .catch(console.error)
         })
         Promise.all(promises)
         .then(sections => {
+
           this.sections = Object.keys(this.articles);
-          this.title = this.selectTitleProperty()
+          console.log("line after section:", this.sections);
+
+
         });
       },
       fetchAssistant(source, category) {
@@ -176,7 +176,6 @@ export default {
       fetchArticle(source) {
         if (this.selectedArticle) {
           console.log(source);
-          // TOBETESTED
           this.fetchAssistant(source).getArticle(this.selectedArticle.apiUrl)
           // fetch_assistant_guardian.getArticle(this.selectedArticle.apiUrl)
           .then(res => this.articleToShow = res)
@@ -225,6 +224,14 @@ export default {
         this.sourceActive = false
         this.readingListActive = false
         this.showArticleActive = true
+      },
+      selectTitleProperty() {
+        if (this.sourceSelected === 'nyt') {
+          return "title"
+        }
+        else if (this.sourceSelected === 'guardian'){
+          return "webTitle"
+        }
       }
     },
     components: {
