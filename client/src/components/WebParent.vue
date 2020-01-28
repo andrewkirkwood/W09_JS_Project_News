@@ -12,7 +12,7 @@
     <!-- <h1>{{ sourceActive }}</h1> -->
     <!-- <p>{{egg}}</p> -->
     <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
-    <news-nav></news-nav>
+    <news-nav :allSections="allSections" ></news-nav>
     <select-article-form v-if="articleFormActive"  :articles="articles" />
     <source-select v-if="sourceActive"/>
     <reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
@@ -42,6 +42,7 @@ export default {
       selectedArticle: null,
       articleToShow: {},
       searchTerm: "",
+      selectedCategory: "",
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
@@ -73,6 +74,11 @@ export default {
     eventBus.$on('search-entered', search => {
       this.searchTerm = search
     })
+
+    eventBus.$on('category-filter-change', category => {
+      this.selectedCategory = category
+    })
+
     // refactor eventbus, put the sets into function that can be called in the header
     eventBus.$on('toggle-select-source', () => {
       this.toggleSelectSource()
