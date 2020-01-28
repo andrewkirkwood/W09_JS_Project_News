@@ -82,7 +82,12 @@ export default {
     })
 
     eventBus.$on('category-filter-change', category => {
-      this.selectedCategory = category
+      if (category === "allSections") {
+        this.selectedCategory = ""
+      }
+      else {
+        this.selectedCategory = category
+      }
     })
 
     // refactor eventbus, put the sets into function that can be called in the header
