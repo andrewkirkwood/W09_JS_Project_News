@@ -87,7 +87,7 @@ button {
 }
 
 .plus:hover {
-  background-color: #BBE8B3;
+  background-color: #CDE1F9;
 }
 
 .plus {
