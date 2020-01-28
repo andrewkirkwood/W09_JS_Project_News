@@ -4,7 +4,8 @@
     <h1>Select News Source</h1>
     <br>
     <ul>
-      <li v-on:click="handleClick">Guardian</li>
+      <li v-on:click="handleClick('guardian')">Guardian</li>
+      <li v-on:click="handleClick('nyt')">New York Times</li>
     </ul>
   </div>
 
@@ -16,8 +17,8 @@ export default {
   name: 'source-select',
 
   methods: {
-    handleClick() {
-      eventBus.$emit('toggle-select-article-form')
+    handleClick(source) {
+      eventBus.$emit('toggle-select-article-form', source)
     }
   }
 }

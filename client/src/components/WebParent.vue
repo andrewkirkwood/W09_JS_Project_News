@@ -10,7 +10,6 @@
   </div> -->
 </header>
 <!-- <h1>{{ sourceActive }}</h1> -->
-<!-- <p>{{egg}}</p> -->
 <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
 <news-nav></news-nav>
 
@@ -27,8 +26,8 @@
 <script>
 import {eventBus} from '../main'
 import NewsService from '../services/NewsService.js'
-import fetch_assistant from '../services/fetch_assistant'
-import fetch_assistant_NYT from '../services/fetch_assistant'
+import fetch_assistant_guardian from '../services/fetch_assistant_guardian'
+import fetch_assistant_nyt from '../services/fetch_assistant_nyt'
 
 import SelectArticleForm from './SelectArticleForm.vue'
 import NewsNav from './NewsNav.vue'
@@ -51,7 +50,6 @@ export default {
       showArticleActive: false,
       allSections: ["business", "science"],
       selectedHeader: "readingList",
-      egg: null,
       sections: null
     }
   },
@@ -88,9 +86,8 @@ export default {
 
     eventBus.$on('toggle-select-article-form', articleFormActive => {
       this.fetchAllArticles(this.allSections)
-      this.toggleSelectArticleForm()
+      this.toggleSelectArticleForm(source)
       this.selectedHeader = "addNewArticle"
-
     })
 
     eventBus.$on('toggle-reading-list', payload => {
@@ -111,18 +108,15 @@ export default {
       this.toggleShowArticle()
       this.selectedHeader = "readingList"
     })
-
-
   },
   methods: {
-    fetchAllArticles(arrayOfCategories) {
+    fetchAllArticles(source, arrayOfCategories) {
       const promises = arrayOfCategories.map(category => {
         return fetch_assistant.getArticleBySection(category.toLowerCase())
         .then(articlesToAdd => {
           this.articles[category] = articlesToAdd;
         })
       })
-
       Promise.all(promises)
         .then(sections => {
           this.sections = Object.keys(this.articles);
@@ -134,12 +128,12 @@ export default {
     },
     fetchArticle() {
       if (this.selectedArticle) {
-        fetch_assistant.getArticle(this.selectedArticle.apiUrl)
+        fetch_assistant_guardian.getArticle(this.selectedArticle.apiUrl)
         .then(res => this.articleToShow = res)
       }
     },
     // fetchSections() {
-    //   fetch_assistant.getAllSections()
+    //   fetch_assistant_guardian.getAllSections()
     //   .then(res => this.allSections = res.map(item => item.webTitle))
     // },
     addNewArticles(payload) {
