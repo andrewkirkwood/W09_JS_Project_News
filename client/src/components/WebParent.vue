@@ -100,6 +100,12 @@ export default {
 
     })
 
+    eventBus.$on('reading-list-button-clicked', item => {
+      this.toggleReadingList()
+      this.selectedHeader = "readingList"
+
+    })
+
     eventBus.$on('remove-article', item => {
       const indexOfDeleted = this.savedReadingListItems.indexOf(item)
       this.savedReadingListItems.splice(indexOfDeleted, 1)
@@ -165,16 +171,23 @@ export default {
       this.sourceActive = true
       this.readingListActive = false
       this.articleFormActive = false
+      this.showArticleActive = false
+
     },
     toggleSelectArticleForm() {
       this.articleFormActive = true
       this.sourceActive = false
       this.readingListActive = false
+      this.showArticleActive = false
+
     },
     toggleReadingList() {
       this.articleFormActive = false
       this.sourceActive = false
       this.readingListActive = true
+      this.showArticleActive = false
+
+
     },
     toggleShowArticle() {
       this.articleFormActive = false
