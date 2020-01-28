@@ -72,7 +72,7 @@ body {
 }
 
 .card {
-  background-color: #fff;
+  /* background-color: #fff; */
   min-width: 100%;
   min-height: 200px;
   overflow-x: auto;
@@ -80,7 +80,9 @@ body {
 }
 
 .card--content {
-  background-color: #e74c3c;
+ padding: 5px;
+  border-radius: 15px;
+  background-color: #C9C8C8;
   min-width: 200px;
   margin: 5px;
 }

@@ -75,7 +75,6 @@ export default {
   margin-bottom: 8px;
   margin-right: 16px;
   font-size: 40px;
-
 }
 
 button {
