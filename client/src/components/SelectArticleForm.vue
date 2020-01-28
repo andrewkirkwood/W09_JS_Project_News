@@ -3,12 +3,10 @@
     <!-- each card is a container for the articles of a section -->
     <div class="sections" v-for="section in localSections" >
       <h2>{{ section }}</h2>
-      <section class="card" @mouseover="cardMouseOver" @mouseleave="cardMouseLeave" >
-        <div  class="card--content" v-for="article in localArticles[section]">
+      <section class="card"  >
+        <div  class="card--content" v-for="(article, index) in localArticles[section]" @mouseover.self="cardMouseOver(section + index)" @mouseleave.self="cardMouseLeave">
           <h3 v-on:click="handleShowArticle(article)">{{ article[`${localTitle}`] }}</h3>
-          <!-- <h3 v-on:click="handleShowArticle(article)">{{ article[`${localTitle}`] }}</h3> -->
-          <!-- <label for="">Select:</label> -->
-          <input v-if="cardOver" type="checkbox" name="" :value="article" v-model="checkedArticles"></input>
+          <button v-if="cardOver === section + index" :value="article" v-on:click="addToCheckedArticles(article)" type="button" name="select">Select</button>
           </div>
         </section>
       </div>
@@ -64,12 +62,15 @@
         handleShowArticle(item){
           eventBus.$emit('toggle-show-article', item)
         },
-        cardMouseOver() {
-          this.cardOver = true
+        cardMouseOver(index) {
+          console.log("what is index?", index);
+          this.cardOver = index
         },
         cardMouseLeave() {
           this.cardOver = false
-
+        },
+        addToCheckedArticles(article) {
+          this.checkedArticles.push(article)
         }
       }
     }
