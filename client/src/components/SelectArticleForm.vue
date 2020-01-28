@@ -5,9 +5,9 @@
     <!-- <h2 v-if="articles.length > 0">{{ articles[0].sectionName }}</h2> -->
     <!-- <section class="card" v-for="articlesInCategory, category in articles" > -->
 
-    <section v-model="categories" class="card" v-for="category in categories" >
+    <section class="card" v-for="section in localSections" >
       <!-- <div class="card--content" > -->
-      <div class="card--content" v-for="article in articles[category]">
+      <div class="card--content" v-for="article in localArticles[section]">
         <h3>{{ article.webTitle }}</h3>
         <label for="">Select:</label>
         <input type="checkbox" name="" :value="article" v-model="checkedArticles">
@@ -25,20 +25,30 @@ export default {
   name: "select-article-form",
   data() {
     return {
-      checkedArticles: []
+      checkedArticles: [],
+      localArticles: this.articles,
+      localSections: this.sections
     }
   },
-  props: ['articles'],
-  computed: {
-    categories() {
-      console.log("keys length", Object.keys(this.articles).length);
-
-      if (Object.keys(this.articles).length > 0) {
-        console.log("how many time is that called inside if", Object.keys(this.articles));
-        return Object.keys(this.articles)
-      }
+  props: ['articles', 'sections'],
+  watch: {
+    articles: function() {
+      this.localArticles = this.articles
+    },
+    sections: function() {
+      this.localSections = this.sections
     }
   },
+  // computed: {
+  //   categories() {
+  //     // console.log("keys length", Object.keys(this.localArticles).length);
+  //
+  //     // if (Object.keys(this.localArticles).length > 0) {
+  //       // console.log("how many time is that called inside if", Object.keys(this.localArticles));
+  //        Object.keys(this.localArticles)
+  //     // }
+  //   }
+  // },
   methods: {
     handleSubmit() {
       event.preventDefault()
