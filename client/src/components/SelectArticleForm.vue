@@ -4,7 +4,7 @@
     <div class="sections" v-for="section in localSections" >
       <h2>{{ section }}</h2>
       <section class="card"  >
-        <div  class="card--content" v-for="(article, index) in localArticles[section]" @mouseover.self="cardMouseOver(section + index)" mouseleave.self="cardMouseLeave">
+        <div  :class="contentCardClass(article)" v-for="(article, index) in localArticles[section]" @mouseover.self="cardMouseOver(section + index)" @mouseleave.self="cardMouseLeave">
           <h3 v-on:click="handleShowArticle(article)">{{ article[`${localTitle}`] }}</h3>
           <button v-if="cardOver === section + index" :value="article" v-on:click="addToCheckedArticles(article)" type="button" name="select">Select</button>
           </div>
@@ -71,6 +71,14 @@
         },
         addToCheckedArticles(article) {
           this.checkedArticles.push(article)
+        },
+        contentCardClass(article) {
+          if (this.checkedArticles.includes(article)) {
+            return "card--content selected"
+          }
+          else {
+            return "card--content"
+          }
         }
       }
     }
@@ -131,4 +139,9 @@
       display: none;
     }
 
+    .selected {
+      border: solid #65abff thick;
+      background-color: #CDE1F9;
+
+    }
   </style>
