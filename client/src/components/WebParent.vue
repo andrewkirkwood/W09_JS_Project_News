@@ -3,21 +3,21 @@
     <header>
       <!-- add an onclick after refactoring the eventBUs -->
       <!-- <div :class="readingListClass()" v-on:click="toggleReadingList">
-        <p>Reading List</p>
-      </div>
-      <div :class="addArticleClass()" v-on:click="toggleSelectSource">
-        <p>Add Article</p>
-      </div> -->
-    </header>
-    <!-- <h1>{{ sourceActive }}</h1> -->
-    <!-- <p>{{egg}}</p> -->
-    <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
-    <news-nav :allSections="allSections" ></news-nav>
-    <select-article-form v-if="articleFormActive"  :articles="articles" />
-    <source-select v-if="sourceActive"/>
-    <reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
-    <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
-  </div>
+      <p>Reading List</p>
+    </div>
+    <div :class="addArticleClass()" v-on:click="toggleSelectSource">
+    <p>Add Article</p>
+  </div> -->
+</header>
+<!-- <h1>{{ sourceActive }}</h1> -->
+<!-- <p>{{egg}}</p> -->
+<!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
+<news-nav :allSections="allSections" ></news-nav>
+<select-article-form v-if="articleFormActive"  :articles="articles" />
+<source-select v-if="sourceActive"/>
+<reading-list v-if="readingListActive" :filteredArticles="filteredArticles"/>
+<show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
+</div>
 
 </template>
 
@@ -54,10 +54,8 @@ export default {
   },
   computed: {
     filteredArticles: function(){
-      const foundArticles = this.savedReadingListItems.filter(article => {
-        return article.webTitle.toLowerCase().includes(this.searchTerm)
-      })
-      return foundArticles
+      let filteredArticlesBySearchTerm = this.filterArticlesBySearchTerm()
+      this.filterArticlesByCategory(filteredArticlesBySearchTerm)
     }
   },
   mounted() {
@@ -117,16 +115,14 @@ export default {
     fetchAllArticles(arrayOfCategories) {
       arrayOfCategories.forEach(category => {
         fetch_assistant.getArticleBySection(category.toLowerCase())
-          .then(articlesToAdd => {
-            // let articlesByCategory = {}
-              // articlesByCategory[`${category}`] = this.articles.concat(articlesToAdd)
-              // console.log("article by cat", articlesByCategory )
-            // this.articles.push(articlesByCategory)
-            this.articles[category] = articlesToAdd
-          })
+        .then(articlesToAdd => {
+          // let articlesByCategory = {}
+          // articlesByCategory[`${category}`] = this.articles.concat(articlesToAdd)
+          // console.log("article by cat", articlesByCategory )
+          // this.articles.push(articlesByCategory)
+          this.articles[category] = articlesToAdd
+        })
       })
-
-
     },
     fetchReadingList() {
       NewsService.getArticles()
@@ -151,6 +147,18 @@ export default {
 
       newItems.forEach(item => this.savedReadingListItems.push(item) )
       newItems.forEach(item => NewsService.postArticles(item))
+    },
+    filterArticlesBySearchTerm(){
+      const filteredArticlesBySearchTerm = this.savedReadingListItems.filter(article => {
+        return article.webTitle.toLowerCase().includes(this.searchTerm)
+      })
+      return filteredArticlesBySearchTerm
+    },
+    filterArticlesByCategory(articles) {
+      const filteredArticlesByCategory = articles.filter(article => {
+        return article.sectionId.toLowerCase() === this.selectedCategory
+      })
+      return filteredArticlesByCategory
     },
     readingListClass() {
       return  this.selectedHeader === "readingList" ? "headerActive" : "headerInactive"
