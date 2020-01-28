@@ -2,7 +2,7 @@
   <div id="news-nav">
     <div class="topnav">
       <select v-model="selectedSection" v-on:change="handleCategorySelection">
-        <option disabled value="">Filter by category</option>
+        <option value="" >Filter by category</option>
         <option v-for="section in allSections" :value="section">{{section}}</option>
       </select>
       <form v-on:submit.prevent>
@@ -35,7 +35,10 @@ export default {
       eventBus.$emit('toggle-reading-list', [])
     },
     handleCategorySelection() {
-      eventBus.$emit('category-filter-change', this.selectedSection)
+      if(this.selectedSection ){
+        eventBus.$emit('category-filter-change', this.selectedSection)
+      }
+
     }
   },
   watch: {

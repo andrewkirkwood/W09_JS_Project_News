@@ -54,8 +54,12 @@ export default {
   },
   computed: {
     filteredArticles: function(){
-      let filteredArticlesBySearchTerm = this.filterArticlesBySearchTerm()
-      this.filterArticlesByCategory(filteredArticlesBySearchTerm)
+      if (this.searchTerm || this.selectedCategory) {
+        let filteredArticlesBySearchTerm = this.filterArticlesBySearchTerm(this.savedReadingListItems, this.searchTerm)
+        let filteredArticlesBySearchTermAndSelectedCategory = this.filterArticlesByCategory(filteredArticlesBySearchTerm, this.selectedCategory)
+        return filteredArticlesBySearchTermAndSelectedCategory
+      }
+      return this.savedReadingListItems
     }
   },
   mounted() {
@@ -148,15 +152,15 @@ export default {
       newItems.forEach(item => this.savedReadingListItems.push(item) )
       newItems.forEach(item => NewsService.postArticles(item))
     },
-    filterArticlesBySearchTerm(){
-      const filteredArticlesBySearchTerm = this.savedReadingListItems.filter(article => {
-        return article.webTitle.toLowerCase().includes(this.searchTerm)
+    filterArticlesBySearchTerm(articles, searchTerm){
+      let filteredArticlesBySearchTerm = articles.filter(article => {
+        return article.webTitle.toLowerCase().includes(searchTerm)
       })
       return filteredArticlesBySearchTerm
     },
-    filterArticlesByCategory(articles) {
-      const filteredArticlesByCategory = articles.filter(article => {
-        return article.sectionId.toLowerCase() === this.selectedCategory
+    filterArticlesByCategory(articles, category) {
+      let filteredArticlesByCategory = articles.filter(article => {
+        return article.sectionId.toLowerCase() === category
       })
       return filteredArticlesByCategory
     },
