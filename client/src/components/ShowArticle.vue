@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div v-if="articleToShow" class="">
     <h2> {{articleToShow.webTitle}} </h2>
     <p v-html="articleToShow.fields.body"></p>
   </div>

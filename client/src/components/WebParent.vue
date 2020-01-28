@@ -44,7 +44,7 @@ export default {
       savedReadingListItems: [],
 
       selectedArticle: null,
-      articleToShow: {},
+      articleToShow: null,
 
       searchTerm: "",
       selectedCategory: "allSections",
@@ -90,7 +90,7 @@ export default {
     })
 
     eventBus.$on('category-filter-change', category => {
-        this.selectedCategory = category
+      this.selectedCategory = category
     })
 
     // refactor eventbus, put the sets into function that can be called in the header
@@ -113,26 +113,6 @@ export default {
 
     })
 
-    eventBus.$on('reading-list-button-clicked', item => {
-      // this.toggleReadingList()
-      this.articleFormActive = false
-      this.sourceActive = false
-      this.readingListActive = true
-      this.showArticleActive = false
-
-      console.log("articleform:",this.articleFormActive);
-      console.log("sourceActive:",this.sourceActive);
-      console.log("readingListActive:",this.readingListActive);
-      console.log("showArticleActive:",this.showArticleActive);
-
-      this.selectedHeader = "readingList"
-    })
-
-    eventBus.$on('remove-article', item => {
-      const indexOfDeleted = this.savedReadingListItems.indexOf(item)
-      this.savedReadingListItems.splice(indexOfDeleted, 1)
-    })
-
     eventBus.$on('toggle-show-article', item => {
       this.selectedArticle = item
       this.fetchArticle()
@@ -140,7 +120,10 @@ export default {
       this.selectedHeader = "readingList"
     })
 
-
+    eventBus.$on('remove-article', item => {
+      const indexOfDeleted = this.savedReadingListItems.indexOf(item)
+      this.savedReadingListItems.splice(indexOfDeleted, 1)
+    })
   },
   methods: {
     fetchAllArticles(arrayOfCategories) {
@@ -152,9 +135,9 @@ export default {
       })
 
       Promise.all(promises)
-        .then(sections => {
-          this.sections = Object.keys(this.articles);
-        });
+      .then(sections => {
+        this.sections = Object.keys(this.articles);
+      });
     },
     fetchReadingList() {
       NewsService.getArticles()
@@ -164,6 +147,7 @@ export default {
       if (this.selectedArticle) {
         fetch_assistant.getArticle(this.selectedArticle.apiUrl)
         .then(res => this.articleToShow = res)
+        .catch(console.error)
       }
     },
     // fetchSections() {

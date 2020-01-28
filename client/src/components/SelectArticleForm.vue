@@ -9,7 +9,7 @@
       <h2>{{ section }}</h2>
       <section class="card"  >
         <div class="card--content" v-for="article in localArticles[section]">
-          <h3>{{ article.webTitle }}</h3>
+          <h3 v-on:click="handleShowArticle(article)" >{{ article.webTitle }}</h3>
           <label for="">Select:</label>
           <input type="checkbox" name="" :value="article" v-model="checkedArticles">
         </div>
@@ -50,6 +50,9 @@ export default {
       else {
         return "inactive"
       }
+    },
+    handleShowArticle(item){
+      eventBus.$emit('toggle-show-article', item)
     }
   }
 }
