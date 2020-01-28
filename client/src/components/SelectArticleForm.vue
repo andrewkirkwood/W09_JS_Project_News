@@ -70,7 +70,13 @@
           this.cardOver = false
         },
         addToCheckedArticles(article) {
-          this.checkedArticles.push(article)
+          if(this.checkedArticles.includes(article)) {
+            let indexOfArticleIncluded = this.checkedArticles.indexOf(article)
+            this.checkedArticles.splice(indexOfArticleIncluded, 1)
+          }
+          else {
+            this.checkedArticles.push(article)
+          }
         },
         contentCardClass(article) {
           if (this.checkedArticles.includes(article)) {
