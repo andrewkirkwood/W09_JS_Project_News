@@ -7,6 +7,21 @@ export default {
     .then(res => res.json())
   },
   postArticles(payload) {
+    payload.title = payload.webTitle || payload.title;
+    delete payload.webTitle;
+
+    payload.section = payload.sectionId || payload.section;
+    delete payload.sectionId;
+
+
+    if (!payload.source) {
+      payload.source = "guardian"
+    }
+    else if (payload.source) {
+      payload.source = "nyt"
+    }
+    // payload.source = (!payload.source) ? "guardian" : "nyt";
+
     return fetch(baseURL, {
       method: 'POST',
       body: JSON.stringify(payload),

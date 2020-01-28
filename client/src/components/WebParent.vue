@@ -26,7 +26,6 @@
 <script>
 import {eventBus} from '../main'
 import NewsService from '../services/NewsService.js'
-// var fetch_assistant = require(`../services/fetch_assistant_${this.sourceSelected}`);
 
 import fetch_assistant_guardian from '../services/fetch_assistant_guardian'
 import fetch_assistant_nyt from '../services/fetch_assistant_nyt'
@@ -54,14 +53,11 @@ export default {
       selectedHeader: "readingList",
       sections: null,
       sourceSelected: "guardian",
-      fetchFileSelected: null,
       title: ""
     }
   },
   computed: {
-    //   fetchFileSelected: function () {
-    //     const fetch_assistant = `fetch_assistant${this.sourceSelected}`
-    //   },
+
     selectTitleProperty: function() {
       if (this.sourceSelected === 'nyt') {
         return this.title = "title"
@@ -72,7 +68,9 @@ export default {
     },
     filteredArticles: function () {
       const foundArticles = this.savedReadingListItems.filter(article => {
-        return article.webTitle.toLowerCase().includes(this.searchTerm)
+        const title = article.webTitle || article.title;
+        return title.toLowerCase().includes(this.searchTerm)
+        // return article.webTitle.toLowerCase().includes(this.searchTerm)
       })
       return foundArticles
     }
@@ -104,7 +102,7 @@ export default {
       eventBus.$on('toggle-select-article-form', source => {
         this.sourceSelected = source
         this.fetchAllArticles(this.allSections, source)
-        this.toggleSelectArticleForm(source)
+        this.toggleSelectArticleForm()
         this.selectedHeader = "addNewArticle"
       })
 
@@ -122,7 +120,8 @@ export default {
 
       eventBus.$on('toggle-show-article', item => {
         this.selectedArticle = item
-        this.fetchArticle()
+        console.log(item.source);
+        this.fetchArticle(item.source)
         this.toggleShowArticle()
         this.selectedHeader = "readingList"
       })
@@ -130,8 +129,9 @@ export default {
     methods: {
       fetchAllArticles(arrayOfCategories, source) {
         const promises = arrayOfCategories.map(category => {
-          return this.fetchAssistant(source, category.toLowerCase())
-          // return fetch_assistant.getArticleBySection(category.toLowerCase())
+          // return this.fetchAssistant(source, category.toLowerCase())
+          return this.fetchAssistant(source).getArticleBySection(category)
+
           .then(articlesToAdd => {
             this.articles[category] = articlesToAdd;
           })
@@ -145,19 +145,23 @@ export default {
       fetchAssistant(source, category) {
         if (source === 'guardian') {
           this.sourceSelected = 'guardian'
-          return fetch_assistant_guardian.getArticleBySection(category)      }
+          return fetch_assistant_guardian
+        }
           else if (source === 'nyt') {
             this.sourceSelected = 'nyt'
-          return  fetch_assistant_nyt.getArticleBySection(category)
+            return  fetch_assistant_nyt
           }
         },
       fetchReadingList() {
         NewsService.getArticles()
         .then(res => this.savedReadingListItems = res)
       },
-      fetchArticle() {
+      fetchArticle(source) {
         if (this.selectedArticle) {
-          fetch_assistant_guardian.getArticle(this.selectedArticle.apiUrl)
+          console.log(source);
+          // TOBETESTED
+          this.fetchAssistant(source).getArticle(this.selectedArticle.apiUrl)
+          // fetch_assistant_guardian.getArticle(this.selectedArticle.apiUrl)
           .then(res => this.articleToShow = res)
         }
       },
