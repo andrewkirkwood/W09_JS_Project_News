@@ -185,11 +185,10 @@ methods: {
     return foundArticles
   },
   addNewArticles(payload) {
-    const mapOfIds = payload.map(item => item.id)
-    const mapOfExistingIds = this.savedReadingListItems.map(item => item.id)
+    // const mapOfTitles = payload.map(item => item.title || item.webTitle)
+    const mapOfExistingTitles = this.savedReadingListItems.map(item => item.title)
     const newItems = payload.filter(item =>
-      !mapOfExistingIds.includes(item.id)
-    )
+      !mapOfExistingTitles.includes(item.title || item.webTitle))
 
     newItems.forEach(item => this.savedReadingListItems.push(item) )
     newItems.forEach(item => NewsService.postArticles(item))
