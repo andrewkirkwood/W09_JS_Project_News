@@ -1,15 +1,8 @@
 <template lang="html">
   <div id="news-nav">
     <div class="topnav">
-      <!-- <select >
-        <option value="business">Business</option>
-        <option value="world">World News</option>
-        <option value="uk">UK News</option>
-        <option value="tech">Tech News</option>
-        <option value="min-of-baz">Inside The Mind Of Baz</option>
-      </select> -->
       <form v-on:submit.prevent>
-        <input type="text" v-model="search" placeholder="Search">
+        <input class="search" type="text" v-model="search" placeholder="Search">
       </form>
       <button class="plus-button" type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
       <button class="plus-button" type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
@@ -49,8 +42,9 @@ export default {
 /* Add a black background color to the top navigation bar */
 .topnav {
   overflow: hidden;
-  background-color: #45B097;
+  background-color: #447EC0;
   height: 100px;
+  border-radius: 15px;
 }
 
 /* Style the links inside the navigation bar */
@@ -95,12 +89,11 @@ button {
 
 .plus:hover {
   background-color: #BBE8B3;
-
 }
 
 .plus {
   height: 60px;
-  border-radius: 18px;
+  border-radius: 15px;
 }
 
 .plus-button {
@@ -113,7 +106,10 @@ button {
   margin-right: 16px;
   margin-left: 20px;
   border: 8px solid black;
+}
 
+.search {
+  border-radius: 15px;
 }
 
 

@@ -1,10 +1,11 @@
 <template lang="">
   <div id="reading-list">
+    <link href="https://fonts.googleapis.com/css?family=IM+Fell+English" rel="stylesheet">
 
     <div class="reading-list">
 
 
-      <h2>Reading List</h2>
+      <h2>reading list</h2>
 
       <section class="card" >
         <div class="card--content" v-for="item in filteredArticles">
@@ -56,6 +57,13 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  font-family: 'IM Fell English', serif;
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 2px 5px 2px 5px;
+}
+
 p {
   max-height: 90px;
   overflow: hidden;
@@ -71,7 +79,10 @@ p {
 }
 
 .card {
-  border: 5px solid #9F9FED;
+  background-color: #898989;
+  border: 5px solid #898989;
+  border-radius: 15px;
+  padding: 10px 2px 10px 2px;
   min-height: 500px;
   display: flex;
   flex-wrap: wrap;
@@ -81,7 +92,7 @@ p {
 
 .card--content {
   border-radius: 25px;
-  background-color: #F2DFD7;
+  background-color: #C9C8C8;
   min-width: 200px;
   max-width: 200px;
   margin: 5px;
