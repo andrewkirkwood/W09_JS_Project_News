@@ -119,10 +119,6 @@ export default {
       const promises = arrayOfCategories.map(category => {
         return fetch_assistant.getArticleBySection(category.toLowerCase())
         .then(articlesToAdd => {
-          // let articlesByCategory = {}
-          // articlesByCategory[`${category}`] = this.articles.concat(articlesToAdd)
-          // console.log("article by cat", articlesByCategory )
-          // this.articles.push(articlesByCategory)
           this.articles[category] = articlesToAdd;
         })
       })

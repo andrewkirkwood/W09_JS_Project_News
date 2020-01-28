@@ -6,7 +6,6 @@
     <!-- <section class="card" v-for="articlesInCategory, category in articles" > -->
 
     <section class="card" v-for="section in localSections" >
-      <!-- <div class="card--content" > -->
       <div class="card--content" v-for="article in localArticles[section]">
         <h3>{{ article.webTitle }}</h3>
         <label for="">Select:</label>
@@ -31,24 +30,7 @@ export default {
     }
   },
   props: ['articles', 'sections'],
-  watch: {
-    articles: function() {
-      this.localArticles = this.articles
-    },
-    sections: function() {
-      this.localSections = this.sections
-    }
-  },
-  // computed: {
-  //   categories() {
-  //     // console.log("keys length", Object.keys(this.localArticles).length);
-  //
-  //     // if (Object.keys(this.localArticles).length > 0) {
-  //       // console.log("how many time is that called inside if", Object.keys(this.localArticles));
-  //        Object.keys(this.localArticles)
-  //     // }
-  //   }
-  // },
+
   methods: {
     handleSubmit() {
       event.preventDefault()
