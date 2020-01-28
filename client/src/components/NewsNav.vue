@@ -1,8 +1,12 @@
 <template lang="html">
   <div id="news-nav">
     <div class="topnav">
+      <select v-model="selectedSection" v-on:change="handleCategorySelection">
+        <option value="allSections" >All categories...</option>
+        <option v-for="section in allSections" :value="section">{{section}}</option>
+      </select>
       <form v-on:submit.prevent>
-        <input class="search" type="text" v-model="search" placeholder="Search">
+        <input  type="text" v-model="search" placeholder="Search">
       </form>
       <button class="plus-button" type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
       <button class="plus-button" type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
@@ -18,15 +22,26 @@ export default {
   name: 'news-nav',
   data(){
     return {
-      search: ""
+      search: "",
+      selectedSection: ""
     }
   },
+  props: ['allSections'],
   methods: {
     handleAdd(){
       eventBus.$emit('toggle-select-source')
     },
     handleRead(){
       eventBus.$emit('reading-list-button-clicked', [])
+    },
+    handleCategorySelection() {
+      if(this.selectedSection !== "" ){
+        console.log(this.selectedSection);
+        eventBus.$emit('category-filter-change', this.selectedSection)
+      }
+      else {
+        eventBus.$emit('category-filter-change', "allSections")
+      }
     }
   },
   watch: {
