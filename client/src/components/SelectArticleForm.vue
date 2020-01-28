@@ -72,7 +72,7 @@ body {
 }
 
 .card {
-  /* background-color: #fff; */
+  background-color: #E5E5E5;
   min-width: 100%;
   min-height: 200px;
   overflow-x: auto;

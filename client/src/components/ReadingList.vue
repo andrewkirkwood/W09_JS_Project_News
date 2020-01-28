@@ -79,8 +79,8 @@ p {
 }
 
 .card {
-  background-color: #898989;
-  border: 5px solid #898989;
+  background-color: #A5A5A5;
+  border: 3px solid black;
   border-radius: 15px;
   padding: 10px 2px 10px 2px;
   min-height: 500px;
@@ -92,7 +92,8 @@ p {
 
 .card--content {
   border-radius: 25px;
-  background-color: #C9C8C8;
+  background-color: #D1D2D5;
+  border: 1px solid black;
   min-width: 200px;
   max-width: 200px;
   margin: 5px;
@@ -100,7 +101,7 @@ p {
 }
 
 .card--content:hover {
-  background-color: #EBECED;
+  background-color: white;
 }
 
 button {
