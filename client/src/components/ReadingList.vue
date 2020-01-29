@@ -19,14 +19,14 @@
 
 
       <section class="card" v-if="areThereArticles">
-        <div @mouseover.self="cardMouseOver(index)" @mouseleave.self="cardMouseLeave()" :class="contentCardClass()" v-for="(item, index) in filteredArticles">
+        <div @mouseover.self="cardMouseOver(index, item)" @mouseleave.self="cardMouseLeave()" :class="contentCardClass()" v-for="(item, index) in filteredArticles">
           <h3>{{ item.title }}</h3>
           <h4>{{ item.section }}</h4>
           <h5>{{ item.source }}</h5>
 
-          <div class="hoveredNav" v-if="cardOver === index">
+          <div class="hoveredNav" v-if="cardOverIndex === index">
             <button type="button" name="button" v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png"></button>
-            <button type="button" name="button" v-on:click="handleRead(item)">Read</button>
+            <button type="button" name="button" v-on:click="handleRead(item)">{{ readButtonText }}</button>
           </div>
 
           <!-- <a :href="fetchArticleAPI"></a> -->
@@ -50,7 +50,8 @@ export default {
     return {
       search: "",
       selectedSection: "",
-      cardOver: false
+      cardOverIndex: false,
+      readButtonText: ""
 
     }
   },
@@ -69,7 +70,7 @@ export default {
     }
   },
   methods: {
-    handleDelete(item) {
+    handleDelete() {
       NewsService.deleteArticle(item._id)
       eventBus.$emit('remove-article', item)
     },
@@ -92,15 +93,18 @@ export default {
         return "card--content"
       }
     },
-    cardMouseOver(index) {
-      console.log("mouseOver start", this.cardOver);
-      this.cardOver = index
-      console.log("mouseOver end", this.cardOver);
-
+    cardMouseOver(index, item) {
+      this.cardOverIndex = index
+      if (item.source === "guardian") {
+        return this.readButtonText = "Read"
+      }
+      else {
+        return this.readButtonText = "Open"
+      }
     },
     cardMouseLeave() {
-      this.cardOver = false
-      console.log("mouseLeave", this.cardOver);
+      this.cardOverIndex = false
+      this.readButtonText = ""
 
     },
     handleRead(item) {
@@ -108,136 +112,134 @@ export default {
         eventBus.$emit('toggle-show-article', item)
       }
       else {
-        console.log(item.url);
         window.open(item.url)
       }
     }
-
   }
 }
 </script>
 
 <style lang="css" scoped>
-html,
-body {
-  width: 100%;
-  height: 100%;
-}
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+  }
 
-body {
-  background-color: #D4C1EC;
-}
+  body {
+    background-color: #D4C1EC;
+  }
 
-h1 {
-  text-align: center;
-}
+  h1 {
+    text-align: center;
+  }
 
-h2 {
-  font-family: 'IM Fell English', serif;
-  border: 2px solid black;
-  border-radius: 15px;
-  padding: 2px 5px 2px 5px;
-}
+  h2 {
+    font-family: 'IM Fell English', serif;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 2px 5px 2px 5px;
+  }
 
-p {
-  max-height: 90px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+  p {
+    max-height: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.reading-list {
-  border: 5px 5px 5px 5px solid black;
-  /* size: 100%; */
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
+  .reading-list {
+    border: 5px 5px 5px 5px solid black;
+    /* size: 100%; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 
-.card {
-  background-color: #A5A5A5;
-  border: 3px solid black;
-  border-radius: 15px;
-  padding: 10px 2px 10px 2px;
-  /* this seems to cause an issue. Commented out and delete when sure */
-  /* min-height: 500px; */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 940px;
-}
+  .card {
+    background-color: #A5A5A5;
+    border: 3px solid black;
+    border-radius: 15px;
+    padding: 10px 2px 10px 2px;
+    /* this seems to cause an issue. Commented out and delete when sure */
+    /* min-height: 500px; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 940px;
+  }
 
-.card--content {
-  border-radius: 25px;
-  background-color: #D1D2D5;
-  border: 1px solid black;
-  min-width: 200px;
-  max-width: 200px;
-  margin: 5px;
-  padding: 10px;
+  .card--content {
+    border-radius: 25px;
+    background-color: #D1D2D5;
+    border: 1px solid black;
+    min-width: 200px;
+    max-width: 200px;
+    margin: 5px;
+    padding: 10px;
 
-  min-height: 215px;
+    min-height: 215px;
 
-  /* display: flex;
-  flex-wrap: wrap;
-  align-content: space-between; */
-}
+    /* display: flex;
+    flex-wrap: wrap;
+    align-content: space-between; */
+  }
 
-.card--content:hover {
-  background-color: #CDE1F9;
-}
+  .card--content:hover {
+    background-color: #CDE1F9;
+  }
 
-button {
-  height: 20px;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
+  button {
+    height: 20px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
 
-button:last-child:hover {
-  background-color: #F79A9A;
-  filter: hue-rotate(180);
-}
+  button:last-child:hover {
+    background-color: #F79A9A;
+    filter: hue-rotate(180);
+  }
 
-.cross:hover {
-  background-color: #F79A9A;
-  filter: hue-rotate(180);
-}
+  .cross:hover {
+    background-color: #F79A9A;
+    filter: hue-rotate(180);
+  }
 
-.cross {
-  height: 20px;
-  opacity: 0.4;
-}
+  .cross {
+    height: 20px;
+    opacity: 0.4;
+  }
 
-.heading {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  justify-content: center;
-  align-items: center;
-  grid-gap: 1em;
-}
+  .heading {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 1em;
+  }
 
-form {
-  display: flex;
-  height: 2.3em;
-}
+  form {
+    display: flex;
+    height: 2.3em;
+  }
 
-select {
-  height: 3em;
-}
+  select {
+    height: 3em;
+  }
 
-h3 {
-  padding: 0 5%;
-  margin-bottom: 0;
-}
+  h3 {
+    padding: 0 5%;
+    margin-bottom: 0;
+  }
 
-.hoveredNav {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
+  .hoveredNav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 
-/*
-.selected {
-background-color: red;
+  /*
+  .selected {
+  background-color: red;
 } */
 </style>
