@@ -39,7 +39,7 @@ export default {
 /* Add a black background color to the top navigation bar */
 .topnav {
   /* overflow: hidden; */
-  background-color: #F4D7C1;
+  background-color: #F4F0ED;
   height: 5em;
   border-radius: 3px;
   display: flex;
@@ -49,36 +49,37 @@ export default {
   font-size: 3em;
   align-self: center;
   margin: 0.5em;
+  margin-right: 15em;
 }
 
 /* Style the links inside the navigation bar */
 /* .topnav a {
-  float: left;
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+float: left;
+display: block;
+color: black;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+font-size: 17px;
 } */
 
 /* Style the "active" element to highlight the current page */
 /* .topnav a.active {
-  background-color: #2196F3;
-  color: white;
+background-color: #2196F3;
+color: white;
 } */
 
 /* Style the search box inside the navigation bar */
 /* .topnav input[type=text] {
-  float: right;
-  height: 70px;
-  width: 350px;
-  vertical-align: middle;
-  border: none;
-  margin-top: 12px;
-  margin-bottom: 8px;
-  margin-right: 16px;
-  font-size: 40px;
+float: right;
+height: 70px;
+width: 350px;
+vertical-align: middle;
+border: none;
+margin-top: 12px;
+margin-bottom: 8px;
+margin-right: 16px;
+font-size: 40px;
 } */
 
 button {
@@ -104,6 +105,7 @@ button {
 #plus-button {
   font-family: 'IM Fell English', serif;
   font-size: 2em;
+  align-self: center;
   /* border-radius: 15px; */
   background-color: transparent;
   margin-top: 12px;
@@ -114,7 +116,7 @@ button {
 }
 
 /* .search {
-  border-radius: 15px;
+border-radius: 15px;
 } */
 
 
