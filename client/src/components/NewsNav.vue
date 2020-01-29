@@ -40,13 +40,15 @@ export default {
 .topnav {
   /* overflow: hidden; */
   background-color: #F4D7C1;
-  height: 100px;
+  height: 5em;
   border-radius: 3px;
   display: flex;
 }
 
 .topnav > h1 {
   font-size: 3em;
+  align-self: center;
+  margin: 0.5em;
 }
 
 /* Style the links inside the navigation bar */

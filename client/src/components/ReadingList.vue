@@ -231,7 +231,7 @@ p {
   border-top: 10px solid #FF968E;
   min-width: 230px;
   max-width: 230px;
-  margin: 5px;
+  margin: 3px;
   padding: 5px;
   min-height: 280px;
   max-height: 280px;
