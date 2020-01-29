@@ -20,7 +20,7 @@
 
       <section class="card" v-if="areThereArticles">
         <div @mouseover.self="cardMouseOver(index)" @mouseleave.self="cardMouseLeave()" :class="contentCardClass()" v-for="(item, index) in filteredArticles">
-          <h3 v-on:click="handleShowArticle(item)" >{{ item.title }}</h3>
+          <h3>{{ item.title }}</h3>
           <h4>{{ item.section }}</h4>
           <h5>{{ item.source }}</h5>
 
@@ -73,9 +73,6 @@ export default {
       NewsService.deleteArticle(item._id)
       eventBus.$emit('remove-article', item)
     },
-    handleShowArticle(item) {
-      eventBus.$emit('toggle-show-article', item)
-    },
     handleCategorySelection() {
       if(this.selectedSection !== "" ){
         console.log(this.selectedSection);
@@ -105,11 +102,17 @@ export default {
       this.cardOver = false
       console.log("mouseLeave", this.cardOver);
 
+    },
+    handleRead(item) {
+      if (item.source === "guardian") {
+        eventBus.$emit('toggle-show-article', item)
+      }
+      else {
+        console.log(item.url);
+        window.open(item.url)
+      }
     }
-    // isCardOvered() {
-    //   console.log("is card Overed true", this.cardOver === true);
-    //   return this.cardOver === true
-    // }
+
   }
 }
 </script>
@@ -220,7 +223,7 @@ form {
 }
 
 select {
-height: 3em;
+  height: 3em;
 }
 
 h3 {
@@ -235,6 +238,6 @@ h3 {
 
 /*
 .selected {
-  background-color: red;
+background-color: red;
 } */
 </style>
