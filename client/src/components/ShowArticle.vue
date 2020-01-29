@@ -22,10 +22,9 @@ export default {
 <style lang="css" scoped>
 
 article {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
-    font-size: 1.5em;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2em;
+
     margin: 2em;
     padding: 1em;
     text-align: justify;
