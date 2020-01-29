@@ -101,10 +101,10 @@ export default {
     },
     checkStatusOfArticle(article) {
       if (this.checkedArticles.includes(article)) {
-        return "unselect"
+        return "Unselect"
       }
       else {
-        return "select"
+        return "Select"
       }
     },
 
@@ -148,11 +148,7 @@ body {
 
 }
 
-button {
-  flex-grow: 1;
-  height: 30%;
 
-}
 
 .card {
   background-color: #F6C198;
@@ -170,10 +166,11 @@ button {
   min-width: 200px;
   margin: 10px;
   /* border: 1px solid black; */
-  display: flex;
-  flex-wrap: wrap;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
   align-content: space-between;
-
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .card--content:hover {
@@ -183,6 +180,7 @@ button {
 h3 {
   padding: 0 5%;
   margin-bottom: 0;
+  grid-column: 1/3;
 }
 
 .clickable {
@@ -197,8 +195,35 @@ h3 {
 .hoveredNav {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-self: center;
+  grid-column: 1/3;
+  justify-items: stretch;
+  align-items: center;
+  align-self: stretch;
 }
 
+button {
+  height: 20px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+
+}
+/* button {
+  height: 30%;
+
+} */
+
+.hoveredNav > button:hover {
+  background-color: #F6C198;
+  filter: hue-rotate(180);
+}
 
 .selected {
   border: solid #65abff thick;

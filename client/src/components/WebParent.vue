@@ -115,7 +115,7 @@ mounted() {
 
   eventBus.$on('toggle-show-article', item => {
     this.selectedArticle = item
-    this.fetchArticle(this.sourceSelected || item.source)
+    this.fetchArticleGuardian()
     this.toggleShowArticle()
     this.selectedHeader = "readingList"
   })
@@ -154,9 +154,9 @@ methods: {
     NewsService.getArticles()
     .then(res => this.savedReadingListItems = res)
   },
-  fetchArticle(source) {
+  fetchArticleGuardian() {
     if (this.selectedArticle) {
-      this.fetchAssistant(source).getArticle(this.selectedArticle.apiUrl)
+      this.fetchAssistant("guardian").getArticle(this.selectedArticle.apiUrl)
       // fetch_assistant_guardian.getArticle(this.selectedArticle.apiUrl)
       .then(res => this.articleToShow = res)
     }

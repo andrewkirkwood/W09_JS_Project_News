@@ -113,11 +113,12 @@ export default {
 
     },
     handleRead(item) {
+      debugger
       if (item.source === "guardian") {
         eventBus.$emit('toggle-show-article', item)
       }
       else {
-        window.open(item.webUrl)
+        window.open(item.url)
       }
     }
   }
@@ -180,7 +181,7 @@ p {
 
 .card--content {
   border-radius: 25px;
-  background-color: #D1D2D5;
+  background-color: ghostwhite;
   border: 1px solid black;
   min-width: 200px;
   max-width: 200px;
@@ -207,15 +208,16 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+
 }
 
-button:last-child:hover {
-  background-color: #F79A9A;
-  filter: hue-rotate(180);
+button:hover {
+  background-color: #F6C198;
 }
+
 
 .cross:hover {
-  background-color: #F79A9A;
   filter: hue-rotate(180);
 }
 
@@ -252,8 +254,10 @@ select {
   grid-column: 1/3;
   justify-items: stretch;
   align-items: center;
-  align-self: stretch;
+  align-self: end;
+  margin-bottom: 10%;
 }
+
 
 header {
   display: grid;
