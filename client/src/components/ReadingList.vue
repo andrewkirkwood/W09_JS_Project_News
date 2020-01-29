@@ -113,7 +113,6 @@ export default {
 
     },
     handleRead(item) {
-      debugger
       if (item.source === "guardian") {
         eventBus.$emit('toggle-show-article', item)
       }
