@@ -181,8 +181,8 @@ p {
 
 .card--content {
   border-radius: 25px;
-  background-color: #D1D2D5;
-  border: 1px solid black;
+  background-color: white;
+  /* border: 1px solid black; */
   min-width: 200px;
   max-width: 200px;
   margin: 5px;
