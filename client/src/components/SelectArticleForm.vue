@@ -56,7 +56,10 @@ export default {
     handleSubmit() {
       event.preventDefault()
       if (this.checkedArticles.length > 0) {
-        this.checkedArticles.forEach(item => item.section = item.section.toLowerCase())
+        if (this.sourceSelected === "nyt") {
+          this.checkedArticles.forEach(item => item.section = item.section.toLowerCase())
+        }
+
         eventBus.$emit('toggle-reading-list', this.checkedArticles)
         this.checkedArticles = []
       }
