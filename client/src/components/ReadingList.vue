@@ -21,13 +21,17 @@
 
       <section class="card" v-if="areThereArticles">
         <div @mouseover.self="cardMouseOver(index, item)" @mouseleave.self="cardMouseLeave()" :class="contentCardClass()" v-for="(item, index) in filteredArticles">
+          <header>
+            <h5>{{ item.source }}</h5>
+            <h4>{{ item.section }}</h4>
+          </header>
           <h3>{{ item.title }}</h3>
-          <h4>{{ item.section }}</h4>
-          <h5>{{ item.source }}</h5>
 
           <div class="hoveredNav" v-if="cardOverIndex === index">
-            <button type="button" name="button" v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png"></button>
-            <button type="button" name="button" v-on:click="handleRead(item)">{{ readButtonText }}</button>
+          <!-- <div class="hoveredNav" > -->
+            <button type="button" name="button" v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png">Remove</button>
+            <button type="button" name="button" v-on:click="handleRead(item)"><img class="cross" src="../assets/view.svg"> {{readButtonText}}</button>
+
           </div>
 
           <!-- <a :href="fetchArticleAPI"></a> -->
@@ -71,7 +75,7 @@ export default {
     }
   },
   methods: {
-    handleDelete() {
+    handleDelete(item) {
       NewsService.deleteArticle(item._id)
       eventBus.$emit('remove-article', item)
     },
@@ -113,7 +117,7 @@ export default {
         eventBus.$emit('toggle-show-article', item)
       }
       else {
-        window.open(item.url)
+        window.open(item.webUrl)
       }
     }
   }
@@ -121,19 +125,19 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  html,
-  body {
-    width: 100%;
-    height: 100%;
-  }
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
 
-  body {
-    background-color: #D4C1EC;
-  }
+body {
+  background-color: #D4C1EC;
+}
 
-  h1 {
-    text-align: center;
-  }
+h1 {
+  text-align: center;
+}
 
   h2 {
     border: 2px solid black;
@@ -141,105 +145,128 @@ export default {
     padding: 2px 5px 2px 5px;
   }
 
-  p {
-    max-height: 90px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+h3 {
+  padding: 0 5%;
+  margin-bottom: 0;
+  grid-column: 1/3;
+}
 
-  .reading-list {
-    border: 5px 5px 5px 5px solid black;
-    /* size: 100%; */
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
+p {
+  max-height: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-  .card {
-    background-color: #F6C198;
-    /* border: 3px solid black; */
-    border-radius: 15px;
-    padding: 10px 2px 10px 2px;
-    /* this seems to cause an issue. Commented out and delete when sure */
-    /* min-height: 500px; */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 940px;
-  }
+.reading-list {
+  border: 5px 5px 5px 5px solid black;
+  /* size: 100%; */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
-  .card--content {
-    border-radius: 25px;
-    background-color: white;
-    /* border: 1px solid black; */
-    min-width: 200px;
-    max-width: 200px;
-    margin: 5px;
-    padding: 10px;
+.card {
+  background-color: #F6C198;
+  /* border: 3px solid black; */
+  border-radius: 15px;
+  padding: 10px 2px 10px 2px;
+  /* this seems to cause an issue. Commented out and delete when sure */
+  /* min-height: 500px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 940px;
+}
 
-    min-height: 215px;
+.card--content {
+  border-radius: 25px;
+  background-color: #D1D2D5;
+  border: 1px solid black;
+  min-width: 200px;
+  max-width: 200px;
+  margin: 5px;
+  padding: 10px;
+  min-height: 215px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 30px auto 1fr;
+  justify-items: center;
+}
 
-    /* display: flex;
-    flex-wrap: wrap;
-    align-content: space-between; */
-  }
+.card--content:hover {
+  background-color: #CDE1F9;
+}
 
-  .card--content:hover {
-    background-color: #CDE1F9;
-  }
+button {
+  height: 20px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-  button {
-    height: 20px;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-  }
+button:last-child:hover {
+  background-color: #F79A9A;
+  filter: hue-rotate(180);
+}
 
-  button:last-child:hover {
-    background-color: #F79A9A;
-    filter: hue-rotate(180);
-  }
+.cross:hover {
+  background-color: #F79A9A;
+  filter: hue-rotate(180);
+}
 
-  .cross:hover {
-    background-color: #F79A9A;
-    filter: hue-rotate(180);
-  }
+.cross {
+  box-sizing: border-box;
+  height: 25px;
+  opacity: 0.4;
+  padding: 3%;
 
-  .cross {
-    height: 20px;
-    opacity: 0.4;
-  }
+}
 
-  .heading {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-content: center;
-    align-items: center;
-    grid-gap: 1em;
-  }
+.heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 1em;
+}
 
-  form {
-    display: flex;
-    height: 2.3em;
-  }
+form {
+  display: flex;
+  height: 2.3em;
+}
 
-  select {
-    height: 3em;
-  }
+select {
+  height: 3em;
+}
 
-  h3 {
-    padding: 0 5%;
-    margin-bottom: 0;
-  }
 
-  .hoveredNav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
+.hoveredNav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-self: center;
+  grid-column: 1/3;
+  justify-items: stretch;
+  align-items: center;
+  align-self: stretch;
+}
 
-  /*
-  .selected {
-  background-color: red;
+header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  grid-column: 1/3;
+
+}
+
+
+
+/*
+.selected {
+background-color: red;
 } */
 </style>

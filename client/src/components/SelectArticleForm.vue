@@ -3,14 +3,21 @@
     <!-- each card is a container for the articles of a section -->
     <h1 class="heading" v-if="sourceSelected === 'guardian' " >Guardian</h1>
     <h1 class="heading" v-if="sourceSelected === 'nyt' " >New York Times</h1>
-      <input id="save_all_items" type="submit" name="button" value="Save selected Articles" :class="isClickable()" v-on:click="handleSubmit()" ></input>
+    <input type="submit" name="button" value="Save selected Articles" :class="isClickable()" v-on:click="handleSubmit()" ></input>
 
     <div class="sections" v-for="section in localSections" >
       <h2>{{ section }}</h2>
       <section class="card"  >
         <div  :class="contentCardClass(article)" v-for="(article, index) in localArticles[section]" @mouseover.self="cardMouseOver(section + index)" @mouseleave.self="cardMouseLeave">
-          <h3 v-on:click="handleShowArticle(article)">{{ article[`${localTitle}`] }}</h3>
-          <button v-if="cardOver === section + index" :value="article" v-on:click="addToCheckedArticles(article)" type="button" name="select" value="select">{{checkStatusOfArticle(article)}}</button>
+          <h3 >{{ article[`${localTitle}`] }}</h3>
+
+          <div class="hoveredNav" v-if="cardOver === section + index">
+            <button  :value="article" v-on:click="addToCheckedArticles(article)" type="button" name="select" value="select">{{checkStatusOfArticle(article)}}</button>
+
+            <button type="button" name="button" v-on:click="handleShowArticle(article)" :value="article">Read</button>
+          </div>
+
+
         </div>
       </section>
     </div>
@@ -62,10 +69,14 @@ export default {
       }
     },
     handleShowArticle(item){
-      eventBus.$emit('toggle-show-article', item)
+      if (this.sourceSelected === "guardian") {
+        eventBus.$emit('toggle-show-article', item)
+      }
+      else {
+        window.open(item.url)
+      }
     },
     cardMouseOver(index) {
-      console.log("what is index?", index);
       this.cardOver = index
     },
     cardMouseLeave() {
@@ -94,6 +105,15 @@ export default {
       }
       else {
         return "select"
+      }
+    },
+
+    handleRead(item) {
+      if (this.sourceSelected === "guardian") {
+        eventBus.$emit('toggle-show-article', item)
+      }
+      else {
+        window.open(item.url)
       }
     }
   }
@@ -173,6 +193,12 @@ h3 {
 .inactive {
   display: none;
 }
+
+.hoveredNav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 
 .selected {
   border: solid #65abff thick;
