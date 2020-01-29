@@ -115,7 +115,7 @@ mounted() {
 
   eventBus.$on('toggle-show-article', item => {
     this.selectedArticle = item
-    this.fetchArticle(item.source)
+    this.fetchArticle(this.sourceSelected || item.source)
     this.toggleShowArticle()
     this.selectedHeader = "readingList"
   })
