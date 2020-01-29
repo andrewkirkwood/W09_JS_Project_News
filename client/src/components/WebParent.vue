@@ -13,13 +13,13 @@
 <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
 
 <!-- <news-nav :allSections="allSections"></news-nav> -->
-<news-nav :articleFormActive="articleFormActive" :readingListActive="readingListActive" :sourceActive="sourceActive" ></news-nav>
+<news-nav :articleFormActive="articleFormActive" :readingListActive="readingListActive" :sourceActive="sourceActive" :showArticleActive="showArticleActive" ></news-nav>
 
 
 <!-- <select-article-form v-if="articleFormActive"  :articles="articles" :sections="sections"/> -->
 
 <!-- <select-article-form v-if="sections" :articles="articles" :sections="sections" :title='title'/> -->
-<select-article-form v-if="articleFormActive" :articles="articles" :sections="sections" :title='title'/>
+<select-article-form v-if="articleFormActive" :sourceSelected="sourceSelected" :articles="articles" :sections="sections" :title='title'/>
 <source-select v-if="sourceActive"/>
 <reading-list v-if="readingListActive" :filteredArticles="filteredArticles" :allSections="allSections"/>
 <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
@@ -53,15 +53,11 @@ export default {
       searchTerm: "",
       selectedCategory: "allSections",
 
-
-      allSections: ["business", "technology"],
-      selectedHeader: "readingList",
-
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
       showArticleActive: false,
-      allSections: ["business", "technology"],
+      allSections: ["business", "technology", "food", "world", "travel"],
       selectedHeader: "readingList",
       sections: null,
       sourceSelected: "guardian",

@@ -1,0 +1,19 @@
+.left-arrow {
+  height: 200px;
+  align-self: center;
+  z-index: 3;
+  position: absolute;
+  left: 0px;
+  background: #A5A5A5;
+  opacity: 85%;
+}
+
+.right-arrow {
+  height: 200px;
+  align-self: center;
+  z-index: 3;
+  position: absolute;
+  right: 0px;
+  background: #A5A5A5;
+  opacity: 85%;
+}
