@@ -19,12 +19,16 @@
 
 
       <section class="card" v-if="areThereArticles">
-        <div class="card--content" v-for="item in filteredArticles">
-          <h3 v-on:click="handleShowArticle(item)" >{{ item.title }}</h3>
+        <div @mouseover.self="cardMouseOver(index)" @mouseleave.self="cardMouseLeave()" :class="contentCardClass()" v-for="(item, index) in filteredArticles">
+          <h3>{{ item.title }}</h3>
           <h4>{{ item.section }}</h4>
           <h5>{{ item.source }}</h5>
 
-          <button type="button" name="button" v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png"></button>
+          <div class="hoveredNav" v-if="cardOver === index">
+            <button type="button" name="button" v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png"></button>
+            <button type="button" name="button" v-on:click="handleRead(item)">Read</button>
+          </div>
+
           <!-- <a :href="fetchArticleAPI"></a> -->
           <!-- <p>news and possibly an image. There will almost certainly be a headline here but mayebe not an image. A plus button will most likely be present and that will be just awesome. cqcn eqfqfv vdwfv fqsfcsq feqfq fqfqfwq fwqdfwqf fwqfwq fwqfqw fqwfq</p> -->
         </div>
@@ -45,20 +49,22 @@ export default {
   data() {
     return {
       search: "",
-      selectedSection: ""
+      selectedSection: "",
+      cardOver: false
+
     }
   },
   watch: {
     search: function() {
       eventBus.$emit("search-entered", this.search)
-    // },
-    // filteredArticles: function() {
-    //   this.filteredArticles
+      // },
+      // filteredArticles: function() {
+      //   this.filteredArticles
     }
   },
   computed: {
     areThereArticles: function () {
-        return this.filteredArticles.length !== 0
+      return this.filteredArticles.length !== 0
       console.log(this.filteredArticles.length !== 0);
     }
   },
@@ -66,9 +72,6 @@ export default {
     handleDelete(item) {
       NewsService.deleteArticle(item._id)
       eventBus.$emit('remove-article', item)
-    },
-    handleShowArticle(item) {
-      eventBus.$emit('toggle-show-article', item)
     },
     handleCategorySelection() {
       if(this.selectedSection !== "" ){
@@ -78,7 +81,38 @@ export default {
       else {
         eventBus.$emit('category-filter-change', "allSections")
       }
+    },
+    contentCardClass() {
+      // if cardover = true --> class is hovered more things are shown
+      // else
+      if (this.cardover) {
+        return "card--content selected"
+      }
+      else {
+        return "card--content"
+      }
+    },
+    cardMouseOver(index) {
+      console.log("mouseOver start", this.cardOver);
+      this.cardOver = index
+      console.log("mouseOver end", this.cardOver);
+
+    },
+    cardMouseLeave() {
+      this.cardOver = false
+      console.log("mouseLeave", this.cardOver);
+
+    },
+    handleRead(item) {
+      if (item.source === "guardian") {
+        eventBus.$emit('toggle-show-article', item)
+      }
+      else {
+        console.log(item.url);
+        window.open(item.url)
+      }
     }
+
   }
 }
 </script>
@@ -140,6 +174,12 @@ p {
   max-width: 200px;
   margin: 5px;
   padding: 10px;
+
+  min-height: 215px;
+
+  /* display: flex;
+  flex-wrap: wrap;
+  align-content: space-between; */
 }
 
 .card--content:hover {
@@ -154,9 +194,14 @@ button {
   cursor: pointer;
 }
 
+button:last-child:hover {
+  background-color: #F79A9A;
+  filter: hue-rotate(180);
+}
+
 .cross:hover {
-background-color: #F79A9A;
-filter: hue-rotate(180);
+  background-color: #F79A9A;
+  filter: hue-rotate(180);
 }
 
 .cross {
@@ -180,4 +225,19 @@ form {
 select {
   height: 3em;
 }
+
+h3 {
+  padding: 0 5%;
+  margin-bottom: 0;
+}
+
+.hoveredNav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/*
+.selected {
+background-color: red;
+} */
 </style>
