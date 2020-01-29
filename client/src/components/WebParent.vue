@@ -54,14 +54,14 @@ export default {
       selectedCategory: "allSections",
 
 
-      allSections: ["business", "science"],
+      allSections: ["business", "technology"],
       selectedHeader: "readingList",
 
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
       showArticleActive: false,
-      allSections: ["business", "science"],
+      allSections: ["business", "technology"],
       selectedHeader: "readingList",
       sections: null,
       sourceSelected: "guardian",
