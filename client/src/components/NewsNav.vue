@@ -1,13 +1,6 @@
 <template lang="html">
   <div id="news-nav">
     <div class="topnav">
-      <!-- <select v-model="selectedSection" v-on:change="handleCategorySelection">
-        <option value="allSections" >All categories...</option>
-        <option v-for="section in allSections" :value="section">{{section}}</option>
-      </select> -->
-      <!-- <form v-on:submit.prevent>
-        <input  type="text" v-model="search" placeholder="Search">
-      </form> -->
       <button id="plus-button" :style='{"background-color" : (readingListActive? "#ACDCE5" : "transparent")}' type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
       <button id="plus-button" :style='{"background-color" : (sourceActive || articleFormActive? "#ACDCE5" : "transparent")}' type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
     </div>
@@ -23,7 +16,6 @@ export default {
   data(){
     return {
       // search: "",
-      selectedSection: ""
     }
   },
 

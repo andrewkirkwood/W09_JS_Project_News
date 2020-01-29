@@ -5,6 +5,7 @@
     <div class="reading-list">
       <div class="heading">
         <h2>reading list</h2>
+        <!-- <select  v-on:change="handleCategorySelection"> -->
 
         <select v-model="selectedSection" v-on:change="handleCategorySelection">
           <option value="allSections" >All categories...</option>
