@@ -221,7 +221,7 @@ button {
 } */
 
 .hoveredNav > button:hover {
-  background-color: #F79A9A;
+  background-color: #F6C198;
   filter: hue-rotate(180);
 }
 
