@@ -23,7 +23,7 @@
         <div @mouseover.self="cardMouseOver(index, item)" @mouseleave.self="cardMouseLeave()" :class="contentCardClass()" v-for="(item, index) in filteredArticles">
           <header>
             <h5>{{ itemSource(item) }}</h5>
-            <h4>{{ item.section }}</h4>
+            <h5>{{ item.section }}</h5>
           </header>
           <h3>{{ item.title }}</h3>
 
