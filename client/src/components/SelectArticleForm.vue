@@ -220,7 +220,7 @@ button {
 
 } */
 
-button:last-child:hover {
+.hoveredNav > button:hover {
   background-color: #F79A9A;
   filter: hue-rotate(180);
 }
