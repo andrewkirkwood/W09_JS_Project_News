@@ -7,4 +7,5 @@ export default {
       .then(response => response.json())
       .then(data => data.results)
   }
+// getArticle(this.selectedArticle.apiUrl)
 }

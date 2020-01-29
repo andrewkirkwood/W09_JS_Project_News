@@ -5,6 +5,7 @@
     <div class="reading-list">
       <div class="heading">
         <h2>reading list</h2>
+        <!-- <select  v-on:change="handleCategorySelection"> -->
 
         <select v-model="selectedSection" v-on:change="handleCategorySelection">
           <option value="allSections" >All categories...</option>
@@ -43,7 +44,9 @@ export default {
   props: ['filteredArticles', 'allSections'],
   data() {
     return {
-      search: ""
+      search: "",
+      selectedSection: ""
+
     }
   },
   watch: {
@@ -163,7 +166,7 @@ filter: hue-rotate(180);
 
 form {
   display: flex;
-  height: 2.3em;  
+  height: 2.3em;
 }
 
 select {
