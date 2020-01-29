@@ -27,8 +27,8 @@
           </header>
           <h3>{{ item.title }}</h3>
 
-          <!-- <div class="hoveredNav" v-if="cardOverIndex === index"> -->
-          <div class="hoveredNav" >
+          <div class="hoveredNav" v-if="cardOverIndex === index">
+          <!-- <div class="hoveredNav" > -->
             <button type="button" name="button" v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png">Remove</button>
             <button type="button" name="button" v-on:click="handleRead(item)"><img class="cross" src="../assets/view.svg"> {{readButtonText}}</button>
 
