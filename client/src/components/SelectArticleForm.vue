@@ -125,7 +125,6 @@ export default {
 body {
   width: 100%;
   height: 100%;
-  background-color: #8e44ad;
   margin: 0;
   display: flex;
   justify-content: center;
@@ -142,6 +141,10 @@ body {
 .heading {
   text-align: center;
   margin-bottom: 0;
+}
+
+#save_all_items {
+  height: 70%;
 
 }
 
@@ -152,20 +155,21 @@ button {
 }
 
 .card {
-  background-color: #A5A5A5;
+  background-color: #F6C198;
   min-width: 100%;
   min-height: 200px;
   overflow-x: auto;
-  display: flex
+  display: flex;
+  border-radius: 15px;
 }
 
 .card--content {
   padding: 5px;
   border-radius: 15px;
-  background-color: #D1D2D5;
+  background-color: white;
   min-width: 200px;
-  margin: 5px;
-  border: 1px solid black;
+  margin: 10px;
+  /* border: 1px solid black; */
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
@@ -199,6 +203,10 @@ h3 {
 .selected {
   border: solid #65abff thick;
   background-color: #CDE1F9;
+}
 
+.sections {
+  border-radius: 15px;
+  margin: 0px 10% 0px 10%;
 }
 </style>

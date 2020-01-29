@@ -1,16 +1,17 @@
 <template lang="">
   <div id="reading-list">
-    <link href="https://fonts.googleapis.com/css?family=IM+Fell+English" rel="stylesheet">
 
     <div class="reading-list">
       <div class="heading">
-        <h2>reading list</h2>
+
         <!-- <select  v-on:change="handleCategorySelection"> -->
 
         <select v-model="selectedSection" v-on:change="handleCategorySelection">
           <option value="allSections" >All categories...</option>
           <option v-for="section in allSections" :value="section">{{section}}</option>
         </select>
+
+                <h2>reading list</h2>
 
         <form v-on:submit.prevent>
           <input  type="text" v-model="search" placeholder="Search">
@@ -139,12 +140,11 @@ h1 {
   text-align: center;
 }
 
-h2 {
-  font-family: 'IM Fell English', serif;
-  border: 2px solid black;
-  border-radius: 15px;
-  padding: 2px 5px 2px 5px;
-}
+  h2 {
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 2px 5px 2px 5px;
+  }
 
 h3 {
   padding: 0 5%;
@@ -167,8 +167,8 @@ p {
 }
 
 .card {
-  background-color: #A5A5A5;
-  border: 3px solid black;
+  background-color: #F6C198;
+  /* border: 3px solid black; */
   border-radius: 15px;
   padding: 10px 2px 10px 2px;
   /* this seems to cause an issue. Commented out and delete when sure */
