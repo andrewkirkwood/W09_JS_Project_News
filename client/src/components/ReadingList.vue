@@ -23,7 +23,7 @@
         <div @mouseover.self="cardMouseOver(index, item)" @mouseleave.self="cardMouseLeave()" :class="contentCardClass()" v-for="(item, index) in filteredArticles">
           <header>
             <h5>{{ itemSource(item) }}</h5>
-            <h5>{{ item.section }}</h5>
+            <h4 :class="item.section">{{ item.section }}</h4>
           </header>
           <h3>{{ item.title }}</h3>
 
@@ -159,6 +159,16 @@ h3 {
   grid-column: 1/3;
 }
 
+h4 {
+  justify-self: self-start;
+  font-size: 1.1em;
+}
+
+h5 {
+  justify-self: self-end;
+
+}
+
 p {
   max-height: 90px;
   overflow: hidden;
@@ -261,12 +271,31 @@ select {
   margin-bottom: 10%;
 }
 
-
 header {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   grid-column: 1/3;
-
 }
+
+.technology {
+  color: rgb(23, 148, 28)
+}
+
+.business{
+  color: rgb(26, 22, 208)
+}
+
+.food {
+  color: rgb(238, 29, 29)
+}
+
+.travel {
+  color: rgb(172, 158, 34)
+}
+
+.world {
+  color: rgb(237, 129, 17)
+}
+
 </style>
