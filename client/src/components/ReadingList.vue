@@ -5,18 +5,17 @@
       <div class="heading">
 
         <!-- <select  v-on:change="handleCategorySelection"> -->
-
         <select v-if="areThereArticles" v-model="selectedSection" v-on:change="handleCategorySelection">
-          <option value="allSections" >All categories...</option>
+          <option value="allSections" selected disabled >Select Category</option>
+          <option value="allSections"  >All Categories</option>
           <option v-for="section in allSections" :value="section">{{section}}</option>
         </select>
-
-        <h2>reading list</h2>
-
+        <h1>reading list</h1>
         <form v-if="areThereArticles" v-on:submit.prevent>
           <input  type="text" v-model="search" placeholder="Search">
         </form>
       </div>
+      <h2 v-if="!areThereArticles">You currently have no saved articles. Please go ahead and add your favourite articles.</h2>
 
 
       <section class="card" v-if="areThereArticles">
@@ -28,7 +27,7 @@
           <h3>{{ item.title }}</h3>
 
           <div class="hoveredNav" v-if="cardOverIndex === index">
-          <!-- <div class="hoveredNav" > -->
+            <!-- <div class="hoveredNav" > -->
             <a  v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png">Remove</a>
             <a  v-on:click="handleRead(item)"><img class="cross" src="../assets/view.svg"> {{readButtonText}}</a>
 
@@ -145,13 +144,20 @@ body {
 
 h1 {
   text-align: center;
-}
-
-h2 {
   border: 2px solid black;
   border-radius: 15px;
   padding: 2px 5px 2px 5px;
+  align-self: center;
+  margin-left: 1em;
+  margin-right: 1em;
+
 }
+
+/* h2 {
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 2px 5px 2px 5px;
+} */
 
 h3 {
   padding: 0 5%;
@@ -232,7 +238,7 @@ a {
 a:hover {
   background-color: #F6C198;
 
-  }
+}
 
 .cross {
   box-sizing: border-box;
@@ -243,11 +249,13 @@ a:hover {
 }
 
 .heading {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr ;
   justify-content: center;
   align-items: center;
-  grid-gap: 1em;
+  grid-gap: 1em; */
+  display: flex;
+  align-items: center;
 }
 
 form {
