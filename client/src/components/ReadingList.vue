@@ -6,14 +6,14 @@
 
         <!-- <select  v-on:change="handleCategorySelection"> -->
 
-        <select v-model="selectedSection" v-on:change="handleCategorySelection">
+        <select v-if="areThereArticles" v-model="selectedSection" v-on:change="handleCategorySelection">
           <option value="allSections" >All categories...</option>
           <option v-for="section in allSections" :value="section">{{section}}</option>
         </select>
 
         <h2>reading list</h2>
 
-        <form v-on:submit.prevent>
+        <form v-if="areThereArticles" v-on:submit.prevent>
           <input  type="text" v-model="search" placeholder="Search">
         </form>
       </div>
@@ -22,8 +22,8 @@
       <section class="card" v-if="areThereArticles">
         <div @mouseover.self="cardMouseOver(index, item)" @mouseleave.self="cardMouseLeave()" :class="contentCardClass()" v-for="(item, index) in filteredArticles">
           <header>
-            <h5>{{ item.source }}</h5>
-            <h4>{{ item.section }}</h4>
+            <h5>{{ itemSource(item) }}</h5>
+            <h5>{{ item.section }}</h5>
           </header>
           <h3>{{ item.title }}</h3>
 
@@ -50,7 +50,7 @@ import {eventBus} from '../main'
 
 export default {
   name: "reading-list",
-  props: ['filteredArticles', 'allSections'],
+  props: ['filteredArticles', 'allSections', 'savedReadingListItems'],
   data() {
     return {
       search: "",
@@ -70,8 +70,8 @@ export default {
   },
   computed: {
     areThereArticles: function () {
-      return this.filteredArticles.length !== 0
-      console.log(this.filteredArticles.length !== 0);
+      return this.savedReadingListItems.length !== 0
+      // console.log(this.filteredArticles.length !== 0);
     }
   },
   methods: {
@@ -118,6 +118,14 @@ export default {
       }
       else {
         window.open(item.url)
+      }
+    },
+    itemSource(item) {
+      if (item.source === "guardian") {
+        return "Guardian"
+      }
+      else {
+        return "New York Times"
       }
     }
   }

@@ -21,7 +21,7 @@
 <!-- <select-article-form v-if="sections" :articles="articles" :sections="sections" :title='title'/> -->
 <select-article-form v-if="articleFormActive" :sourceSelected="sourceSelected" :articles="articles" :sections="sections" :title='title'/>
 <source-select v-if="sourceActive"/>
-<reading-list v-if="readingListActive" :filteredArticles="filteredArticles" :allSections="allSections"/>
+<reading-list v-if="readingListActive" :filteredArticles="filteredArticles" :allSections="allSections" :savedReadingListItems="savedReadingListItems" />
 <show-article v-if="showArticleActive" :articleToShow="articleToShow"/>
 </div>
 
