@@ -12,7 +12,7 @@
           </select>
         </div>
 
-        <h1>reading list</h1>
+        <h1>Your saved reading list</h1>
         <form v-if="areThereArticles" v-on:submit.prevent>
           <input  type="text" v-model="search" placeholder="Search">
         </form>
@@ -24,8 +24,8 @@
         <div @mouseover.self="cardMouseOver(index, item)" @mouseleave.self="cardMouseLeave()" :class="contentCardClass()" v-for="(item, index) in filteredArticles">
           <header>
             <h5>{{ itemSource(item) }}</h5>
-            <h4 :class="item.section">{{ item.section }}</h4>
-          </header>
+            <h4 :class="item.section">{{ item.section }}</h4><br>
+          </header><br>
           <h3>{{ item.title }}</h3>
 
           <div class="hoveredNav" v-if="cardOverIndex === index">
@@ -146,8 +146,8 @@ body {
 
 h1 {
   text-align: center;
-  border: 2px solid black;
-  border-radius: 15px;
+  /* border: 2px solid black;
+  border-radius: 15px; */
   padding: 2px 5px 2px 5px;
   align-self: center;
   margin-left: 1em;
@@ -192,7 +192,7 @@ p {
 }
 
 .card {
-  background-color: #F6C198;
+  /* background-color: #F6C198ff; */
   /* border: 3px solid black; */
   border-radius: 15px;
   padding: 10px 2px 10px 2px;
@@ -201,19 +201,22 @@ p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 940px;
+  width: auto;
 }
 
 .card--content {
-  border-radius: 25px;
-  background-color: ghostwhite;
-  border: 1px solid black;
-  min-width: 200px;
-  max-width: 200px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2em;
+  border-radius: 5px;
+  background-color: #F4D7C1;
+  /* background-color: ghostwhite; */
+  border-top: 10px solid #FE5F55;
+  min-width: 230px;
+  max-width: 230px;
   margin: 5px;
-  padding: 10px;
-  min-height: 215px;
-  max-height: 215px;
+  padding: 5px;
+  min-height: 300px;
+  max-height: 300px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 30px auto 1fr;

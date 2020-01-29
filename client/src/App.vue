@@ -1,12 +1,10 @@
 <template lang="html">
   <div id="id">
     <link href="https://fonts.googleapis.com/css?family=IM+Fell+English" rel="stylesheet">
-
-    <h1>read://it</h1>
-
-
+    <!-- <h1>read://it</h1> -->
     <web-parent/>
   </div>
+
 </template>
 
 <script>
@@ -23,6 +21,7 @@ export default {
 
 h1 {
   font-family: 'IM Fell English', serif;
+
 }
 
 body {

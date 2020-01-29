@@ -142,6 +142,7 @@ body {
 .heading {
   text-align: center;
   margin-bottom: 0;
+  font-size: 2.2em;
 }
 
 #save_all_items {
@@ -161,10 +162,10 @@ body {
 }
 
 .card--content {
-  padding: 5px;
+  padding: 2px;
   border-radius: 15px;
   background-color: white;
-  min-width: 200px;
+  min-width: 230px;
   margin: 10px;
   /* border: 1px solid black; */
   /* display: flex; */
@@ -173,6 +174,12 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+.card--content > h3{
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2em;
+  text-align: left;
+}
+
 
 .card--content:hover {
   background-color: #CDE1F9;
@@ -182,6 +189,8 @@ h3 {
   padding: 0 5%;
   margin-bottom: 0;
   grid-column: 1/3;
+  font-family: 'Playfair Display', serif;
+
 }
 
 .clickable {
@@ -232,6 +241,8 @@ button {
 }
 
 .sections {
+  font-family: 'Playfair Display', serif;
+
   border-radius: 15px;
   margin: 0px 10% 0px 10%;
 }

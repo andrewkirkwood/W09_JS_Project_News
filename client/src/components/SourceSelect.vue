@@ -26,19 +26,19 @@ export default {
 <style lang="css" scoped>
 
 h1 {
-  font-size: 50px;
+  font-size: 2em;
   text-align: center;
 }
 
 li {
-  font-size: 50px;
+  font-size: 2em;
   text-align: center;
   font-family: 'IM Fell English', serif;
   list-style: none;
   cursor: pointer;
-  border: 8px solid black;
+  border: 3px solid black;
   border-radius: 15px;
-  width: 40%;
+  width: 30%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 10px
