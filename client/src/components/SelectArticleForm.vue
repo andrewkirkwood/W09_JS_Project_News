@@ -101,10 +101,10 @@ export default {
     },
     checkStatusOfArticle(article) {
       if (this.checkedArticles.includes(article)) {
-        return "unselect"
+        return "Unselect"
       }
       else {
-        return "select"
+        return "Select"
       }
     },
 
