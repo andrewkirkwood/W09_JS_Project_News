@@ -22,7 +22,7 @@
       <section class="card" v-if="areThereArticles">
         <div @mouseover.self="cardMouseOver(index, item)" @mouseleave.self="cardMouseLeave()" :class="contentCardClass()" v-for="(item, index) in filteredArticles">
           <header>
-            <h5>{{ item.source }}</h5>
+            <h5>{{ itemSource(item) }}</h5>
             <h4>{{ item.section }}</h4>
           </header>
           <h3>{{ item.title }}</h3>
@@ -118,6 +118,14 @@ export default {
       }
       else {
         window.open(item.url)
+      }
+    },
+    itemSource(item) {
+      if (item.source === "guardian") {
+        return "Guardian"
+      }
+      else {
+        return "New York Times"
       }
     }
   }
