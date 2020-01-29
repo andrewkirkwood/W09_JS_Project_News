@@ -13,7 +13,7 @@
 <!-- <pre>{{ JSON.stringify(articles, null, 2) }}</pre> -->
 
 <!-- <news-nav :allSections="allSections"></news-nav> -->
-<news-nav :articleFormActive="articleFormActive" :readingListActive="readingListActive" :sourceActive="sourceActive" ></news-nav>
+<news-nav :articleFormActive="articleFormActive" :readingListActive="readingListActive" :sourceActive="sourceActive" :showArticleActive="showArticleActive" ></news-nav>
 
 
 <!-- <select-article-form v-if="articleFormActive"  :articles="articles" :sections="sections"/> -->
