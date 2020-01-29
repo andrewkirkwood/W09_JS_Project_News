@@ -43,7 +43,8 @@ export default {
   props: ['filteredArticles', 'allSections'],
   data() {
     return {
-      search: ""
+      search: "",
+      selectedSection: ""
     }
   },
   watch: {
@@ -163,7 +164,7 @@ filter: hue-rotate(180);
 
 form {
   display: flex;
-  height: 2.3em;  
+  height: 2.3em;
 }
 
 select {

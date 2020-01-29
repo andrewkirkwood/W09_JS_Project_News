@@ -8,8 +8,8 @@
       <!-- <form v-on:submit.prevent>
         <input  type="text" v-model="search" placeholder="Search">
       </form> -->
-      <button class="plus-button" type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
-      <button class="plus-button" type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
+      <button id="plus-button" :style='{"background-color" : (readingListActive? "#ACDCE5" : "transparent")}' type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
+      <button id="plus-button" :style='{"background-color" : (sourceActive || articleFormActive? "#ACDCE5" : "transparent")}' type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
     </div>
   </div>
 
@@ -26,7 +26,8 @@ export default {
       selectedSection: ""
     }
   },
-  // props: ['allSections'],
+
+  props: ['readingListActive', 'articleFormActive', 'sourceActive'],
   methods: {
     handleAdd(){
       eventBus.$emit('toggle-select-source')
@@ -88,8 +89,9 @@ button {
   border-radius: 10px;
 }
 
-button:hover {
+#plus-button:hover {
   background-color: #CDE1F9;
+  text-align: center;
 }
 
 /* .plus:hover {
@@ -101,16 +103,15 @@ button:hover {
   border-radius: 10px;
 }
 
-.plus-button {
+#plus-button {
   font-size: 60px;
-  border: 1px solid black;
   border-radius: 15px;
   background-color: transparent;
   margin-top: 12px;
   margin-bottom: 8px;
   margin-right: 16px;
   margin-left: 20px;
-  border: 2px solid black;
+  border: 1px solid black;
 }
 
 /* .search {
