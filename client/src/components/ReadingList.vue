@@ -6,14 +6,14 @@
 
         <!-- <select  v-on:change="handleCategorySelection"> -->
 
-        <select v-model="selectedSection" v-on:change="handleCategorySelection">
+        <select v-if="areThereArticles" v-model="selectedSection" v-on:change="handleCategorySelection">
           <option value="allSections" >All categories...</option>
           <option v-for="section in allSections" :value="section">{{section}}</option>
         </select>
 
-                <h2>reading list</h2>
+        <h2>reading list</h2>
 
-        <form v-on:submit.prevent>
+        <form v-if="areThereArticles" v-on:submit.prevent>
           <input  type="text" v-model="search" placeholder="Search">
         </form>
       </div>
@@ -28,7 +28,7 @@
           <h3>{{ item.title }}</h3>
 
           <div class="hoveredNav" v-if="cardOverIndex === index">
-          <!-- <div class="hoveredNav" > -->
+            <!-- <div class="hoveredNav" > -->
             <button type="button" name="button" v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png">Remove</button>
             <button type="button" name="button" v-on:click="handleRead(item)"><img class="cross" src="../assets/view.svg"> {{readButtonText}}</button>
 
@@ -50,7 +50,7 @@ import {eventBus} from '../main'
 
 export default {
   name: "reading-list",
-  props: ['filteredArticles', 'allSections'],
+  props: ['filteredArticles', 'allSections', 'savedReadingListItems'],
   data() {
     return {
       search: "",
@@ -70,8 +70,8 @@ export default {
   },
   computed: {
     areThereArticles: function () {
-      return this.filteredArticles.length !== 0
-      console.log(this.filteredArticles.length !== 0);
+      return this.savedReadingListItems.length !== 0
+      // console.log(this.filteredArticles.length !== 0);
     }
   },
   methods: {
@@ -139,11 +139,11 @@ h1 {
   text-align: center;
 }
 
-  h2 {
-    border: 2px solid black;
-    border-radius: 15px;
-    padding: 2px 5px 2px 5px;
-  }
+h2 {
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 2px 5px 2px 5px;
+}
 
 h3 {
   padding: 0 5%;
