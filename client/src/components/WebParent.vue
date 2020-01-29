@@ -53,15 +53,11 @@ export default {
       searchTerm: "",
       selectedCategory: "allSections",
 
-
-      allSections: ["business", "science"],
-      selectedHeader: "readingList",
-
       sourceActive: false,
       articleFormActive: false,
       readingListActive: true,
       showArticleActive: false,
-      allSections: ["business", "science"],
+      allSections: ["business", "technology", "food", "world", "travel"],
       selectedHeader: "readingList",
       sections: null,
       sourceSelected: "guardian",
