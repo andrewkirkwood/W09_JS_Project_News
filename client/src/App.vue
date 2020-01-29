@@ -29,7 +29,6 @@ body {
   background-color: ghostwhite;
 }
 
-
 </style>
 
 <style lang="css" scoped>

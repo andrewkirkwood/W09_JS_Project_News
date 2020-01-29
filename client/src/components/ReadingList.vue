@@ -180,7 +180,7 @@ p {
 
 .card--content {
   border-radius: 25px;
-  background-color: #D1D2D5;
+  background-color: ghostwhite;
   border: 1px solid black;
   min-width: 200px;
   max-width: 200px;
