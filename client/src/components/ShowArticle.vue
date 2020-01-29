@@ -3,7 +3,7 @@
     <article>
       <header>
       <h2>
-        {{webTitle.title}}
+        {{articleToShow.webTitle}}
       </h2>
     </header>
       <main v-html="articleToShow.fields.body">

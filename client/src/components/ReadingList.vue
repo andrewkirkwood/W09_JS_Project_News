@@ -29,8 +29,8 @@
 
           <div class="hoveredNav" v-if="cardOverIndex === index">
           <!-- <div class="hoveredNav" > -->
-            <button type="button" name="button" v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png">Remove</button>
-            <button type="button" name="button" v-on:click="handleRead(item)"><img class="cross" src="../assets/view.svg"> {{readButtonText}}</button>
+            <a  v-on:click="handleDelete(item)"><img class="cross" src="../assets/cross.png">Remove</a>
+            <a  v-on:click="handleRead(item)"><img class="cross" src="../assets/view.svg"> {{readButtonText}}</a>
 
           </div>
 
@@ -113,7 +113,6 @@ export default {
 
     },
     handleRead(item) {
-      debugger
       if (item.source === "guardian") {
         eventBus.$emit('toggle-show-article', item)
       }
@@ -188,6 +187,7 @@ p {
   margin: 5px;
   padding: 10px;
   min-height: 215px;
+  max-height: 215px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 30px auto 1fr;
@@ -198,8 +198,7 @@ p {
   background-color: #CDE1F9;
 }
 
-button {
-  height: 20px;
+a {
   background-color: transparent;
   border: none;
   outline: none;
@@ -212,20 +211,16 @@ button {
 
 }
 
-button:hover {
+a:hover {
   background-color: #F6C198;
-}
 
-
-.cross:hover {
-  filter: hue-rotate(180);
-}
+  }
 
 .cross {
   box-sizing: border-box;
   height: 25px;
   opacity: 0.4;
-  padding: 3%;
+  margin: 10%;
 
 }
 
@@ -266,11 +261,4 @@ header {
   grid-column: 1/3;
 
 }
-
-
-
-/*
-.selected {
-background-color: red;
-} */
 </style>
