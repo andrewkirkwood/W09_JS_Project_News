@@ -3,14 +3,14 @@
     <!-- each card is a container for the articles of a section -->
     <h1 class="heading" v-if="sourceSelected === 'guardian' " >Guardian</h1>
     <h1 class="heading" v-if="sourceSelected === 'nyt' " >New York Times</h1>
-    <input id="submit-button" type="submit" name="button" :class="isClickable()" v-on:click="handleSubmit()" ></input>
+      <input type="submit" name="button" value="Save selected Articles" :class="isClickable()" v-on:click="handleSubmit()" ></input>
 
     <div class="sections" v-for="section in localSections" >
       <h2>{{ section }}</h2>
       <section class="card"  >
         <div  :class="contentCardClass(article)" v-for="(article, index) in localArticles[section]" @mouseover.self="cardMouseOver(section + index)" @mouseleave.self="cardMouseLeave">
           <h3 v-on:click="handleShowArticle(article)">{{ article[`${localTitle}`] }}</h3>
-           <button v-if="cardOver === section + index" :value="article" v-on:click="addToCheckedArticles(article)" type="button" name="select">Select</button>
+          <button v-if="cardOver === section + index" :value="article" v-on:click="addToCheckedArticles(article)" type="button" name="select">Select</button>
         </div>
       </section>
     </div>
@@ -93,71 +93,78 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  body {
-    width: 100%;
-    height: 100%;
-  }
 
-  body {
-    background-color: #8e44ad;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-  }
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #8e44ad;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+}
 
-  #submit-button {
-    align-self: center;
-  }
+#select-article-form {
+  display: flex;
+  flex-direction: column;
+}
 
-  .heading {
-    text-align: center;
-  }
+.heading {
+  text-align: center;
+  margin-bottom: 0;
 
-  button {
-    flex-grow: 1;
-    height: 30%;
+}
 
-  }
+button {
+  flex-grow: 1;
+  height: 30%;
 
-  .card {
-    background-color: #A5A5A5;
-    min-width: 100%;
-    min-height: 200px;
-    overflow-x: auto;
-    display: flex
-  }
+}
 
-  .card--content {
-    padding: 5px;
-    border-radius: 15px;
-    background-color: #D1D2D5;
-    min-width: 200px;
-    margin: 5px;
-    border: 1px solid black;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: space-between;
+.card {
+  background-color: #A5A5A5;
+  min-width: 100%;
+  min-height: 200px;
+  overflow-x: auto;
+  display: flex
+}
 
-  }
+.card--content {
+  padding: 5px;
+  border-radius: 15px;
+  background-color: #D1D2D5;
+  min-width: 200px;
+  margin: 5px;
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
 
-  .card--content:hover {
-    background-color: #CDE1F9;
-  }
+}
 
-  h3 {
-    padding: 0 5%;
-    margin-bottom: 0;
-  }
-  .inactive {
-    display: none;
-  }
+.card--content:hover {
+  background-color: #CDE1F9;
+}
 
-  .selected {
-    border: solid #65abff thick;
-    background-color: #CDE1F9;
+h3 {
+  padding: 0 5%;
+  margin-bottom: 0;
+}
 
-  }
+.clickable {
+  display: flex;
+  font-size: 1.5em;
+  align-self: center;
+}
+.inactive {
+  display: none;
+}
+
+.selected {
+  border: solid #65abff thick;
+  background-color: #CDE1F9;
+
+}
 </style>
