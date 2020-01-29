@@ -146,15 +146,33 @@ body {
 
 h1 {
   text-align: center;
+  font-family: 'Playfair Display', serif;
+
   /* border: 2px solid black;
   border-radius: 15px; */
   padding: 2px 5px 2px 5px;
   align-self: center;
   margin-left: 1em;
   margin-right: 1em;
-
 }
 
+label {
+  font-size: 1.2em;
+  max-height: 1.5em;
+  margin: 0.5em;
+  align-self: center;
+}
+
+select {
+  font-size: 1.2em;
+  max-height: 1.5em;
+  align-self: center;
+
+}
+input {
+  font-size: 1.2em;
+
+}
 /* h2 {
 border: 2px solid black;
 border-radius: 15px;
@@ -210,13 +228,13 @@ p {
   border-radius: 5px;
   background-color: #F4D7C1;
   /* background-color: ghostwhite; */
-  border-top: 10px solid #FE5F55;
+  border-top: 10px solid #FF968E;
   min-width: 230px;
   max-width: 230px;
   margin: 5px;
   padding: 5px;
-  min-height: 300px;
-  max-height: 300px;
+  min-height: 280px;
+  max-height: 280px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 30px auto 1fr;
@@ -246,8 +264,8 @@ a:hover {
 }
 
 /* .category-search {
-  display: flex;
-  flex-direction: column;
+display: flex;
+flex-direction: column;
 
 } */
 .cross {

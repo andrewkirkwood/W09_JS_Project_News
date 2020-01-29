@@ -80,12 +80,13 @@ export default {
 } */
 
 button {
-  height: 80px;
+  height: 60px;
   background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
   border-radius: 10px;
+  align-self: center;
 }
 
 #plus-button:hover {
@@ -94,20 +95,20 @@ button {
 
 .plus {
   height: 1.5em;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   background-color: transparent;
 }
 
 #plus-button {
   font-family: 'IM Fell English', serif;
   font-size: 2em;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   background-color: transparent;
   margin-top: 12px;
   margin-bottom: 8px;
   margin-right: 16px;
   margin-left: 20px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }
 
 /* .search {
