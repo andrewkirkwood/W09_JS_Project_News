@@ -1,7 +1,7 @@
 <template lang="html">
   <div id="news-nav">
     <div class="topnav">
-      <button id="plus-button" :style='{"background-color" : (readingListActive? "#ACDCE5" : "transparent")}' type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
+      <button id="plus-button" :style='{"background-color" : (readingListActive || showArticleActive? "#ACDCE5" : "transparent")}' type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
       <button id="plus-button" :style='{"background-color" : (sourceActive || articleFormActive? "#ACDCE5" : "transparent")}' type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
     </div>
   </div>
@@ -19,7 +19,7 @@ export default {
     }
   },
 
-  props: ['readingListActive', 'articleFormActive', 'sourceActive'],
+  props: ['readingListActive', 'articleFormActive', 'sourceActive', 'showArticleActive'],
   methods: {
     handleAdd(){
       eventBus.$emit('toggle-select-source')
