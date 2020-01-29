@@ -4,12 +4,14 @@
     <div class="reading-list">
       <div class="heading">
 
-        <!-- <select  v-on:change="handleCategorySelection"> -->
-        <select v-if="areThereArticles" v-model="selectedSection" v-on:change="handleCategorySelection">
-          <option value="allSections" selected disabled >Select Category</option>
-          <option value="allSections"  >All Categories</option>
-          <option v-for="section in allSections" :value="section">{{section}}</option>
-        </select>
+        <div class="category-search" v-if="areThereArticles">
+          <label for="">Category</label>
+          <select  v-model="selectedSection" v-on:change="handleCategorySelection">
+            <option value="allSections"  >All Categories</option>
+            <option v-for="section in allSections" :value="section">{{section}}</option>
+          </select>
+        </div>
+
         <h1>reading list</h1>
         <form v-if="areThereArticles" v-on:submit.prevent>
           <input  type="text" v-model="search" placeholder="Search">
@@ -154,9 +156,9 @@ h1 {
 }
 
 /* h2 {
-  border: 2px solid black;
-  border-radius: 15px;
-  padding: 2px 5px 2px 5px;
+border: 2px solid black;
+border-radius: 15px;
+padding: 2px 5px 2px 5px;
 } */
 
 h3 {
@@ -240,6 +242,11 @@ a:hover {
 
 }
 
+/* .category-search {
+  display: flex;
+  flex-direction: column;
+
+} */
 .cross {
   box-sizing: border-box;
   height: 25px;
