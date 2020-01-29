@@ -18,7 +18,7 @@
       </div>
 
 
-      <section class="card" >
+      <section class="card" v-if="areThereArticles">
         <div class="card--content" v-for="item in filteredArticles">
           <h3 v-on:click="handleShowArticle(item)" >{{ item.title }}</h3>
           <h4>{{ item.section }}</h4>
@@ -46,12 +46,20 @@ export default {
     return {
       search: "",
       selectedSection: ""
-
     }
   },
   watch: {
     search: function() {
       eventBus.$emit("search-entered", this.search)
+    // },
+    // filteredArticles: function() {
+    //   this.filteredArticles
+    }
+  },
+  computed: {
+    areThereArticles: function () {
+        return this.filteredArticles.length !== 0
+      console.log(this.filteredArticles.length !== 0);
     }
   },
   methods: {
@@ -71,7 +79,6 @@ export default {
         eventBus.$emit('category-filter-change', "allSections")
       }
     }
-
   }
 }
 </script>
@@ -117,7 +124,8 @@ p {
   border: 3px solid black;
   border-radius: 15px;
   padding: 10px 2px 10px 2px;
-  min-height: 500px;
+  /* this seems to cause an issue. Commented out and delete when sure */
+  /* min-height: 500px; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

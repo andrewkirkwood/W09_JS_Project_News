@@ -1,8 +1,8 @@
 <template lang="html">
   <div id="news-nav">
     <div class="topnav">
-      <button class="plus-button" type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
-      <button class="plus-button" type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
+      <button id="plus-button" :style='{"background-color" : (readingListActive? "#ACDCE5" : "transparent")}' type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
+      <button id="plus-button" :style='{"background-color" : (sourceActive || articleFormActive? "#ACDCE5" : "transparent")}' type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
     </div>
   </div>
 
@@ -18,7 +18,8 @@ export default {
       // search: "",
     }
   },
-  // props: ['allSections'],
+
+  props: ['readingListActive', 'articleFormActive', 'sourceActive'],
   methods: {
     handleAdd(){
       eventBus.$emit('toggle-select-source')
@@ -42,7 +43,7 @@ export default {
 }
 
 /* Style the links inside the navigation bar */
-.topnav a {
+/* .topnav a {
   float: left;
   display: block;
   color: black;
@@ -50,16 +51,16 @@ export default {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
-}
+} */
 
 /* Style the "active" element to highlight the current page */
-.topnav a.active {
+/* .topnav a.active {
   background-color: #2196F3;
   color: white;
-}
+} */
 
 /* Style the search box inside the navigation bar */
-.topnav input[type=text] {
+/* .topnav input[type=text] {
   float: right;
   height: 70px;
   width: 350px;
@@ -69,7 +70,7 @@ export default {
   margin-bottom: 8px;
   margin-right: 16px;
   font-size: 40px;
-}
+} */
 
 button {
   height: 80px;
@@ -80,34 +81,34 @@ button {
   border-radius: 10px;
 }
 
-button:hover {
+#plus-button:hover {
   background-color: #CDE1F9;
+  text-align: center;
 }
 
-.plus:hover {
+/* .plus:hover {
   background-color: #CDE1F9;
-}
+} */
 
 .plus {
   height: 60px;
-  border-radius: 15px;
+  border-radius: 10px;
 }
 
-.plus-button {
+#plus-button {
   font-size: 60px;
-  border: 4px solid black;
   border-radius: 15px;
   background-color: transparent;
   margin-top: 12px;
   margin-bottom: 8px;
   margin-right: 16px;
   margin-left: 20px;
-  border: 8px solid black;
+  border: 1px solid black;
 }
 
-.search {
+/* .search {
   border-radius: 15px;
-}
+} */
 
 
 </style>
