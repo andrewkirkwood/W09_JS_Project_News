@@ -116,7 +116,7 @@ export default {
         eventBus.$emit('toggle-show-article', item)
       }
       else {
-        window.open(item.url)
+        window.open(item.webUrl)
       }
     }
   }

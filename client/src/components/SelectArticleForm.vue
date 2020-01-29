@@ -69,9 +69,7 @@ export default {
       }
     },
     handleShowArticle(item){
-      console.log(this.sourceSelected);
       if (this.sourceSelected === "guardian") {
-        console.log("item", item);
         eventBus.$emit('toggle-show-article', item)
       }
       else {
