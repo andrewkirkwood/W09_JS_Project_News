@@ -11,7 +11,7 @@
           <option v-for="section in allSections" :value="section">{{section}}</option>
         </select>
 
-                <h2>reading list</h2>
+        <h2>reading list</h2>
 
         <form v-on:submit.prevent>
           <input  type="text" v-model="search" placeholder="Search">
@@ -113,11 +113,12 @@ export default {
 
     },
     handleRead(item) {
+      debugger
       if (item.source === "guardian") {
         eventBus.$emit('toggle-show-article', item)
       }
       else {
-        window.open(item.webUrl)
+        window.open(item.url)
       }
     }
   }
@@ -139,11 +140,11 @@ h1 {
   text-align: center;
 }
 
-  h2 {
-    border: 2px solid black;
-    border-radius: 15px;
-    padding: 2px 5px 2px 5px;
-  }
+h2 {
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 2px 5px 2px 5px;
+}
 
 h3 {
   padding: 0 5%;
@@ -207,15 +208,16 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+
 }
 
-button:last-child:hover {
-  background-color: #F79A9A;
-  filter: hue-rotate(180);
+button:hover {
+  background-color: #F6C198;
 }
+
 
 .cross:hover {
-  background-color: #F79A9A;
   filter: hue-rotate(180);
 }
 
@@ -252,8 +254,10 @@ select {
   grid-column: 1/3;
   justify-items: stretch;
   align-items: center;
-  align-self: stretch;
+  align-self: end;
+  margin-bottom: 10%;
 }
+
 
 header {
   display: grid;
