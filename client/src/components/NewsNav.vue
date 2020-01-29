@@ -1,8 +1,8 @@
 <template lang="html">
   <div id="news-nav">
     <div class="topnav">
-      <button id="plus-button" :style='{"background-color" : (readingListActive || showArticleActive? "#ACDCE5" : "transparent")}' type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
-      <button id="plus-button" :style='{"background-color" : (sourceActive || articleFormActive? "#ACDCE5" : "transparent")}' type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
+      <button id="plus-button" :style='{"background-color" : (readingListActive || showArticleActive? "#CDE1F9" : "transparent")}' type="button" name="button" v-on:click="handleRead"><img class="plus" src="../assets/book_icon.png">READ</button>
+      <button id="plus-button" :style='{"background-color" : (sourceActive || articleFormActive? "#CDE1F9" : "transparent")}' type="button" name="button" v-on:click="handleAdd"><img class="plus" src="../assets/plus.png">ADD</button>
     </div>
   </div>
 
@@ -37,7 +37,7 @@ export default {
 /* Add a black background color to the top navigation bar */
 .topnav {
   overflow: hidden;
-  background-color: #447EC0;
+  background-color: #F6C198;
   height: 100px;
   border-radius: 15px;
 }
@@ -83,16 +83,12 @@ button {
 
 #plus-button:hover {
   background-color: #CDE1F9;
-  text-align: center;
 }
-
-/* .plus:hover {
-  background-color: #CDE1F9;
-} */
 
 .plus {
   height: 60px;
   border-radius: 10px;
+  background-color: transparent;
 }
 
 #plus-button {

@@ -1,6 +1,5 @@
 <template lang="html">
   <div id="source-select">
-    <link href="https://fonts.googleapis.com/css?family=IM+Fell+English" rel="stylesheet">
     <h1>Select News Source</h1>
     <br>
     <ul>
@@ -29,20 +28,20 @@ export default {
 h1 {
   font-size: 50px;
   text-align: center;
-  font-family: 'IM Fell English', serif;
 }
 
 li {
-  font-size: 40px;
+  font-size: 50px;
   text-align: center;
   font-family: 'IM Fell English', serif;
   list-style: none;
   cursor: pointer;
   border: 8px solid black;
   border-radius: 15px;
-  width: 30%;
+  width: 40%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 10px
 }
 
 li:hover {
@@ -53,5 +52,6 @@ ul {
   margin-left: auto;
   margin-right: auto;
 }
+
 
 </style>

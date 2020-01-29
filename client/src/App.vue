@@ -21,8 +21,12 @@ export default {
 
 <style lang="css">
 
+h1 {
+  font-family: 'IM Fell English', serif;
+}
+
 body {
-  background-color: #F2F2F2;
+  background-color: ghostwhite;
 }
 
 
@@ -32,7 +36,6 @@ body {
 h1 {
 font-size: 100px;
 text-align: center;
-font-family: 'IM Fell English', serif;
 margin: 0px 0px;
 }
 </style>
