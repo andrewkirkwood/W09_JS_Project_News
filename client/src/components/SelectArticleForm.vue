@@ -154,34 +154,38 @@ body {
 }
 
 
-
 .card {
-  background-color: #F6C198;
-  min-width: 100%;
-  min-height: 200px;
-  overflow-x: auto;
-  display: flex;
+  /* background-color: #F6C198ff; */
+  /* border: 3px solid black; */
   border-radius: 15px;
+  padding: 10px 2px 10px 2px;
+  /* this seems to cause an issue. Commented out and delete when sure */
+  /* min-height: 500px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: auto;
 }
 
 .card--content {
-  padding: 2px;
-  border-radius: 15px;
-  background-color: white;
-  min-width: 230px;
-  margin: 10px;
-  /* border: 1px solid black; */
-  /* display: flex; */
-  /* flex-wrap: wrap; */
-  align-content: space-between;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.card--content > h3{
   font-family: 'Playfair Display', serif;
   font-size: 1.2em;
-  text-align: left;
+  border-radius: 5px;
+  background-color: #F4D7C1;
+  /* background-color: ghostwhite; */
+  border-top: 10px solid #FF968E;
+  min-width: 230px;
+  max-width: 230px;
+  margin: 3px;
+  padding: 5px;
+  min-height: 280px;
+  max-height: 280px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 30px auto 1fr;
+  justify-items: center;
 }
+
 
 
 .card--content:hover {
