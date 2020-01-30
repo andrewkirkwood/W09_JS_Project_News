@@ -125,6 +125,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+h2 {
+  text-transform: capitalize;
+}
 
 body {
   width: 100%;
